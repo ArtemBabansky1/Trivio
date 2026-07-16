@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trivio – удобный сервис организации командировок</title>
+  <meta name="description" content="Помогаем оптимизировать расходы на командировки и целиком упрощаем процесс. Бронирование отелей и гостиниц, поиск авиа и жд билетов для вашего бизнеса по лучшим ценам.">
+  <meta property="og:title" content="Trivio – удобный сервис организации командировок">
+  <meta property="og:description" content="Помогаем компаниям управлять деловыми поездками, экономить время и деньги">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://trivio.ru/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Шрифты ВРЕМЕННЫЕ до брендбука (см. README) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sections-a.css">
+  <link rel="stylesheet" href="css/sections-b.css">
+  <link rel="stylesheet" href="css/sections-c.css">
+  <noscript><style>.preloader { display: none; }</style></noscript>
+</head>
+<body>
+
+<!-- Спрайт: логотип Trivio -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo-trivio" viewBox="0 0 571 142">
+    <path d="M76.901 102.33V140.083H60.1047C29.3113 140.083 13.997 124.684 13.997 93.8857V64.2463H0V27.1557H13.997V0H58.1286V27.1557H76.407V64.2463H58.1286V94.7137C58.1286 97.363 58.7873 99.35 60.1047 100.509C61.422 101.668 63.3981 102.33 66.3621 102.33H76.901Z"/>
+    <path d="M154.369 32.3649C160.737 28.3938 167.596 26.4082 174.455 26.4082V73.8966H162.044C153.715 73.8966 147.673 75.3858 143.754 78.3642C139.835 81.3425 137.875 86.4719 137.875 93.9178V140.083H94.1104V27.2355H137.875V48.0841C142.448 41.631 148 36.3361 154.369 32.3649Z"/>
+    <path d="M312.842 98.0092L330.76 27.5566H377.609L340.294 140.083H285.226L247.911 27.5566H294.76L312.842 98.0092Z"/>
+    <path d="M480.947 134.262C471.916 129.617 464.856 122.815 459.766 114.021C454.676 105.228 452.213 94.9418 452.213 83.1622C452.213 71.3826 454.676 61.0962 459.766 52.303C464.856 43.5098 471.916 36.8734 480.947 32.228C489.978 27.5825 499.994 25.2598 511.323 25.2598C522.653 25.2598 532.669 27.5825 541.7 32.228C550.73 36.8734 557.791 43.6757 562.881 52.303C567.971 61.0962 570.434 71.3826 570.434 83.1622C570.434 94.9418 567.971 105.228 562.881 114.021C557.791 122.815 550.73 129.451 541.7 134.262C532.669 139.074 522.653 141.231 511.323 141.231C499.994 141.231 489.978 139.074 480.947 134.262ZM521.668 97.9281C524.459 94.6099 525.773 89.7986 525.773 83.3281C525.773 76.8576 524.295 72.0462 521.668 68.7281C518.876 65.4099 515.428 63.7508 511.323 63.7508C507.218 63.7508 503.77 65.4099 500.979 68.7281C498.188 72.0462 496.874 76.8576 496.874 83.3281C496.874 89.7986 498.188 94.6099 500.979 97.9281C503.606 101.246 507.219 102.905 511.488 102.905C515.757 102.905 518.876 101.246 521.668 97.9281Z"/>
+    <path d="M202.543 140.087C202.543 134.979 206.655 130.86 211.754 130.86C216.853 130.86 220.966 134.979 220.966 140.087H237.579V27.5605H220.966C220.966 32.6679 216.853 36.7867 211.754 36.7867C206.655 36.7867 202.543 32.6679 202.543 27.5605H185.929V139.922L202.543 140.087Z"/>
+    <path d="M424.129 27.5605C424.129 32.6754 420.016 36.8002 414.917 36.8002C409.818 36.8002 405.706 32.6754 405.706 27.5605H389.092V140.087H405.706C405.706 134.972 409.818 130.847 414.917 130.847C420.016 130.847 424.129 134.972 424.129 140.087H440.742V27.5605H424.129Z"/>
+  </symbol>
+</svg>
+
+<!-- ============ 3.0 ПРЕЛОАДЕР ============ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__inner">
+    <svg class="preloader__logo" aria-hidden="true"><use href="#logo-trivio"></use></svg>
+    <div class="preloader__count" id="preloaderCount">0</div>
+  </div>
+</div>
+
+<!-- ============ ТОПБАР ============ -->
+<div class="topbar" id="topbar">
+  <div class="container topbar__inner">
+    <p class="topbar__text">Как в 2026 работает поддержка в бизнес-тревел <span class="topbar__date">(4 августа 11:00)</span></p>
+    <a class="topbar__btn" href="https://clck.ru/3St3DB" target="_blank" rel="noopener">Зарегистрироваться</a>
+  </div>
+</div>
+
+<!-- ============ 3.0 ХЕДЕР ============ -->
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a class="header__logo" href="#top" aria-label="Trivio — наверх">
+      <svg class="header__logo-svg" aria-hidden="true"><use href="#logo-trivio"></use></svg>
+    </a>
+
+    <nav class="header__nav" aria-label="Основное меню">
+      <a class="header__link" href="#about">О сервисе</a>
+      <a class="header__link" href="#clients">О компании</a>
+
+      <div class="header__item" data-dd>
+        <button class="header__link header__link--dd" type="button" aria-expanded="false" aria-controls="dd-services">Услуги <span class="header__chev">▾</span></button>
+        <div class="header__dd" id="dd-services">
+          <a class="header__dd-link" href="https://trivio.ru/flights"><b>Авиабилеты</b><span>Более 500 авиакомпаний</span></a>
+          <a class="header__dd-link" href="https://trivio.ru/stays"><b>Проживание</b><span>Более 2.5 млн. вариантов</span></a>
+          <a class="header__dd-link" href="https://trivio.ru/trains"><b>Билеты на поезд</b><span>По России, СНГ и дальнему зарубежью</span></a>
+          <a class="header__dd-link" href="https://trivio.ru/transfer"><b>Трансферы и такси</b><span>Транспортные услуги по всему миру</span></a>
+          <a class="header__dd-link" href="https://trivio.ru/mice"><b>MICE</b><span>Любой формат и масштаб мероприятия</span></a>
+        </div>
+      </div>
+
+      <a class="header__link" href="https://trivio.ru/tariffs">Тарифы</a>
+
+      <div class="header__item" data-dd>
+        <button class="header__link header__link--dd" type="button" aria-expanded="false" aria-controls="dd-useful">Полезное <span class="header__chev">▾</span></button>
+        <div class="header__dd" id="dd-useful">
+          <a class="header__dd-link" href="#cases"><b>Кейсы</b><span>Опыт наших клиентов</span></a>
+          <a class="header__dd-link" href="#webinars"><b>Вебинары</b><span>Актуальное в видеоформате</span></a>
+          <a class="header__dd-link" href="https://trivio.ru/blog"><b>Наш блог</b><span>Интересно почитать</span></a>
+        </div>
+      </div>
+
+      <a class="header__link" href="https://trivio.ru/contacts">Контакты</a>
+    </nav>
+
+    <div class="header__actions">
+      <a class="header__phone" href="tel:88007077038">8 800 707-70-38</a>
+      <a class="btn btn--secondary btn--sm" href="https://login.trivio.ru/">Войти</a>
+      <a class="btn btn--primary btn--sm" href="#contact" data-magnetic>Оставить заявку</a>
+      <button class="header__burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+
+  <!-- Мобильное меню -->
+  <div class="mobmenu" id="mobmenu" hidden>
+    <nav class="container mobmenu__nav" aria-label="Мобильное меню">
+      <a href="#about">О сервисе</a>
+      <a href="#clients">О компании</a>
+      <a href="#services">Услуги</a>
+      <a href="https://trivio.ru/tariffs">Тарифы</a>
+      <a href="#cases">Полезное</a>
+      <a href="https://trivio.ru/contacts">Контакты</a>
+      <div class="mobmenu__cta">
+        <a class="btn btn--secondary" href="https://login.trivio.ru/">Войти</a>
+        <a class="btn btn--primary" href="#contact">Оставить заявку</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ 3.1 HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero__bg parallax">
+      <div class="ph ph--dawn parallax__layer" data-parallax="8">
+        <span class="ph__tag">Кадр: аэропорт на рассвете, силуэты пассажиров</span>
+      </div>
+      <div class="hero__shade"></div>
+    </div>
+
+    <div class="container hero__content">
+      <span class="pill pill--ghost hero__tag" data-reveal>Бизнес-тревел платформа</span>
+      <h1 class="h1 hero__title" data-split>Удобные командировки для&nbsp;каждого</h1>
+      <p class="hero__sub" data-reveal>Помогаем компаниям управлять деловыми поездками, экономить время и&nbsp;деньги</p>
+      <div class="hero__cta" data-reveal>
+        <a class="btn btn--primary" href="#contact" data-magnetic>Попробовать бесплатно <span class="btn__arr">→</span></a>
+        <a class="btn btn--glass" href="https://trivio.ru/tariffs">Тарифы</a>
+      </div>
+      <div class="hero__badges" data-reveal>
+        <span class="pill pill--ghost">Входим в реестр российского ПО «Минцифры»</span>
+        <span class="pill pill--ghost">Являемся резидентом Сколково</span>
+        <span class="pill pill--ghost">Сертифицированы ФСТЭК России</span>
+      </div>
+    </div>
+
+    <!-- Стеклянная карточка брони MOW → KZN -->
+    <aside class="hero__booking glass" id="heroBooking" aria-label="Пример брони в Trivio">
+      <div class="hero__booking-top">
+        <span class="pill pill--tiny pill--accent">Командировка</span>
+        <span class="hero__booking-status">● Согласовано</span>
+      </div>
+      <div class="hero__booking-route">
+        <div><b>MOW</b><span>Москва</span></div>
+        <div class="hero__booking-plane">✈</div>
+        <div><b>KZN</b><span>Казань</span></div>
+      </div>
+      <div class="hero__booking-meta">
+        <span>24 июл · 09:40 — 11:05</span>
+        <span>Эконом · в рамках тревел-политики</span>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 3.2 ЛОГОТИПЫ + СЧЁТЧИКИ ============ -->
+  <section class="clients section" id="clients">
+    <div class="marquee" aria-label="Клиенты Trivio">
+      <div class="marquee__track" id="marqueeTrack">
+        <span>Лукойл</span><span>Lime</span><span>Mareven</span><span>VK</span><span>SGS</span><span>Knauf</span><span>Renewal</span><span>Yadro</span><span>Самолет</span><span>NPS</span><span>ТАСС</span><span>GSP</span><span>Rutube</span><span>Петрович</span><span>Черноголовка</span><span>Альфа</span><span>OTP</span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="counters">
+        <div class="counters__item" data-reveal>
+          <div class="counters__num"><span data-counter="10000">0</span><i>+</i></div>
+          <p>поездок оформляем каждый день</p>
+        </div>
+        <div class="counters__item" data-reveal>
+          <div class="counters__num"><span data-counter="6000">0</span><i>+</i></div>
+          <p>компаний доверяют нам организацию командировок</p>
+        </div>
+        <div class="counters__item" data-reveal>
+          <div class="counters__num"><span data-counter="300">0</span><i>+</i></div>
+          <p>сотрудников в группе компаний</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3.3 РОЛИ (реф-1) ============ -->
+  <section class="roles section" id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2" data-split>Для кого Trivio</h2>
+        <span class="eyebrow">Сервис полезен для всей компании</span>
+      </div>
+
+      <div class="roles__grid">
+        <article class="roles__card card" data-squircle tabindex="0">
+          <div class="roles__card-top">
+            <span class="pill pill--tiny">Роль · Сотрудник</span>
+            <span class="arr-diag">↗</span>
+          </div>
+          <h3 class="h3">Оформляйте быстро, отчитывайтесь легко</h3>
+          <p class="roles__text">Бронируйте билеты, отели и другие услуги в пару кликов с любого устройства. Формируйте авансовый отчет для бухгалтерии прямо в Trivio — просто и без ошибок.</p>
+          <div class="roles__bottom">
+            <span class="pill pill--tiny roles__more">подробнее ↗</span>
+            <span class="roles__num" aria-hidden="true">01</span>
+          </div>
+        </article>
+
+        <article class="roles__card card" data-squircle tabindex="0">
+          <div class="roles__card-top">
+            <span class="pill pill--tiny">Роль · Тревел-координатор</span>
+            <span class="arr-diag">↗</span>
+          </div>
+          <h3 class="h3">Управляйте поездками коллег без лишнего хаоса</h3>
+          <p class="roles__text">Оформляйте поездки для коллег за пару минут, без потока звонков и писем. Систематизируйте командировочный процесс благодаря современным технологиям.</p>
+          <div class="roles__bottom">
+            <span class="pill pill--tiny roles__more">подробнее ↗</span>
+            <span class="roles__num" aria-hidden="true">02</span>
+          </div>
+        </article>
+
+        <article class="roles__card card" data-squircle tabindex="0">
+          <div class="roles__card-top">
+            <span class="pill pill--tiny">Роль · Бухгалтер</span>
+            <span class="arr-diag">↗</span>
+          </div>
+          <h3 class="h3">Упростите документооборот и сократите трудозатраты</h3>
+          <p class="roles__text">Вся отчетность по поездкам формируется автоматически по заранее установленным правилам. Интеграция с учетными системами оптимизирует процесс.</p>
+          <div class="roles__bottom">
+            <span class="pill pill--tiny roles__more">подробнее ↗</span>
+            <span class="roles__num" aria-hidden="true">03</span>
+          </div>
+        </article>
+
+        <article class="roles__card card" data-squircle tabindex="0">
+          <div class="roles__card-top">
+            <span class="pill pill--tiny">Роль · Руководитель</span>
+            <span class="arr-diag">↗</span>
+          </div>
+          <h3 class="h3">Контролируйте расходы и организацию процесса</h3>
+          <p class="roles__text">Установите лимиты и настройте процесс согласования, анализируйте расходы на поездки сотрудников с помощью персонализированных отчетов.</p>
+          <div class="roles__bottom">
+            <span class="pill pill--tiny roles__more">подробнее ↗</span>
+            <span class="roles__num" aria-hidden="true">04</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3.4 УСЛУГИ (реф-3) ============ -->
+  <section class="services section" id="services">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">услуги</span>
+        <h2 class="h2" data-split>Всё для поездки — в&nbsp;одном сервисе</h2>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Hover-аккордеон: наведённая карточка раскрывается -->
+      <div class="services__acc">
+        <a class="acc ph ph--dawn" data-squircle href="https://trivio.ru/flights">
+          <span class="ph__tag">Кадр: крыло самолёта над облаками, тёплый свет</span>
+          <div class="services__float services__float--icon">✈</div>
+          <div class="services__float services__float--label">500+ авиакомпаний</div>
+          <div class="acc__overlay">
+            <b>Авиабилеты</b>
+            <span class="acc__sub">Более 500 авиакомпаний</span>
+            <div class="acc__reveal"><div>
+              <p class="acc__desc">Более 500 авиакомпаний и доступ к специальным тарифам. Согласуем для вас специальные условия с авиакомпаниями и объектами размещения, возьмем всю работу на себя.</p>
+              <span class="pill pill--ghost acc__more">подробнее об авиабилетах ↗</span>
+            </div></div>
+          </div>
+        </a>
+
+        <a class="acc ph ph--hotel" data-squircle href="https://trivio.ru/stays">
+          <span class="ph__tag">Кадр: лобби отеля, вечерний свет</span>
+          <div class="acc__overlay">
+            <b>Проживание</b>
+            <span class="acc__sub">Более 2.5 млн. вариантов</span>
+            <div class="acc__reveal"><div>
+              <span class="pill pill--ghost acc__more">подробнее о проживании ↗</span>
+            </div></div>
+          </div>
+        </a>
+
+        <a class="acc ph ph--train" data-squircle href="https://trivio.ru/trains">
+          <span class="ph__tag">Кадр: салон поезда дальнего следования</span>
+          <div class="acc__overlay">
+            <b>Билеты на поезд</b>
+            <span class="acc__sub">По России, СНГ и дальнему зарубежью</span>
+            <div class="acc__reveal"><div>
+              <span class="pill pill--ghost acc__more">подробнее о ж/д билетах ↗</span>
+            </div></div>
+          </div>
+        </a>
+
+        <a class="acc ph ph--city" data-squircle href="https://trivio.ru/transfer">
+          <span class="ph__tag">Кадр: такси у бизнес-центра</span>
+          <div class="acc__overlay">
+            <b>Трансферы и такси</b>
+            <span class="acc__sub">Транспортные услуги по всему миру · Яндекс GO</span>
+            <div class="acc__reveal"><div>
+              <p class="acc__desc">Оформляйте поездки на такси в приложении Яндекс GO, а все расчеты ведите в рамках договора с Trivio. Можно настроить гибкие лимиты по классам автомобилей и сумме поездки.</p>
+              <span class="pill pill--ghost acc__more">подробнее о трансферах ↗</span>
+            </div></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="container services__extra">
+      <p class="services__note" data-reveal><b>Частные поездки.</b> В нашем сервисе сотрудники смогут оформлять услуги для своих личных поездок на специальных условиях, которые доступны вам, как корпоративному заказчику. Оформляйте поездки на такси в приложении Яндекс GO, а все расчеты ведите в рамках договора с Trivio.</p>
+      <p class="services__note" data-reveal><b>Организация мероприятий.</b> Meets by Trivio объединяет лучший опыт и инновации в индустрии корпоративных мероприятий. Наша команда готова организовать мероприятие любого масштаба и формата. <a class="services__note-link" href="https://trivio.ru/mice">Подробнее ↗</a></p>
+    </div>
+  </section>
+
+  <!-- ============ 3.5 ВОЗМОЖНОСТИ (реф-2) ============ -->
+  <section class="features section" id="features">
+    <div class="container">
+      <div class="features__intro">
+        <span class="eyebrow">возможности платформы</span>
+        <h2 class="h2" data-split>Все, что нужно и&nbsp;даже больше. В&nbsp;одном месте.</h2>
+      </div>
+
+      <!-- Кластер А: Умный контроль расходов -->
+      <div class="features__cluster">
+        <h3 class="features__cluster-title" data-split>Умный контроль расходов</h3>
+        <div class="features__collage features__collage--a">
+          <figure class="features__item features__item--big" data-reveal>
+            <div class="mock mock--analytics card" data-squircle>
+              <div class="mock__head"><span class="pill pill--tiny">Аналитика · июль</span><span class="mock__dots">⋯</span></div>
+              <div class="mock__bars">
+                <div class="mock__bar" style="--h:62%"><i></i><span>Продажи</span></div>
+                <div class="mock__bar" style="--h:38%"><i></i><span>ИТ</span></div>
+                <div class="mock__bar" style="--h:84%"><i></i><span>Логистика</span></div>
+                <div class="mock__bar" style="--h:47%"><i></i><span>HR</span></div>
+                <div class="mock__bar" style="--h:70%"><i></i><span>Стройка</span></div>
+              </div>
+              <div class="mock__foot"><b>−18%</b> к расходам на поездки кв/кв</div>
+            </div>
+            <figcaption>Полезная аналитика</figcaption>
+          </figure>
+
+          <figure class="features__item" data-reveal>
+            <div class="mock mock--policy card" data-squircle>
+              <div class="mock__head"><span class="pill pill--tiny">Тревел-политика</span></div>
+              <ul class="mock__rows">
+                <li><span>Перелёт, эконом</span><b>до 15 000 ₽</b></li>
+                <li><span>Отель, ночь</span><b>до 6 500 ₽</b></li>
+                <li><span>Такси, бизнес-класс</span><b class="mock__deny">запрещено</b></li>
+              </ul>
+            </div>
+            <figcaption>Контроль ваших расходов</figcaption>
+          </figure>
+
+          <figure class="features__item" data-reveal>
+            <div class="mock mock--tg card" data-squircle>
+              <div class="mock__head"><span class="pill pill--tiny">Telegram-бот</span></div>
+              <div class="mock__tg-msg">Поездка МОВ → КЗН, 24 июл. Согласовать?</div>
+              <div class="mock__tg-actions"><span class="mock__tg-ok">✓ Согласовать</span><span class="mock__tg-no">Отклонить</span></div>
+            </div>
+            <figcaption>Уведомления в Telegram</figcaption>
+          </figure>
+        </div>
+        <p class="features__par" data-reveal>Будьте в курсе на что тратятся деньги компании и как можно оптимизировать расходы. Отслеживайте соблюдение тревел-политики и получайте персонализированные рекомендации. Настройте тревел-политику и согласование поездок ваших сотрудников по различным правилам и критериям.</p>
+      </div>
+
+      <!-- Кластер Б: Отчётность без боли -->
+      <div class="features__cluster">
+        <h3 class="features__cluster-title" data-split>Отчётность без боли</h3>
+        <div class="features__collage features__collage--b">
+          <figure class="features__item features__item--big" data-reveal>
+            <div class="mock mock--report card" data-squircle>
+              <div class="mock__head"><span class="pill pill--tiny">Авансовый отчет № 214</span><span class="pill pill--tiny pill--accent">на согласовании</span></div>
+              <ul class="mock__rows">
+                <li><span>Перелёт MOW–KZN–MOW</span><b>12 480 ₽</b></li>
+                <li><span>Отель, 2 ночи</span><b>9 300 ₽</b></li>
+                <li><span>Суточные, 3 дня</span><b>2 100 ₽</b></li>
+              </ul>
+              <div class="mock__foot mock__foot--total"><span>Итого</span><b>23 880 ₽</b></div>
+            </div>
+            <figcaption>Авансовые отчеты</figcaption>
+          </figure>
+
+          <figure class="features__item" data-reveal>
+            <div class="mock mock--1c card" data-squircle>
+              <div class="mock__head"><span class="pill pill--tiny">Интеграция 1С</span></div>
+              <div class="mock__chips">
+                <span class="pill pill--tiny">1С: Бухгалтерия</span>
+                <span class="pill pill--tiny">1С: ERP</span>
+                <span class="pill pill--tiny">1С: ЗУП</span>
+              </div>
+              <div class="mock__sync">⟳ Выгрузка документов — автоматически</div>
+            </div>
+            <figcaption>Интеграция 1С</figcaption>
+          </figure>
+
+          <figure class="features__item" data-reveal>
+            <div class="mock mock--tariff card" data-squircle>
+              <div class="mock__head"><span class="pill pill--tiny">Специальные тарифы</span></div>
+              <div class="mock__discounts"><b>−18%</b><b>−25%</b></div>
+              <div class="mock__sync">Прямые договоры с поставщиками</div>
+            </div>
+            <figcaption>Специальные тарифы</figcaption>
+          </figure>
+        </div>
+        <p class="features__par" data-reveal>Сотрудники смогут оформить авансовый отчет прямо в Trivio и отчитаться о своей поездке. Вы сможете гибко настроить автоматический расчет суточных по различным критериям, а также согласовывать авансовые отчеты перед их отправкой в учетную систему и подписанием. Буквально за пару минут вы можете подключить интеграцию с 1с Бухгалтерия, ERP и ЗУП. Это сильно упростит оформление и отчетность по вашим командировкам.</p>
+      </div>
+
+      <!-- Мини-кластер В: поддержка -->
+      <div class="features__support">
+        <div class="features__chat card" data-squircle data-reveal>
+          <div class="mock__head"><span class="pill pill--tiny">Поддержка · 24/7</span><span class="features__chat-status">● онлайн</span></div>
+          <div class="chat" id="supportChat">
+            <p class="chat__msg chat__msg--user">Добрый день! Нужна ваша помощь с обменом билета. Сотрудник не успевает в аэропорт.</p>
+            <p class="chat__msg chat__msg--op">Добрый день! Уже занимаюсь, дайте мне 5 минут.</p>
+            <p class="chat__msg chat__msg--user">Огромное спасибо! Ожидаю.</p>
+            <p class="chat__msg chat__msg--op">Все готово! Новый билет уже у вас. Обращайтесь, если смогу еще чем-то помочь. Хорошего дня!</p>
+          </div>
+        </div>
+        <div class="features__support-text">
+          <h3 class="h2 features__support-title" data-split>Заботливая поддержка 24/7</h3>
+          <p class="lead" data-reveal>Оперативно вернем или обменяем билеты, подберем отель, поможем в любой ситуации и сохраним ваши нервы</p>
+          <h4 class="h3" data-reveal>Огромный выбор и лучшие цены</h4>
+          <p data-reveal>Получите доступ к сотням авиакомпаний, миллионам отелей и многим другим услугам, необходимым для организации успешной поездки.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3.6 CTA «Хотите протестировать?» ============ -->
+  <section class="cta section" id="try">
+    <div class="container">
+      <div class="cta__plate" data-squircle="xl">
+        <div class="cta__text">
+          <h2 class="h2" data-split>Хотите протестировать?</h2>
+          <p data-reveal>Заполните небольшую форму, чтобы получить доступ</p>
+        </div>
+        <form class="form cta__form" data-form novalidate>
+          <div class="form__row">
+            <input class="form__input" type="text" name="name" placeholder="Имя" autocomplete="name">
+            <input class="form__input" type="text" name="company" placeholder="Название компании" autocomplete="organization">
+          </div>
+          <div class="form__row">
+            <input class="form__input" type="email" name="email" placeholder="E-mail *" required autocomplete="email">
+            <input class="form__input" type="tel" name="phone" placeholder="Телефон *" required autocomplete="tel" inputmode="tel">
+          </div>
+          <button class="btn btn--on-accent form__submit" type="submit" data-magnetic>
+            <span class="form__submit-label">Отправить запрос</span>
+            <span class="btn__arr form__submit-arr">→</span>
+          </button>
+          <p class="form__consent">Нажимая на эту кнопку, Вы даете согласие на <a href="https://trivio.ru/policy" target="_blank" rel="noopener">обработку персональных данных</a>, принимаете условия <a href="https://trivio.ru/policy" target="_blank" rel="noopener">Политики обработки персональных данных</a> и <a href="https://trivio.ru/agreement" target="_blank" rel="noopener">Пользовательского соглашения</a> и соглашаетесь на получение <a href="https://trivio.ru/marketing-consent" target="_blank" rel="noopener">рекламной и информационной рассылки</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3.7 КЕЙСЫ (реф-4) ============ -->
+  <section class="cases section" id="cases">
+    <div class="cases__pin" id="casesPin">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="h2" data-split>Кейсы наших клиентов</h2>
+          <a class="pill pill--dark cases__all" href="https://trivio.ru/cases">Смотреть все кейсы ↗</a>
+        </div>
+      </div>
+
+      <div class="cases__gallery" id="casesGallery">
+        <div class="cases__track" id="casesTrack">
+          <article class="cases__item">
+            <a class="cases__media ph ph--dawn" data-squircle="xl" href="https://trivio.ru/cases">
+              <span class="ph__tag">Кадр: нефтегазовая инфраструктура на закате</span>
+              <div class="cases__tags"><span class="pill pill--ghost">Нефтегаз</span><span class="pill pill--ghost">3 дня → 15 минут</span></div>
+            </a>
+            <div class="cases__caption">
+              <b>ПАО «ЛУКОЙЛ»</b>
+              <p>Как одна из крупнейших нефтегазовых компаний мира сократила время оформление командировки с 3 дней до 15 минут</p>
+              <a class="cases__read" href="https://trivio.ru/cases">Читать →</a>
+            </div>
+          </article>
+
+          <article class="cases__item">
+            <a class="cases__media ph ph--product" data-squircle="xl" href="https://trivio.ru/cases">
+              <span class="ph__tag">Кадр: современный IT-офис, команда за работой</span>
+              <div class="cases__tags"><span class="pill pill--ghost">IT</span><span class="pill pill--ghost">Рекорд скорости</span></div>
+            </a>
+            <div class="cases__caption">
+              <b>VK</b>
+              <p>Как одна из крупнейших IT-компаний России и СНГ установила рекорд по скорости оформления командировок</p>
+              <a class="cases__read" href="https://trivio.ru/cases">Читать →</a>
+            </div>
+          </article>
+
+          <article class="cases__item">
+            <a class="cases__media ph ph--city" data-squircle="xl" href="https://trivio.ru/cases">
+              <span class="ph__tag">Кадр: буровая установка, панорама месторождения</span>
+              <div class="cases__tags"><span class="pill pill--ghost">Бурение</span><span class="pill pill--ghost">Прозрачные цены</span></div>
+            </a>
+            <div class="cases__caption">
+              <b>ООО «ЭНГС»</b>
+              <p>Как одна из ведущих буровых компаний ушла от Excel-таблиц и скрытых сборов при покупке авиабилетов</p>
+              <a class="cases__read" href="https://trivio.ru/cases">Читать →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3.8 ВЕБИНАРЫ И БЛОГ (реф-5, тёмная мозаика) ============ -->
+  <section class="live cv-auto" id="webinars">
+    <div class="container live__meta">
+      <div class="live__meta-left">
+        <h2 class="h2 live__title" data-split>Наши последние вебинары</h2>
+        <p class="live__sub">Вебинары (5) · ближайший — 4 августа, 11:00</p>
+      </div>
+      <a class="pill pill--accent live__reg" href="https://clck.ru/3St3DB" target="_blank" rel="noopener"><span class="live__pulse"></span>Live · Зарегистрироваться</a>
+    </div>
+
+    <div class="live__mosaic" id="liveMosaic">
+      <div class="live__track" id="liveTrack">
+        <article class="live__card live__card--w ph ph--dark" data-squircle>
+          <span class="ph__tag">Кадр: спикер вебинара в студии</span>
+          <div class="live__card-top"><span class="pill pill--accent"><span class="live__pulse"></span>LIVE · 4 августа</span></div>
+          <div class="live__card-body">
+            <h3>Как в 2026 работает поддержка в бизнес-тревел</h3>
+            <p>Ближайший вебинар · 4 августа, 11:00</p>
+            <a class="live__watch" href="https://clck.ru/3St3DB" target="_blank" rel="noopener">Зарегистрироваться →</a>
+          </div>
+        </article>
+
+        <article class="live__card ph ph--dark" data-squircle>
+          <span class="ph__tag">Кадр: паспорт и виза крупным планом</span>
+          <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
+          <div class="live__card-body">
+            <h3>Вебинар «Визы в 2026 году»</h3>
+            <p>Все о визах для граждан РФ и иностранцев. Руководитель отдела визового сопровождения Trivio расскажет, в какие страны проще всего получить разрешение на въезд, как избежать ошибок при подаче заявлений и что нужно знать перед оформлением шенгена и визы США.</p>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+          </div>
+        </article>
+
+        <article class="live__card live__card--w ph ph--dark" data-squircle>
+          <span class="ph__tag">Кадр: четыре логотипа партнёров на тёмном фоне</span>
+          <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
+          <div class="live__card-body">
+            <h3>Вебинар «Большой четверки»: Trivio, Контур, Т-Банк, Авито</h3>
+            <p>Узнайте, как ведущие игроки рынков вместе упрощают процессы и увеличивают бизнес-показатели.</p>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+          </div>
+        </article>
+
+        <article class="live__card ph ph--dark" data-squircle>
+          <span class="ph__tag">Кадр: человек с ноутбуком в зале ожидания</span>
+          <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
+          <div class="live__card-body">
+            <h3>Как помочь команде справиться со стрессом в командировках: Alter X Trivio</h3>
+            <p>Практикующий психотерапевт расскажет, почему командировки изматывают сотрудников и как с помощью корпоративных инструментов поддержки снизить стресс без лишних затрат для бизнеса.</p>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+          </div>
+        </article>
+
+        <article class="live__card ph ph--dark" data-squircle>
+          <span class="ph__tag">Кадр: интерфейс Trivio на экране ноутбука</span>
+          <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
+          <div class="live__card-body">
+            <h3>Возможности сервиса Trivio 2026</h3>
+            <p>Узнайте, как Trivio автоматизирует командировки, помогает сократить расходы и время оформления поездок — на примере реальных клиентов и последних обновлений платформы.</p>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+          </div>
+        </article>
+
+        <article class="live__card live__card--w ph ph--dark" data-squircle>
+          <span class="ph__tag">Кадр: самолёт на взлётной полосе, ночь</span>
+          <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
+          <div class="live__card-body">
+            <h3>Настоящее и будущее корпоративных перевозок</h3>
+            <p>На вебинаре разобрали, как планировать командировочный бюджет с учётом авиатрендов, какие рейсы появятся в 2026 году и какие преимущества даёт тариф «Вахта» и программа S7 Corp.</p>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+          </div>
+        </article>
+
+        <article class="live__card ph ph--dark" data-squircle>
+          <span class="ph__tag">Кадр: рабочее место с блокнотом и кофе</span>
+          <div class="live__card-top"><span class="pill pill--ghost">Блог</span></div>
+          <div class="live__card-body">
+            <h3>Интересное из нашего блога</h3>
+            <p>Статьи о бизнес-тревел: тренды, инструкции и опыт клиентов Trivio.</p>
+            <a class="live__watch" href="https://trivio.ru/blog">Читать блог →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="container live__controls">
+        <button class="btn-round btn-round--dark" id="livePrev" type="button" aria-label="Назад">←</button>
+        <button class="btn-round btn-round--dark" id="liveNext" type="button" aria-label="Вперёд">→</button>
+        <a class="btn btn--glass live__allbtn" href="https://trivio.ru/webinars_all">Показать все вебинары</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <form class="live__form" data-form novalidate>
+        <div class="live__form-text">
+          <h3 class="h3">Получите доступ к прошедшим вебинарам и подпишитесь на новые</h3>
+          <p>Заполните форму, это займёт не более 10 секунд</p>
+        </div>
+        <div class="live__form-fields">
+          <input class="form__input form__input--dark" type="email" name="email" placeholder="E-mail *" required autocomplete="email">
+          <button class="btn btn--primary form__submit" type="submit"><span class="form__submit-label">Отправить запрос</span> <span class="btn__arr form__submit-arr">→</span></button>
+        </div>
+        <label class="form__check form__check--dark">
+          <input type="checkbox" name="subscribe" checked>
+          <span>Я согласен на получение рекламной и информационной рассылки</span>
+        </label>
+        <p class="form__consent form__consent--dark">Нажимая на эту кнопку, Вы даете согласие на <a href="https://trivio.ru/policy" target="_blank" rel="noopener">обработку персональных данных</a>, принимаете условия <a href="https://trivio.ru/policy" target="_blank" rel="noopener">Политики обработки персональных данных</a> и <a href="https://trivio.ru/agreement" target="_blank" rel="noopener">Пользовательского соглашения</a></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ 3.9 BENTO «Удобно и безопасно» ============ -->
+  <section class="bento section" id="safety">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">удобство и безопасность</span>
+        <h2 class="h2" data-split>Удобно и безопасно</h2>
+      </div>
+
+      <div class="bento__grid">
+        <article class="bento__card bento__card--wide card" data-squircle data-reveal>
+          <span class="pill pill--tiny">Telegram</span>
+          <h3 class="h3">Уведомления в Telegram</h3>
+          <p>Можно подписаться на нашего бота в Telegram и получать там все уведомления от нашего сервиса. Также, там можно согласовывать поездки и авансовые отчеты.</p>
+          <div class="bento__visual bento__visual--tg" aria-hidden="true">
+            <span class="mock__tg-ok">✓ Согласовать</span>
+          </div>
+        </article>
+
+        <article class="bento__card card" data-squircle data-reveal>
+          <span class="pill pill--tiny">Приложение</span>
+          <h3 class="h3">Trivio у вас в кармане</h3>
+          <p>Наш сервис доступен с любого устройства - в браузере вашего компьютера или на телефоне, есть мобильные приложения для IOS и Android.</p>
+          <div class="bento__stores">
+            <a class="pill" href="https://apps.apple.com/ru/app/trivio/id1552164906" target="_blank" rel="noopener"> App Store ↗</a>
+            <a class="pill" href="https://play.google.com/store/apps/details?id=ru.trivio.app" target="_blank" rel="noopener">▶ Google Play ↗</a>
+          </div>
+        </article>
+
+        <article class="bento__card card" data-squircle data-reveal>
+          <span class="pill pill--tiny">КЭДО</span>
+          <h3 class="h3">Интеграция с вашим КЭДО</h3>
+          <p>Trivio проинтегрирован с лидирующими сервисами КЭДО, это позволяет обеспечить бесшовный переход и создать цельный кадровый процесс.</p>
+        </article>
+
+        <article class="bento__card bento__card--wide card" data-squircle data-reveal>
+          <span class="pill pill--tiny">Безопасность</span>
+          <h3 class="h3">SSO аутентификация</h3>
+          <p>Используйте вашу корпоративную учетную запись для аутентификации в Trivio. Это позволит не только сделать процесс удобнее, но и безопаснее.</p>
+          <div class="bento__visual bento__visual--sso" aria-hidden="true">
+            <span class="pill pill--tiny">SSO</span><span class="bento__lock">🔒</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3.10 ФИНАЛЬНЫЙ CTA ============ -->
+  <section class="meet section" id="contact">
+    <div class="container">
+      <div class="meet__plate parallax" data-squircle="xl">
+        <div class="ph ph--city parallax__layer" data-parallax="10">
+          <span class="ph__tag">Кадр: деловой район вечером, огни офисов</span>
+        </div>
+        <div class="meet__shade"></div>
+        <div class="meet__inner">
+          <div class="meet__text">
+            <h2 class="h2" data-split>Давайте познакомимся?</h2>
+            <p data-reveal>Заполните форму, это займёт не более 10 секунд</p>
+          </div>
+          <form class="form meet__form glass" data-form novalidate>
+            <input class="form__input form__input--glass" type="text" name="name" placeholder="Имя" autocomplete="name">
+            <input class="form__input form__input--glass" type="text" name="company" placeholder="Название компании" autocomplete="organization">
+            <input class="form__input form__input--glass" type="email" name="email" placeholder="E-mail *" required autocomplete="email">
+            <input class="form__input form__input--glass" type="tel" name="phone" placeholder="Телефон *" required autocomplete="tel" inputmode="tel">
+            <select class="form__input form__input--glass form__select" name="trips" aria-label="Кол-во командировок в компании">
+              <option value="" selected disabled>Кол-во командировок в компании</option>
+              <option>затрудняюсь ответить</option>
+              <option>до 20 в месяц</option>
+              <option>до 100 в месяц</option>
+              <option>более 100 в месяц</option>
+              <option>нет командировок</option>
+            </select>
+            <label class="form__check">
+              <input type="checkbox" name="subscribe" checked>
+              <span>Я согласен на получение рекламной и информационной рассылки</span>
+            </label>
+            <button class="btn btn--primary form__submit" type="submit" data-magnetic><span class="form__submit-label">Отправить запрос</span> <span class="btn__arr form__submit-arr">→</span></button>
+            <p class="form__consent">Нажимая на эту кнопку, Вы даете согласие на <a href="https://trivio.ru/policy" target="_blank" rel="noopener">обработку персональных данных</a>, принимаете условия <a href="https://trivio.ru/policy" target="_blank" rel="noopener">Политики обработки персональных данных</a> и <a href="https://trivio.ru/agreement" target="_blank" rel="noopener">Пользовательского соглашения</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 3.11 ФУТЕР ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__plate" data-squircle="xl">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <svg class="footer__logo" aria-hidden="true"><use href="#logo-trivio"></use></svg>
+          <div class="footer__socials">
+            <a class="btn-round btn-round--dark" href="https://t.me/trivio_ru" target="_blank" rel="noopener" aria-label="Telegram">TG</a>
+            <a class="btn-round btn-round--dark" href="https://vk.com/trivio_ru" target="_blank" rel="noopener" aria-label="VK">VK</a>
+            <a class="btn-round btn-round--dark" href="https://dzen.ru/trivio" target="_blank" rel="noopener" aria-label="Яндекс.Дзен">Дз</a>
+          </div>
+        </div>
+
+        <nav class="footer__cols" aria-label="Карта сайта">
+          <div class="footer__col">
+            <b>Услуги</b>
+            <a href="https://trivio.ru/flights">Авиабилеты</a>
+            <a href="https://trivio.ru/trains">Билеты на поезд</a>
+            <a href="https://trivio.ru/stays">Проживание</a>
+            <a href="https://trivio.ru/transfer">Трансферы и такси</a>
+            <a href="https://trivio.ru/mice">MICE</a>
+          </div>
+          <div class="footer__col">
+            <b>Полезное</b>
+            <a href="https://trivio.ru/cases">Кейсы</a>
+            <a href="https://trivio.ru/webinars">Вебинары</a>
+            <a href="https://trivio.ru/blog">Наш блог</a>
+          </div>
+          <div class="footer__col">
+            <b>Прочее</b>
+            <a href="https://trivio.ru/about">О сервисе</a>
+            <a href="https://trivio.ru/about">О компании</a>
+            <a href="https://trivio.ru/tariffs">Тарифы</a>
+            <a href="https://trivio.ru/contacts">Контакты</a>
+          </div>
+          <div class="footer__col">
+            <b>Контакты</b>
+            <span>Москва, Холодильный переулок д. 3</span>
+            <a href="mailto:hello@trivio.ru">hello@trivio.ru</a>
+            <a href="tel:+74950235900">7 (495) 023 59 00</a>
+            <a href="tel:88007077038">7 (800) 707 70 38</a>
+          </div>
+        </nav>
+      </div>
+
+      <div class="footer__req">
+        <p>АО «Тривио» · ИНН: 7713459640 · КПП: 772601001</p>
+        <p>ООО «Тривио Сервис» · ИНН: 7726478738 · КПП: 772601001</p>
+        <div class="footer__law">
+          <a href="https://trivio.ru/agreement" target="_blank" rel="noopener">Пользовательское соглашение</a>
+          <a href="https://trivio.ru/policy" target="_blank" rel="noopener">Политика конфиденциальности</a>
+        </div>
+        <div class="footer__badges">
+          <span class="pill pill--tiny">Сколково</span>
+          <span class="pill pill--tiny">Минцифры</span>
+          <span class="pill pill--tiny">ФСТЭК</span>
+        </div>
+      </div>
+
+      <div class="footer__watermark" aria-hidden="true">
+        <span>t</span><span>r</span><span>i</span><span>v</span><span>i</span><span>o</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- GSAP 3 + плагины (все бесплатны с 3.13) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
+<!-- Lenis smooth scroll -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+
+<script src="js/squircle.js"></script>
+<script src="js/carousels.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

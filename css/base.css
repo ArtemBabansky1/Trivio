@@ -1,0 +1,268 @@
+/* =====================================================================
+   TRIVIO v2 · База: reset, контейнер, типографика, компоненты
+   ===================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html.lenis { height: auto; scroll-behavior: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  font-family: var(--font-text);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--c-ink);
+  background: var(--c-bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+input, select, textarea { font: inherit; }
+ul, ol { list-style: none; }
+
+::selection { background: var(--c-accent); color: #fff; }
+
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; border-radius: 6px; }
+
+/* --- Контейнер: 100% ширины, боковые паддинги по шкале --- */
+.container { width: 100%; padding-inline: var(--pad); }
+.full-bleed { width: 100%; }
+
+/* Сетка проекта: 4 колонки, гап 20px */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+}
+
+.section { padding-block: calc(var(--section-gap) / 2); }
+
+/* --- Типографика --- */
+.h1, .h2, .h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--c-ink);
+  text-wrap: balance;
+}
+.h1 { font-size: var(--fs-h1); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+.h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); }
+.h3 { font-size: var(--fs-h3); line-height: 1.25; letter-spacing: -0.01em; font-weight: 600; }
+.lead { font-size: var(--fs-lead); line-height: 1.45; color: var(--c-muted); }
+.small { font-size: var(--fs-small); }
+
+/* Шапка секции, разнесённая по углам (реф-1) */
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: clamp(36px, 4.5vw, 72px);
+}
+.section-head--center { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-tiny);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+.eyebrow::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+
+/* --- Пилюли --- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  line-height: 1.2;
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink-80);
+  white-space: nowrap;
+}
+.pill--accent { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+.pill--dark   { background: var(--c-ink);   border-color: var(--c-ink);   color: #fff; }
+.pill--ghost  { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); color: #fff; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.pill--tiny   { padding: 5px 12px; font-size: var(--fs-tiny); }
+
+/* --- Кнопки --- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border-radius: var(--r-pill);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background-color var(--dur) var(--ease-expo),
+              color var(--dur) var(--ease-expo),
+              border-color var(--dur) var(--ease-expo),
+              transform var(--dur) var(--ease-expo);
+  will-change: transform;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn--primary { background: var(--c-accent); color: #fff; }
+.btn--primary:hover { background: var(--c-accent-dk); }
+
+.btn--secondary { background: var(--c-surface); color: var(--c-ink); border: 1px solid var(--c-line); }
+.btn--secondary:hover { border-color: var(--c-ink); }
+
+.btn--dark { background: var(--c-ink); color: #fff; }
+.btn--dark:hover { background: #232a35; }
+
+.btn--glass {
+  background: rgba(255,255,255,0.16);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.btn--glass:hover { background: rgba(255,255,255,0.28); }
+
+.btn--on-accent { background: #fff; color: var(--c-accent); }
+.btn--on-accent:hover { background: var(--c-ink); color: #fff; }
+
+.btn .btn__arr { transition: transform var(--dur) var(--ease-expo); }
+.btn:hover .btn__arr { transform: translateX(4px); }
+
+/* Круглая кнопка-стрелка (карусели) */
+.btn-round {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink);
+  transition: background-color var(--dur), color var(--dur), border-color var(--dur), transform var(--dur) var(--ease-expo);
+}
+.btn-round:hover { background: var(--c-ink); border-color: var(--c-ink); color: #fff; }
+.btn-round:active { transform: scale(0.94); }
+.btn-round--dark { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #fff; }
+.btn-round--dark:hover { background: #fff; color: var(--c-ink); }
+
+/* Диагональная стрелка ↗ на карточках */
+.arr-diag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--c-line);
+  color: var(--c-ink);
+  transition: transform var(--dur) var(--ease-expo), background-color var(--dur), color var(--dur), border-color var(--dur);
+}
+
+/* --- Карточки (базовый сквиркл-кандидат) --- */
+.card {
+  background: var(--c-surface);
+  border-radius: var(--r-l);
+  border: 1px solid var(--c-line);
+}
+
+/* Сквиркл: JS вешает clip-path; до этого работает border-radius */
+[data-squircle] { border-radius: var(--r-l); }
+[data-squircle="xl"] { border-radius: var(--r-xl); }
+[data-squircle="m"]  { border-radius: var(--r-m); }
+
+/* clip-path режет рамку и box-shadow по углам — заменяем:
+   контур через drop-shadow (следует форме сквиркла) */
+[data-squircle].squircled {
+  border-radius: 0;
+  border-color: transparent;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 0.6px rgba(14, 17, 22, 0.14))
+          drop-shadow(0 12px 28px rgba(14, 17, 22, 0.05));
+}
+
+/* --- Фото-заглушки ---
+   Нейтральные градиентные плашки с подписью кадра.
+   data-img — название кадра для фото-ТЗ (см. photo-tz.md). */
+.ph {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #d7dde6 0%, #aeb9c9 55%, #8fa0b5 100%);
+  min-height: 200px;
+}
+.ph::after {
+  /* лёгкое «зерно» */
+  content: "";
+  position: absolute; inset: 0;
+  opacity: 0.5;
+  background-image: radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px);
+  background-size: 5px 5px;
+  pointer-events: none;
+}
+.ph__tag {
+  position: absolute;
+  left: 14px; bottom: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: var(--r-pill);
+  background: rgba(14,17,22,0.45);
+  color: rgba(255,255,255,0.92);
+  font-size: var(--fs-tiny);
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+.ph__tag::before { content: "📷"; font-size: 11px; }
+
+/* Тёплые вариации градиентов под контекст кадра */
+.ph--dawn    { background: linear-gradient(165deg, #f7d9b8 0%, #e8a87c 40%, #7c93b8 100%); }  /* аэропорт на рассвете */
+.ph--train   { background: linear-gradient(160deg, #cfe0dd 0%, #93b5b0 55%, #5f7f83 100%); }  /* салон поезда */
+.ph--hotel   { background: linear-gradient(160deg, #f0e3cf 0%, #d4b896 55%, #96774f 100%); }  /* лобби отеля */
+.ph--city    { background: linear-gradient(165deg, #ccd6e4 0%, #9fb0c9 50%, #64748e 100%); }  /* деловой район */
+.ph--people  { background: linear-gradient(160deg, #ecd9d3 0%, #c9a294 55%, #8a685e 100%); }  /* люди с багажом */
+.ph--product { background: linear-gradient(160deg, #dbe7fb 0%, #b9cdf2 55%, #7f9fdd 100%); }  /* экраны продукта */
+.ph--dark    { background: linear-gradient(165deg, #39414e 0%, #232a35 55%, #14181f 100%); }  /* тёмные карточки мозаики */
+
+.ph > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Параллакс-обёртка: внутренний слой двигается по scrub */
+.parallax { overflow: hidden; }
+.parallax__layer { position: absolute; inset: -14% 0; will-change: transform; }
+/* слой выходит за низ обёртки — поднимаем подпись кадра в видимую зону */
+.parallax__layer .ph__tag { bottom: calc(14% + 16px); }
+
+/* --- Утилиты --- */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* SplitText: маски строк */
+.split-lines .line-mask { overflow: hidden; }
+
+/* Ленивая отрисовка нижних секций */
+.cv-auto { content-visibility: auto; contain-intrinsic-size: auto 800px; }

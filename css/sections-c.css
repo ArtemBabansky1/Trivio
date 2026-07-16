@@ -1,0 +1,303 @@
+/* =====================================================================
+   TRIVIO v2 · Секции C: кейсы · тёмная мозаика · bento · CTA · футер
+   ===================================================================== */
+
+/* ---------- 3.7 Кейсы (реф-4): горизонтальная галерея ---------- */
+.cases { overflow: clip; }
+.cases__pin { padding-block: 10px; }
+.cases__all { transition: background-color var(--dur), transform var(--dur) var(--ease-expo); }
+.cases__all:hover { background: var(--c-accent); border-color: var(--c-accent); }
+
+.cases__gallery { overflow: hidden; }
+.cases__track {
+  display: flex;
+  gap: var(--gutter);
+  padding-left: var(--pad);
+  width: max-content;
+  cursor: grab;
+  will-change: transform;
+}
+.cases__track:active { cursor: grabbing; }
+
+.cases__item {
+  width: clamp(320px, 58vw, 880px);
+  flex-shrink: 0;
+}
+.cases__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9.5;
+  overflow: hidden;
+}
+.cases__media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(200deg, rgba(14,17,22,0.34) 0%, transparent 45%);
+}
+.cases__tags {
+  position: absolute; top: 18px; left: 18px; z-index: 2;
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.cases__media .ph__tag { bottom: 16px; }
+
+.cases__caption { margin-top: 16px; max-width: 62ch; }
+.cases__caption b { font-family: var(--font-display); font-size: 19px; font-weight: 600; }
+.cases__caption p { margin-top: 6px; font-size: 15px; color: var(--c-muted); }
+.cases__read {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600; font-size: 15px;
+  color: var(--c-accent);
+}
+.cases__read:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- 3.8 Тёмная мозаика вебинаров (реф-5) ---------- */
+.live {
+  background: var(--c-dark);
+  color: var(--c-on-dark);
+  border-radius: var(--r-xl);
+  margin-top: calc(var(--section-gap) / 2);
+  padding-block: clamp(56px, 7vw, 120px);
+  overflow: clip;
+}
+.live__meta {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+.live__title { color: #fff; max-width: 14ch; }
+.live__sub { margin-top: 14px; color: var(--c-on-dark-m); font-size: var(--fs-small); }
+.live__reg { flex-shrink: 0; font-weight: 600; }
+.live__pulse {
+  display: inline-block;
+  width: 8px; height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #ff5d5d;
+  animation: livePulse 1.6s ease-in-out infinite;
+}
+@keyframes livePulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.8); } }
+
+/* Лаймовый акцент на чёрном (гайдлайн) */
+.live .pill--accent { background: var(--c-lime); border-color: var(--c-lime); color: var(--c-on-lime); }
+.live .btn--primary { background: var(--c-lime); color: var(--c-on-lime); }
+.live .btn--primary:hover { background: var(--c-lime-hov); }
+.live :focus-visible { outline-color: var(--c-lime); }
+.live .form__input--dark:focus { border-color: rgba(211, 242, 106, 0.65); }
+
+/* Бесконечная карусель: карточки одного размера, центральная укрупняется (JS) */
+.live__mosaic { position: relative; padding-block: 34px; }
+.live__track {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-inline: var(--pad);
+  width: max-content;
+  cursor: grab;
+  will-change: transform;
+}
+.live__track:active { cursor: grabbing; }
+
+.live__card {
+  position: relative;
+  width: clamp(272px, 25vw, 370px);
+  height: clamp(430px, 37vw, 550px);
+  flex-shrink: 0;
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden;
+  color: #fff;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.live__card::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(185deg, rgba(14,17,22,0.1) 30%, rgba(14,17,22,0.88) 100%);
+}
+.live__card-top { position: relative; z-index: 2; padding: 18px; }
+.live__card .ph__tag { top: 18px; right: 18px; left: auto; bottom: auto; }
+.live__card-body {
+  position: relative; z-index: 2;
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.live__card-body h3 {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.7vw, 24px);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+}
+.live__card-body p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.72);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.live__watch { font-size: 14px; font-weight: 600; color: #fff; }
+.live__watch:hover { color: var(--c-lime); }
+
+.live__controls { display: flex; align-items: center; gap: 10px; margin-top: 28px; }
+.live__allbtn { margin-left: auto; }
+
+.live__form {
+  margin-top: clamp(48px, 6vw, 90px);
+  padding-top: clamp(28px, 3vw, 44px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 16px 40px;
+}
+.live__form-text p { margin-top: 8px; color: var(--c-on-dark-m); font-size: var(--fs-small); }
+.live__form-fields { display: flex; gap: 10px; align-items: stretch; }
+.live__form-fields .form__submit { width: auto; margin: 0; flex-shrink: 0; }
+.form__input--dark {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.16);
+  color: #fff;
+}
+.form__input--dark::placeholder { color: rgba(255,255,255,0.5); }
+.form__input--dark:focus { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.5); }
+.form__check--dark, .form__consent--dark { color: var(--c-on-dark-m); }
+.live__form .form__check { grid-column: 2; margin-top: 0; }
+.live__form .form__consent { grid-column: 1 / -1; margin-top: 0; color: rgba(255,255,255,0.4); }
+
+/* ---------- 3.9 Bento «Удобно и безопасно» ---------- */
+.bento__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* сетка проекта: 4 колонки */
+  gap: var(--gutter);
+}
+.bento__card {
+  grid-column: span 1;
+  position: relative;
+  display: flex; flex-direction: column; gap: 12px;
+  min-height: 280px;
+  padding: clamp(22px, 2.2vw, 32px);
+  overflow: hidden;
+  transition: transform 0.45s var(--ease-expo), box-shadow 0.45s var(--ease-expo);
+}
+.bento__card:hover { transform: translateY(-6px); box-shadow: var(--shadow-card); }
+.bento__card--wide { grid-column: span 3; }
+.bento__card .pill--tiny { align-self: flex-start; }
+.bento__card p { color: var(--c-muted); font-size: 15px; max-width: 52ch; }
+.bento__stores { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+.bento__stores .pill:hover { border-color: var(--c-ink); }
+
+.bento__visual {
+  position: absolute;
+  right: 24px; bottom: 24px;
+  opacity: 0.9;
+}
+.bento__visual--tg .mock__tg-ok { box-shadow: var(--shadow-soft); }
+.bento__visual--sso { display: flex; align-items: center; gap: 8px; }
+.bento__lock { font-size: 22px; }
+
+/* ---------- 3.10 Финальный CTA ---------- */
+.meet__plate { position: relative; overflow: hidden; }
+.meet__shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(84deg, rgba(14,17,22,0.62) 0%, rgba(14,17,22,0.18) 70%);
+}
+.meet__inner {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: clamp(28px, 4vw, 72px);
+  padding: clamp(28px, 4.5vw, 72px);
+  color: #fff;
+}
+.meet__text .h2 { color: #fff; max-width: 12ch; }
+.meet__text p { margin-top: 16px; color: rgba(255,255,255,0.82); font-size: var(--fs-lead); }
+.meet__form {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: clamp(20px, 2vw, 28px);
+  border-radius: var(--r-l);
+}
+.form__input--glass {
+  background: rgba(255,255,255,0.92);
+}
+.form__select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--c-muted) 50%), linear-gradient(135deg, var(--c-muted) 50%, transparent 50%); background-position: calc(100% - 24px) 50%, calc(100% - 18px) 50%; background-size: 6px 6px; background-repeat: no-repeat; }
+.meet__form .form__check { margin-top: 2px; color: rgba(255,255,255,0.85); }
+.meet__form .form__consent { color: rgba(255,255,255,0.55); }
+
+/* ---------- 3.11 Футер ---------- */
+.footer { padding-block: 0 clamp(20px, 2vw, 40px); }
+.footer__plate {
+  position: relative;
+  background: var(--c-dark);
+  color: var(--c-on-dark);
+  padding: clamp(32px, 4.5vw, 72px) clamp(24px, 3.5vw, 64px) 0;
+  overflow: hidden;
+}
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: clamp(28px, 4vw, 64px);
+  padding-bottom: clamp(32px, 4vw, 56px);
+}
+.footer__logo { width: 132px; height: auto; aspect-ratio: 571 / 142; fill: #ffffff; }
+.footer__socials { display: flex; gap: 10px; margin-top: 24px; }
+.footer__socials .btn-round { width: 46px; height: 46px; font-size: 13px; font-weight: 600; }
+
+.footer__cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+}
+.footer__col { display: flex; flex-direction: column; gap: 10px; font-size: var(--fs-small); }
+.footer__col b { font-family: var(--font-display); font-size: 15px; margin-bottom: 6px; color: #fff; }
+.footer__col a, .footer__col span { color: var(--c-on-dark-m); transition: color var(--dur); }
+.footer__col a:hover { color: #fff; }
+
+.footer__req {
+  display: flex; align-items: center; gap: 16px 28px; flex-wrap: wrap;
+  padding-block: 22px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: var(--fs-tiny);
+  color: var(--c-on-dark-m);
+}
+.footer__law { display: flex; gap: 18px; flex-wrap: wrap; }
+.footer__law a { color: var(--c-on-dark-m); text-decoration: underline; text-underline-offset: 2px; }
+.footer__law a:hover { color: #fff; }
+.footer__badges { display: flex; gap: 8px; margin-left: auto; }
+.footer__badges .pill { background: transparent; border-color: rgba(255,255,255,0.2); color: var(--c-on-dark-m); }
+
+/* Водяная надпись trivio, обрезанная низом плашки */
+.footer__watermark {
+  display: flex; justify-content: center;
+  height: clamp(70px, 9vw, 150px);
+  overflow: hidden;
+  pointer-events: none;
+}
+.footer__watermark span {
+  font-family: var(--font-display);
+  font-size: clamp(120px, 16.5vw, 280px);
+  font-weight: 700;
+  line-height: 0.72;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.07);
+  will-change: transform;
+}
+
+/* ---------- Адаптив секций C ---------- */
+@media (max-width: 1023.98px) {
+  .live__meta { flex-direction: column; align-items: flex-start; }
+  .live__form { grid-template-columns: 1fr; }
+  .live__form .form__check { grid-column: 1; }
+  .meet__inner { grid-template-columns: 1fr; }
+  .footer__top { grid-template-columns: 1fr; }
+  .bento__card, .bento__card--wide { grid-column: span 2; }
+}
+@media (max-width: 767.98px) {
+  .cases__item { width: min(86vw, 500px); }
+  .live { border-radius: var(--r-l); }
+  .live__form-fields { flex-direction: column; }
+  .bento__card, .bento__card--wide { grid-column: span 4; min-height: 0; }
+  .bento__visual { position: static; margin-top: auto; align-self: flex-start; }
+  .footer__cols { grid-template-columns: 1fr 1fr; }
+  .footer__badges { margin-left: 0; }
+}
