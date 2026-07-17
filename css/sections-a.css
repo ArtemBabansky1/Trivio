@@ -19,54 +19,33 @@
 }
 .preloader.is-done { pointer-events: none; }
 
-/* ---------- Топбар ---------- */
-.topbar { background: var(--c-ink); color: #fff; }
-.topbar__inner {
-  display: flex; align-items: center; justify-content: center; gap: 20px;
-  min-height: 44px; padding-block: 8px;
-}
-.topbar__text { font-size: var(--fs-small); font-weight: 500; }
-.topbar__date { color: var(--c-on-dark-m); }
-.topbar__btn {
-  flex-shrink: 0;
-  padding: 6px 16px;
-  border-radius: var(--r-pill);
-  background: #fff; color: var(--c-ink);
-  font-size: 13px; font-weight: 600;
-  transition: background-color var(--dur), color var(--dur);
-}
-.topbar__btn:hover { background: var(--c-accent); color: #fff; }
-
-/* ---------- Хедер ---------- */
-.header {
-  position: sticky; top: 0; z-index: 900;
-  background: rgba(246, 247, 249, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid transparent;
-  transition: transform 0.45s var(--ease-expo), border-color var(--dur), background-color var(--dur);
-}
-.header.is-scrolled { border-color: var(--c-line); }
-.header.is-hidden { transform: translateY(-100%); }
+/* ---------- Хедер: статичный, внутри hero-плашки, поверх фото ---------- */
+.header { position: relative; z-index: 6; }
 
 .header__inner {
+  position: relative;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
   height: var(--header-h);
 }
-.header__logo-svg { width: 108px; height: auto; aspect-ratio: 571 / 142; fill: var(--c-accent); }
+.header__logo-svg { width: 108px; height: auto; aspect-ratio: 571 / 142; fill: #fff; }
 
-.header__nav { display: flex; align-items: center; gap: 6px; }
+/* пункты меню по центру экрана (плашка и паддинги симметричны) */
+.header__nav {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 6px;
+}
 .header__item { position: relative; }
 .header__link {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 9px 14px;
   border-radius: var(--r-pill);
   font-size: 15px; font-weight: 500;
-  color: var(--c-ink-80);
+  color: rgba(255, 255, 255, 0.88);
   transition: background-color var(--dur), color var(--dur);
 }
-.header__link:hover { background: rgba(14, 17, 22, 0.05); color: var(--c-ink); }
-.header__chev { font-size: 10px; color: var(--c-muted); transition: transform var(--dur); }
+.header__link:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+.header__chev { font-size: 10px; color: rgba(255, 255, 255, 0.6); transition: transform var(--dur); }
 .header__item.is-open .header__chev { transform: rotate(180deg); }
 
 .header__dd {
@@ -102,11 +81,11 @@
 
 .header__actions { display: flex; align-items: center; gap: 10px; }
 .header__phone {
-  font-size: 15px; font-weight: 600; color: var(--c-ink);
+  font-size: 15px; font-weight: 600; color: #fff;
   padding: 9px 6px; white-space: nowrap;
   transition: color var(--dur);
 }
-.header__phone:hover { color: var(--c-accent); }
+.header__phone:hover { color: var(--c-lime); }
 .btn--sm { padding: 11px 20px; font-size: 14px; }
 
 .header__burger {
@@ -140,15 +119,19 @@
 }
 .mobmenu__cta { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
 
-/* ---------- Hero ---------- */
-.hero {
+/* ---------- Hero: единая плашка, хедер внутри ---------- */
+.hero { padding: 12px 12px 0; }
+.hero__plate {
   position: relative;
-  min-height: max(640px, calc(100svh - var(--header-h) - 44px));
-  display: flex; align-items: flex-end;
-  padding-block: clamp(48px, 6vw, 90px);
+  display: flex; flex-direction: column;
+  min-height: max(640px, calc(100svh - 24px));
+  border-radius: var(--r-xl);
   overflow: clip;
 }
-.hero__bg { position: absolute; inset: 0; z-index: -1; }
+/* компенсация внешнего отступа плашки, чтобы контент остался на сетке 150px */
+.hero__plate .container { padding-inline: calc(var(--pad) - 12px); }
+
+.hero__bg { position: absolute; inset: 0; z-index: 0; }
 .hero__bg .ph { min-height: 100%; }
 .hero__shade {
   position: absolute; inset: 0;
@@ -157,9 +140,17 @@
     linear-gradient(84deg, rgba(14,17,22,0.42) 0%, rgba(14,17,22,0.05) 60%);
 }
 
-.hero__content { position: relative; max-width: 980px; color: #fff; }
-.hero__tag { margin-bottom: 22px; }
-.hero__title { color: #fff; max-width: 12ch; }
+.hero__body {
+  position: relative; z-index: 2;
+  flex: 1;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: clamp(24px, 3vw, 64px);
+  padding: clamp(36px, 5vw, 80px) calc(var(--pad) - 12px) clamp(28px, 4vw, 56px);
+}
+
+.hero__left { max-width: 1100px; color: #fff; }
+/* заголовок ровно в 2 строки (перенос задан <br>) */
+.hero__title { color: #fff; font-size: clamp(38px, 4.6vw, 88px); }
 .hero__sub {
   max-width: 46ch;
   margin-top: 22px;
@@ -168,36 +159,86 @@
   color: rgba(255, 255, 255, 0.85);
 }
 .hero__cta { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+.hero__badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(28px, 4vw, 56px); }
 
-/* Стеклянная карточка брони */
+/* Стеклянные поверхности */
 .glass {
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
-.hero__booking {
-  position: absolute;
-  right: var(--pad);
-  bottom: clamp(48px, 7vw, 110px);
-  width: 320px;
+
+/* Слайдер новостей и вебинаров: карточки сменяются по таймеру */
+.hero__slider {
+  flex-shrink: 0;
+  width: clamp(340px, 25vw, 480px);
   padding: 20px;
   border-radius: var(--r-l);
   color: #fff;
   will-change: transform;
 }
-.hero__booking-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-.hero__booking-status { font-size: var(--fs-tiny); font-weight: 600; color: #7dffb2; }
-.hero__booking-route { display: flex; align-items: center; justify-content: space-between; }
-.hero__booking-route b { font-family: var(--font-display); font-size: 34px; font-weight: 600; letter-spacing: -0.01em; display: block; line-height: 1.1; }
-.hero__booking-route span { font-size: var(--fs-tiny); color: rgba(255,255,255,0.7); }
-.hero__booking-plane { font-size: 18px; opacity: 0.85; }
-.hero__booking-meta {
-  display: flex; flex-direction: column; gap: 3px;
-  margin-top: 16px; padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,0.18);
-  font-size: var(--fs-tiny); color: rgba(255,255,255,0.75);
+.hero__slides { position: relative; min-height: clamp(150px, 11vw, 190px); }
+.hero__slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s var(--ease-expo), transform 0.5s var(--ease-expo);
+  pointer-events: none;
 }
+.hero__slide.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.hero__slide b {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.5vw, 24px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.hero__slide-more { margin-top: auto; font-size: var(--fs-small); font-weight: 600; opacity: 0.85; transition: opacity var(--dur); }
+.hero__slide:hover .hero__slide-more { opacity: 1; }
+
+.hero__slider-nav {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.hero__slider-count { font-size: var(--fs-tiny); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hero__slider-track {
+  position: relative; flex: 1; height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+.hero__slider-track i { position: absolute; top: 0; left: 0; bottom: 0; width: 0; background: #fff; }
+
+/* ---------- Док: компактный хедер снизу при скролле вверх ---------- */
+.dock {
+  position: fixed; left: 50%; bottom: 18px; z-index: 950;
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px;
+  border-radius: var(--r-pill);
+  background: rgba(14, 17, 22, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-card);
+  visibility: hidden;
+  transform: translate(-50%, calc(100% + 26px));
+  transition: transform 0.55s var(--ease-expo), visibility 0.55s;
+  will-change: transform;
+}
+.dock.is-visible { visibility: visible; transform: translate(-50%, 0); }
+.dock__logo svg { display: block; width: 86px; height: auto; aspect-ratio: 571 / 142; fill: #fff; margin-inline: 12px 6px; }
+.dock__nav { display: flex; }
+.dock__nav a {
+  padding: 9px 14px;
+  border-radius: var(--r-pill);
+  font-size: 14px; font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  transition: background-color var(--dur), color var(--dur);
+}
+.dock__nav a:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.dock .btn { margin-left: 6px; }
 
 /* ---------- Клиенты: marquee + счётчики ---------- */
 .clients { padding-top: clamp(48px, 5vw, 80px); }
@@ -244,11 +285,6 @@
   margin-top: 30px;
 }
 .hero__badges .pill { font-size: 13px; }
-@media (min-width: 1024px) {
-  /* не наезжать на карточку брони справа (320px + зазор) */
-  .hero__badges { max-width: calc(100vw - var(--pad) * 2 - 360px); }
-}
-
 /* ---------- Адаптив секций A ---------- */
 @media (max-width: 1279.98px) {
   .header__phone { display: none; }
@@ -256,13 +292,15 @@
 @media (max-width: 1023.98px) {
   .header__nav { display: none; }
   .header__burger { display: flex; }
-  .hero__booking { position: static; margin: 40px var(--pad) 0 auto; }
-  .hero { flex-direction: column; align-items: stretch; justify-content: flex-end; }
+  .hero__body { flex-direction: column; align-items: stretch; }
+  .hero__slider { width: 100%; max-width: 520px; }
 }
 @media (max-width: 767.98px) {
-  .topbar__inner { flex-direction: column; gap: 8px; padding-block: 10px; text-align: center; }
   .header__actions .btn--secondary { display: none; }
-  .hero__booking { width: 100%; max-width: 360px; margin-inline: 0; }
+  .hero { padding: 8px 8px 0; }
+  .hero__plate .container { padding-inline: calc(var(--pad) - 8px); }
+  .hero__body { padding-inline: calc(var(--pad) - 8px); }
+  .hero__slider { max-width: none; }
   .counters { grid-template-columns: 1fr; gap: 28px; }
   .counters__item { border-top: 1px solid var(--c-line); padding-top: 20px; }
   .counters__item:first-child { border-top: 0; padding-top: 0; }

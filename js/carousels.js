@@ -126,7 +126,43 @@
     return function () { clearTimeout(t); t = setTimeout(fn, ms); };
   }
 
+  /* Hero-слайдер: новости и вебинары, автосмена по таймеру */
+  function heroSlider() {
+    var root = document.getElementById('heroSlider');
+    if (!root) { return; }
+    var slides = root.querySelectorAll('.hero__slide');
+    if (slides.length < 2) { return; }
+    var count = root.querySelector('.hero__slider-count');
+    var bar = root.querySelector('.hero__slider-track i');
+    var DURATION = 5000;
+    var idx = 0;
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function show(n) {
+      slides[idx].classList.remove('is-active');
+      idx = (n + slides.length) % slides.length;
+      slides[idx].classList.add('is-active');
+      if (count) { count.textContent = pad(idx + 1) + ' / ' + pad(slides.length); }
+      if (bar) {
+        bar.style.transition = 'none';
+        bar.style.width = '0%';
+        void bar.offsetWidth; /* перезапуск транзишена прогресса */
+        bar.style.transition = 'width ' + DURATION + 'ms linear';
+        bar.style.width = '100%';
+      }
+    }
+
+    if (reduceMotion) {
+      if (bar) { bar.style.width = '100%'; }
+      return;
+    }
+    show(0);
+    setInterval(function () { show(idx + 1); }, DURATION);
+  }
+
   function init() {
+    heroSlider();
     if (hasGsap() && typeof window.InertiaPlugin !== 'undefined') {
       window.gsap.registerPlugin(window.Draggable, window.InertiaPlugin);
     } else if (hasGsap()) {

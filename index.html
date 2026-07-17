@@ -44,16 +44,20 @@
   </div>
 </div>
 
-<!-- ============ ТОПБАР ============ -->
-<div class="topbar" id="topbar">
-  <div class="container topbar__inner">
-    <p class="topbar__text">Как в 2026 работает поддержка в бизнес-тревел <span class="topbar__date">(4 августа 11:00)</span></p>
-    <a class="topbar__btn" href="https://clck.ru/3St3DB" target="_blank" rel="noopener">Зарегистрироваться</a>
-  </div>
-</div>
+<main id="top">
 
-<!-- ============ 3.0 ХЕДЕР ============ -->
-<header class="header" id="header">
+  <!-- ============ 3.1 HERO: единая плашка, хедер статичный внутри ============ -->
+  <section class="hero" id="hero">
+    <div class="hero__plate">
+      <div class="hero__bg parallax">
+        <div class="ph ph--dawn parallax__layer" data-parallax="8">
+          <img src="assets/photo/hero.png" alt="Путешественник над облаками смотрит на светящиеся маршруты" fetchpriority="high">
+        </div>
+        <div class="hero__shade"></div>
+      </div>
+
+      <!-- ============ 3.0 ХЕДЕР (статичный, внутри hero) ============ -->
+      <header class="header" id="header">
   <div class="container header__inner">
     <a class="header__logo" href="#top" aria-label="Trivio — наверх">
       <svg class="header__logo-svg" aria-hidden="true"><use href="#logo-trivio"></use></svg>
@@ -113,23 +117,12 @@
   </div>
 </header>
 
-<main id="top">
-
-  <!-- ============ 3.1 HERO ============ -->
-  <section class="hero" id="hero">
-    <div class="hero__bg parallax">
-      <div class="ph ph--dawn parallax__layer" data-parallax="8">
-        <span class="ph__tag">Кадр: аэропорт на рассвете, силуэты пассажиров</span>
-      </div>
-      <div class="hero__shade"></div>
-    </div>
-
-    <div class="container hero__content">
-      <span class="pill pill--ghost hero__tag" data-reveal>Бизнес-тревел платформа</span>
-      <h1 class="h1 hero__title" data-split>Удобные командировки для&nbsp;каждого</h1>
+      <div class="hero__body">
+        <div class="hero__left">
+      <h1 class="h1 hero__title" data-split>Удобные командировки<br>для каждого</h1>
       <p class="hero__sub" data-reveal>Помогаем компаниям управлять деловыми поездками, экономить время и&nbsp;деньги</p>
       <div class="hero__cta" data-reveal>
-        <a class="btn btn--primary" href="#contact" data-magnetic>Попробовать бесплатно <span class="btn__arr">→</span></a>
+        <a class="btn btn--primary" href="#contact" data-magnetic>Попробовать бесплатно</a>
         <a class="btn btn--glass" href="https://trivio.ru/tariffs">Тарифы</a>
       </div>
       <div class="hero__badges" data-reveal>
@@ -137,27 +130,44 @@
         <span class="pill pill--ghost">Являемся резидентом Сколково</span>
         <span class="pill pill--ghost">Сертифицированы ФСТЭК России</span>
       </div>
-    </div>
+        </div>
 
-    <!-- Стеклянная карточка брони MOW → KZN -->
-    <aside class="hero__booking glass" id="heroBooking" aria-label="Пример брони в Trivio">
-      <div class="hero__booking-top">
-        <span class="pill pill--tiny pill--accent">Командировка</span>
-        <span class="hero__booking-status">● Согласовано</span>
+        <!-- Слайдер: новости и вебинары, автосмена по таймеру -->
+        <aside class="hero__slider glass" id="heroSlider" aria-label="Новости и вебинары Trivio">
+          <div class="hero__slides">
+            <a class="hero__slide is-active" href="https://clck.ru/3St3DB" target="_blank" rel="noopener">
+              <span class="pill pill--tiny pill--accent">Вебинар · 4 августа, 11:00</span>
+              <b>Как в 2026 работает поддержка в бизнес-тревел</b>
+              <span class="hero__slide-more">Зарегистрироваться →</span>
+            </a>
+            <a class="hero__slide" href="https://trivio.ru/cases">
+              <span class="pill pill--tiny">Кейс · Нефтегаз</span>
+              <b>ЛУКОЙЛ: командировка за 15 минут вместо 3 дней</b>
+              <span class="hero__slide-more">Читать кейс →</span>
+            </a>
+            <a class="hero__slide" href="https://trivio.ru/cases">
+              <span class="pill pill--tiny">Кейс · IT</span>
+              <b>VK: рекорд скорости оформления командировок</b>
+              <span class="hero__slide-more">Читать кейс →</span>
+            </a>
+            <a class="hero__slide" href="https://trivio.ru/blog">
+              <span class="pill pill--tiny">Блог</span>
+              <b>Актуальное о бизнес-тревел — в нашем блоге</b>
+              <span class="hero__slide-more">Читать →</span>
+            </a>
+          </div>
+          <div class="hero__slider-nav" aria-hidden="true">
+            <span class="hero__slider-count">01 / 04</span>
+            <span class="hero__slider-track"><i></i></span>
+          </div>
+        </aside>
       </div>
-      <div class="hero__booking-route">
-        <div><b>MOW</b><span>Москва</span></div>
-        <div class="hero__booking-plane">✈</div>
-        <div><b>KZN</b><span>Казань</span></div>
-      </div>
-      <div class="hero__booking-meta">
-        <span>24 июл · 09:40 — 11:05</span>
-        <span>Эконом · в рамках тревел-политики</span>
-      </div>
-    </aside>
+    </div>
   </section>
 
   <!-- ============ 3.2 ЛОГОТИПЫ + СЧЁТЧИКИ ============ -->
+  <!-- ===== ЗОНА 1 · серая: знакомство (клиенты + роли) ===== -->
+  <div class="zone zone--grey">
   <section class="clients section" id="clients">
     <div class="marquee" aria-label="Клиенты Trivio">
       <div class="marquee__track" id="marqueeTrack">
@@ -194,7 +204,7 @@
       <div class="roles__grid">
         <article class="roles__card card" data-squircle tabindex="0">
           <div class="roles__card-top">
-            <span class="pill pill--tiny">Роль · Сотрудник</span>
+            <span class="pill pill--tiny">Сотрудник</span>
             <span class="arr-diag">↗</span>
           </div>
           <h3 class="h3">Оформляйте быстро, отчитывайтесь легко</h3>
@@ -207,7 +217,7 @@
 
         <article class="roles__card card" data-squircle tabindex="0">
           <div class="roles__card-top">
-            <span class="pill pill--tiny">Роль · Тревел-координатор</span>
+            <span class="pill pill--tiny">Тревел-координатор</span>
             <span class="arr-diag">↗</span>
           </div>
           <h3 class="h3">Управляйте поездками коллег без лишнего хаоса</h3>
@@ -220,7 +230,7 @@
 
         <article class="roles__card card" data-squircle tabindex="0">
           <div class="roles__card-top">
-            <span class="pill pill--tiny">Роль · Бухгалтер</span>
+            <span class="pill pill--tiny">Бухгалтер</span>
             <span class="arr-diag">↗</span>
           </div>
           <h3 class="h3">Упростите документооборот и сократите трудозатраты</h3>
@@ -233,7 +243,7 @@
 
         <article class="roles__card card" data-squircle tabindex="0">
           <div class="roles__card-top">
-            <span class="pill pill--tiny">Роль · Руководитель</span>
+            <span class="pill pill--tiny">Руководитель</span>
             <span class="arr-diag">↗</span>
           </div>
           <h3 class="h3">Контролируйте расходы и организацию процесса</h3>
@@ -246,6 +256,11 @@
       </div>
     </div>
   </section>
+
+  </div><!-- /зона 1 -->
+
+  <!-- ===== ЗОНА 2 · белая: продукт (услуги + возможности + CTA) ===== -->
+  <div class="zone zone--white zone--lift">
 
   <!-- ============ 3.4 УСЛУГИ (реф-3) ============ -->
   <section class="services section" id="services">
@@ -260,7 +275,7 @@
       <!-- Hover-аккордеон: наведённая карточка раскрывается -->
       <div class="services__acc">
         <a class="acc ph ph--dawn" data-squircle href="https://trivio.ru/flights">
-          <span class="ph__tag">Кадр: крыло самолёта над облаками, тёплый свет</span>
+          <img src="assets/photo/db9a508274b11e3ea2655a9db26eca5d.webp" alt="Путешественница с чемоданом, над ней взлетает самолёт" loading="lazy" decoding="async">
           <div class="services__float services__float--icon">✈</div>
           <div class="services__float services__float--label">500+ авиакомпаний</div>
           <div class="acc__overlay">
@@ -274,7 +289,7 @@
         </a>
 
         <a class="acc ph ph--hotel" data-squircle href="https://trivio.ru/stays">
-          <span class="ph__tag">Кадр: лобби отеля, вечерний свет</span>
+          <img src="assets/photo/5a0b8e553fa9c9a1dea8ccb28087c21e.jpg" alt="Утренний кофе в отеле" loading="lazy" decoding="async">
           <div class="acc__overlay">
             <b>Проживание</b>
             <span class="acc__sub">Более 2.5 млн. вариантов</span>
@@ -285,7 +300,7 @@
         </a>
 
         <a class="acc ph ph--train" data-squircle href="https://trivio.ru/trains">
-          <span class="ph__tag">Кадр: салон поезда дальнего следования</span>
+          <img src="assets/photo/e8467421e2bd32369d0ef708db3feac1.webp" alt="Пассажирка с чемоданом на вокзале у табло отправлений" loading="lazy" decoding="async">
           <div class="acc__overlay">
             <b>Билеты на поезд</b>
             <span class="acc__sub">По России, СНГ и дальнему зарубежью</span>
@@ -296,7 +311,7 @@
         </a>
 
         <a class="acc ph ph--city" data-squircle href="https://trivio.ru/transfer">
-          <span class="ph__tag">Кадр: такси у бизнес-центра</span>
+          <img src="assets/photo/4e34106a064019de83978cdffb76cb3a.webp" alt="Деловые путешественники с чемоданами на пешеходном переходе" loading="lazy" decoding="async">
           <div class="acc__overlay">
             <b>Трансферы и такси</b>
             <span class="acc__sub">Транспортные услуги по всему миру · Яндекс GO</span>
@@ -331,11 +346,11 @@
             <div class="mock mock--analytics card" data-squircle>
               <div class="mock__head"><span class="pill pill--tiny">Аналитика · июль</span><span class="mock__dots">⋯</span></div>
               <div class="mock__bars">
-                <div class="mock__bar" style="--h:62%"><i></i><span>Продажи</span></div>
-                <div class="mock__bar" style="--h:38%"><i></i><span>ИТ</span></div>
-                <div class="mock__bar" style="--h:84%"><i></i><span>Логистика</span></div>
-                <div class="mock__bar" style="--h:47%"><i></i><span>HR</span></div>
-                <div class="mock__bar" style="--h:70%"><i></i><span>Стройка</span></div>
+                <div class="mock__bar" style="--h:62%"><em>62%</em><i></i><span>Продажи</span></div>
+                <div class="mock__bar" style="--h:38%"><em>38%</em><i></i><span>ИТ</span></div>
+                <div class="mock__bar" style="--h:84%"><em>84%</em><i></i><span>Логистика</span></div>
+                <div class="mock__bar" style="--h:47%"><em>47%</em><i></i><span>HR</span></div>
+                <div class="mock__bar" style="--h:70%"><em>70%</em><i></i><span>Стройка</span></div>
               </div>
               <div class="mock__foot"><b>−18%</b> к расходам на поездки кв/кв</div>
             </div>
@@ -363,7 +378,11 @@
             <figcaption>Уведомления в Telegram</figcaption>
           </figure>
         </div>
-        <p class="features__par" data-reveal>Будьте в курсе на что тратятся деньги компании и как можно оптимизировать расходы. Отслеживайте соблюдение тревел-политики и получайте персонализированные рекомендации. Настройте тревел-политику и согласование поездок ваших сотрудников по различным правилам и критериям.</p>
+        <!-- Текст по сетке: колонки 1 и 3 -->
+        <div class="features__par-duo">
+          <p data-reveal>Будьте в курсе на что тратятся деньги компании и как можно оптимизировать расходы. Отслеживайте соблюдение тревел-политики и получайте персонализированные рекомендации.</p>
+          <p data-reveal>Настройте тревел-политику и согласование поездок ваших сотрудников по различным правилам и критериям.</p>
+        </div>
       </div>
 
       <!-- Кластер Б: Отчётность без боли -->
@@ -378,7 +397,7 @@
                 <li><span>Отель, 2 ночи</span><b>9 300 ₽</b></li>
                 <li><span>Суточные, 3 дня</span><b>2 100 ₽</b></li>
               </ul>
-              <div class="mock__foot mock__foot--total"><span>Итого</span><b>23 880 ₽</b></div>
+              <div class="mock__foot mock__foot--total"><span>Итого</span><b><span data-counter="23880">0</span> ₽</b></div>
             </div>
             <figcaption>Авансовые отчеты</figcaption>
           </figure>
@@ -405,7 +424,11 @@
             <figcaption>Специальные тарифы</figcaption>
           </figure>
         </div>
-        <p class="features__par" data-reveal>Сотрудники смогут оформить авансовый отчет прямо в Trivio и отчитаться о своей поездке. Вы сможете гибко настроить автоматический расчет суточных по различным критериям, а также согласовывать авансовые отчеты перед их отправкой в учетную систему и подписанием. Буквально за пару минут вы можете подключить интеграцию с 1с Бухгалтерия, ERP и ЗУП. Это сильно упростит оформление и отчетность по вашим командировкам.</p>
+        <!-- Текст по сетке: колонки 1 и 3 -->
+        <div class="features__par-duo">
+          <p data-reveal>Сотрудники смогут оформить авансовый отчет прямо в Trivio и отчитаться о своей поездке. Вы сможете гибко настроить автоматический расчет суточных по различным критериям, а также согласовывать авансовые отчеты перед их отправкой в учетную систему и подписанием.</p>
+          <p data-reveal>Буквально за пару минут вы можете подключить интеграцию с 1С Бухгалтерия, ERP и ЗУП. Это сильно упростит оформление и отчетность по вашим командировкам.</p>
+        </div>
       </div>
 
       <!-- Мини-кластер В: поддержка -->
@@ -448,13 +471,17 @@
           </div>
           <button class="btn btn--on-accent form__submit" type="submit" data-magnetic>
             <span class="form__submit-label">Отправить запрос</span>
-            <span class="btn__arr form__submit-arr">→</span>
           </button>
           <p class="form__consent">Нажимая на эту кнопку, Вы даете согласие на <a href="https://trivio.ru/policy" target="_blank" rel="noopener">обработку персональных данных</a>, принимаете условия <a href="https://trivio.ru/policy" target="_blank" rel="noopener">Политики обработки персональных данных</a> и <a href="https://trivio.ru/agreement" target="_blank" rel="noopener">Пользовательского соглашения</a> и соглашаетесь на получение <a href="https://trivio.ru/marketing-consent" target="_blank" rel="noopener">рекламной и информационной рассылки</a></p>
         </form>
       </div>
     </div>
   </section>
+
+  </div><!-- /зона 2 -->
+
+  <!-- ===== ЗОНА 3 · чёрная: полезное (кейсы + вебинары) ===== -->
+  <div class="zone zone--dark zone--lift">
 
   <!-- ============ 3.7 КЕЙСЫ (реф-4) ============ -->
   <section class="cases section" id="cases">
@@ -470,7 +497,7 @@
         <div class="cases__track" id="casesTrack">
           <article class="cases__item">
             <a class="cases__media ph ph--dawn" data-squircle="xl" href="https://trivio.ru/cases">
-              <span class="ph__tag">Кадр: нефтегазовая инфраструктура на закате</span>
+              <img src="assets/photo/8474d18298b096c0422d8a73b6f57fc0.jpg" alt="Сотрудница идёт по залу аэропорта с чемоданом" loading="lazy" decoding="async">
               <div class="cases__tags"><span class="pill pill--ghost">Нефтегаз</span><span class="pill pill--ghost">3 дня → 15 минут</span></div>
             </a>
             <div class="cases__caption">
@@ -482,7 +509,7 @@
 
           <article class="cases__item">
             <a class="cases__media ph ph--product" data-squircle="xl" href="https://trivio.ru/cases">
-              <span class="ph__tag">Кадр: современный IT-офис, команда за работой</span>
+              <img src="assets/photo/88134edd8de89bbe2cf4589af03ae9bd.jpg" alt="Человек с ноутбуком работает из любой точки мира" loading="lazy" decoding="async">
               <div class="cases__tags"><span class="pill pill--ghost">IT</span><span class="pill pill--ghost">Рекорд скорости</span></div>
             </a>
             <div class="cases__caption">
@@ -494,7 +521,7 @@
 
           <article class="cases__item">
             <a class="cases__media ph ph--city" data-squircle="xl" href="https://trivio.ru/cases">
-              <span class="ph__tag">Кадр: буровая установка, панорама месторождения</span>
+              <img src="assets/photo/d5a3d8cf6a8e526a52f122cd8c5aad0a.webp" alt="Рука поднимает жёлтый чемодан на фоне неба со следом самолёта" loading="lazy" decoding="async">
               <div class="cases__tags"><span class="pill pill--ghost">Бурение</span><span class="pill pill--ghost">Прозрачные цены</span></div>
             </a>
             <div class="cases__caption">
@@ -521,7 +548,7 @@
     <div class="live__mosaic" id="liveMosaic">
       <div class="live__track" id="liveTrack">
         <article class="live__card live__card--w ph ph--dark" data-squircle>
-          <span class="ph__tag">Кадр: спикер вебинара в студии</span>
+          <img src="assets/photo/385a17af20206c3a7767c7c34beffdc2.webp" alt="Зрители в креслах на зелёных холмах" loading="lazy" decoding="async">
           <div class="live__card-top"><span class="pill pill--accent"><span class="live__pulse"></span>LIVE · 4 августа</span></div>
           <div class="live__card-body">
             <h3>Как в 2026 работает поддержка в бизнес-тревел</h3>
@@ -541,7 +568,7 @@
         </article>
 
         <article class="live__card live__card--w ph ph--dark" data-squircle>
-          <span class="ph__tag">Кадр: четыре логотипа партнёров на тёмном фоне</span>
+          <img src="assets/photo/fcf46616dc3602c4abfed9b3e9645ce1.jpg" alt="Фигура среди зеркальных сфер на зелёном поле" loading="lazy" decoding="async">
           <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
           <div class="live__card-body">
             <h3>Вебинар «Большой четверки»: Trivio, Контур, Т-Банк, Авито</h3>
@@ -571,7 +598,7 @@
         </article>
 
         <article class="live__card live__card--w ph ph--dark" data-squircle>
-          <span class="ph__tag">Кадр: самолёт на взлётной полосе, ночь</span>
+          <img src="assets/photo/19d4aeab4eb32d4409b0c66bad61d71d.jpg" alt="Цветочное поле, снятое фишай-объективом в небо" loading="lazy" decoding="async">
           <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
           <div class="live__card-body">
             <h3>Настоящее и будущее корпоративных перевозок</h3>
@@ -606,7 +633,7 @@
         </div>
         <div class="live__form-fields">
           <input class="form__input form__input--dark" type="email" name="email" placeholder="E-mail *" required autocomplete="email">
-          <button class="btn btn--primary form__submit" type="submit"><span class="form__submit-label">Отправить запрос</span> <span class="btn__arr form__submit-arr">→</span></button>
+          <button class="btn btn--primary form__submit" type="submit"><span class="form__submit-label">Отправить запрос</span></button>
         </div>
         <label class="form__check form__check--dark">
           <input type="checkbox" name="subscribe" checked>
@@ -616,6 +643,11 @@
       </form>
     </div>
   </section>
+
+  </div><!-- /зона 3 -->
+
+  <!-- ===== ЗОНА 4 · серая: безопасность + финал ===== -->
+  <div class="zone zone--grey zone--lift">
 
   <!-- ============ 3.9 BENTO «Удобно и безопасно» ============ -->
   <section class="bento section" id="safety">
@@ -668,7 +700,7 @@
     <div class="container">
       <div class="meet__plate parallax" data-squircle="xl">
         <div class="ph ph--city parallax__layer" data-parallax="10">
-          <span class="ph__tag">Кадр: деловой район вечером, огни офисов</span>
+          <img src="assets/photo/4fdbcae4f247b8c7369b703db21ce12d.jpg" alt="Человек в костюме отдыхает на облаках" loading="lazy" decoding="async">
         </div>
         <div class="meet__shade"></div>
         <div class="meet__inner">
@@ -693,7 +725,7 @@
               <input type="checkbox" name="subscribe" checked>
               <span>Я согласен на получение рекламной и информационной рассылки</span>
             </label>
-            <button class="btn btn--primary form__submit" type="submit" data-magnetic><span class="form__submit-label">Отправить запрос</span> <span class="btn__arr form__submit-arr">→</span></button>
+            <button class="btn btn--primary form__submit" type="submit" data-magnetic><span class="form__submit-label">Отправить запрос</span></button>
             <p class="form__consent">Нажимая на эту кнопку, Вы даете согласие на <a href="https://trivio.ru/policy" target="_blank" rel="noopener">обработку персональных данных</a>, принимаете условия <a href="https://trivio.ru/policy" target="_blank" rel="noopener">Политики обработки персональных данных</a> и <a href="https://trivio.ru/agreement" target="_blank" rel="noopener">Пользовательского соглашения</a></p>
           </form>
         </div>
@@ -701,12 +733,26 @@
     </div>
   </section>
 
+  </div><!-- /зона 4 -->
+
 </main>
+
+<!-- Компактный хедер-док: вылетает снизу при скролле вверх -->
+<div class="dock" id="dock" aria-hidden="true">
+  <a class="dock__logo" href="#top" aria-label="Trivio — наверх"><svg aria-hidden="true"><use href="#logo-trivio"></use></svg></a>
+  <nav class="dock__nav" aria-label="Быстрое меню">
+    <a href="#about">О сервисе</a>
+    <a href="#services">Услуги</a>
+    <a href="https://trivio.ru/tariffs">Тарифы</a>
+    <a href="https://trivio.ru/contacts">Контакты</a>
+  </nav>
+  <a class="btn btn--primary btn--sm" href="#contact">Оставить заявку</a>
+</div>
 
 <!-- ============ 3.11 ФУТЕР ============ -->
 <footer class="footer">
   <div class="container">
-    <div class="footer__plate" data-squircle="xl">
+    <div class="footer__plate">
       <div class="footer__top">
         <div class="footer__brand">
           <svg class="footer__logo" aria-hidden="true"><use href="#logo-trivio"></use></svg>
@@ -763,9 +809,6 @@
         </div>
       </div>
 
-      <div class="footer__watermark" aria-hidden="true">
-        <span>t</span><span>r</span><span>i</span><span>v</span><span>i</span><span>o</span>
-      </div>
     </div>
   </div>
 </footer>

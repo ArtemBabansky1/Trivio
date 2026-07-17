@@ -41,6 +41,29 @@ ul, ol { list-style: none; }
 
 .section { padding-block: calc(var(--section-gap) / 2); }
 
+/* --- Цветовые зоны ---
+   Страница делится не по одному блоку, а зонами по 2–3 секции, близких по смыслу.
+   Каждая следующая зона заезжает на предыдущую: минус-отступ + скругление сверху.
+   Порядок в DOM = порядок наложения, поэтому z-index не нужен. */
+.zone { position: relative; }
+.zone--grey  { background: var(--c-bg); }
+.zone--white { background: var(--c-surface); }
+.zone--dark  { background: var(--c-dark); color: var(--c-on-dark); }
+
+.zone--lift {
+  margin-top: calc(var(--r-section) * -1);
+  border-radius: var(--r-section) var(--r-section) 0 0;
+  /* без своего padding-top: первая секция зоны даёт те же 85px, что и последняя секция
+     зоны выше, — воздух вокруг шва симметричный */
+}
+/* Зону, на которую заезжают, добираем снизу — иначе заезд съедает её нижний отступ */
+.zone:has(+ .zone--lift) { padding-bottom: var(--r-section); }
+
+/* Инверсия контента на чёрной зоне */
+.zone--dark .h1, .zone--dark .h2, .zone--dark .h3 { color: var(--c-on-dark); }
+.zone--dark .lead { color: var(--c-on-dark-m); }
+.zone--dark .eyebrow { color: var(--c-on-dark-m); border-color: rgba(255, 255, 255, 0.18); }
+
 /* --- Типографика --- */
 .h1, .h2, .h3 {
   font-family: var(--font-display);
@@ -144,8 +167,6 @@ ul, ol { list-style: none; }
 .btn--on-accent { background: #fff; color: var(--c-accent); }
 .btn--on-accent:hover { background: var(--c-ink); color: #fff; }
 
-.btn .btn__arr { transition: transform var(--dur) var(--ease-expo); }
-.btn:hover .btn__arr { transform: translateX(4px); }
 
 /* Круглая кнопка-стрелка (карусели) */
 .btn-round {
@@ -234,6 +255,8 @@ ul, ol { list-style: none; }
   pointer-events: none;
 }
 .ph__tag::before { content: "📷"; font-size: 11px; }
+/* с реальным фото зерно не нужно — чистая картинка */
+.ph:has(> img)::after { display: none; }
 
 /* Тёплые вариации градиентов под контекст кадра */
 .ph--dawn    { background: linear-gradient(165deg, #f7d9b8 0%, #e8a87c 40%, #7c93b8 100%); }  /* аэропорт на рассвете */

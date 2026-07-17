@@ -89,7 +89,7 @@
     function heroIntro() {
       var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
       var title = document.querySelector('.hero [data-split]');
-      var booking = document.getElementById('heroBooking');
+      var booking = document.getElementById('heroSlider');
 
       if (window.__trivioHeroEls && window.__trivioHeroEls.length) {
         var tag = window.__trivioHeroEls.filter(function (el) { return el.classList.contains('hero__tag'); });
@@ -242,15 +242,47 @@
         });
       });
 
-      /* бары аналитики растут по scrub */
-      var bars = document.querySelectorAll('.mock__bar i');
-      if (bars.length) {
-        gsap.from(bars, {
-          scaleY: 0.12,
-          transformOrigin: 'bottom',
-          ease: 'none',
-          stagger: 0.05,
-          scrollTrigger: { trigger: '.mock--analytics', start: 'top 90%', end: 'top 45%', scrub: 0.8 }
+      /* график аналитики: бары выстреливают с отскоком, значения досчитываются */
+      var chart = document.querySelector('.mock--analytics');
+      if (chart) {
+        var chartBars = chart.querySelectorAll('.mock__bar');
+        var chartFoot = chart.querySelector('.mock__foot');
+        var chartTl = gsap.timeline({
+          scrollTrigger: { trigger: chart, start: 'top 72%', once: true }
+        });
+        chartBars.forEach(function (bar, i) {
+          var fill = bar.querySelector('i');
+          var val = bar.querySelector('em');
+          var at = i * 0.14;
+          chartTl.from(fill, {
+            scaleY: 0, transformOrigin: 'bottom',
+            duration: 1.2, ease: 'elastic.out(1, 0.5)'
+          }, at);
+          if (val) {
+            var target = parseInt(val.textContent, 10) || 0;
+            var counter = { v: 0 };
+            gsap.set(val, { opacity: 0, y: 8 });
+            chartTl.to(val, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }, at + 0.15);
+            chartTl.to(counter, {
+              v: target, duration: 0.8, ease: 'power2.out',
+              onUpdate: function () { val.textContent = Math.round(counter.v) + '%'; }
+            }, at + 0.15);
+          }
+        });
+        if (chartFoot) {
+          chartTl.from(chartFoot, { opacity: 0, y: 14, duration: 0.5, ease: 'power2.out' }, '>-0.4');
+        }
+      }
+
+      /* скидки спецтарифов выстреливают с отскоком */
+      var discounts = document.querySelectorAll('.mock--tariff .mock__discounts b');
+      if (discounts.length) {
+        gsap.set(discounts, { scale: 0.3, opacity: 0 });
+        ST.create({
+          trigger: '.mock--tariff', start: 'top 80%', once: true,
+          onEnter: function () {
+            gsap.to(discounts, { scale: 1, opacity: 1, duration: 0.9, stagger: 0.15, ease: 'elastic.out(1, 0.5)' });
+          }
         });
       }
 

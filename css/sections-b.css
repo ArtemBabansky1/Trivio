@@ -23,27 +23,28 @@
 .roles__card .arr-diag { flex-shrink: 0; }
 .roles__card:hover .arr-diag { transform: rotate(45deg); background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
 
-.roles__card .h3 { max-width: 15ch; }
+/* Заголовок в 2 строки: ширина под ~22 символа + балансировка переносов */
+.roles__card .h3 {
+  max-width: 22ch;
+  font-size: clamp(20px, 1.55vw, 26px);
+  text-wrap: balance;
+}
+/* Описание видно сразу, без ховера */
 .roles__text {
   margin-top: 14px;
   font-size: 15px;
   color: var(--c-muted);
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.4s var(--ease-expo), transform 0.4s var(--ease-expo);
 }
-.roles__card:hover .roles__text,
-.roles__card:focus-visible .roles__text,
-.roles__card:focus-within .roles__text { opacity: 1; transform: none; }
 
-/* Пилюля «подробнее» — своей строкой, цифра — ниже, перекрытия нет */
+/* Пилюля «подробнее» прижата к низу карточки, цифра — фоном за ней */
 .roles__bottom {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: flex-end;
   margin-top: auto;
   min-height: calc(var(--fs-giant) * 0.5 + 48px);
 }
-.roles__more { display: inline-flex; }
+.roles__more { display: inline-flex; position: relative; z-index: 1; }
 
 /* Гигантская цифра, обрезанная нижним краем карточки (~50% высоты) */
 .roles__num {
@@ -62,7 +63,80 @@
 }
 .roles__card:hover .roles__num { transform: translate(6px, -14px); }
 
-/* ---------- 3.4 Услуги (реф-3) ---------- */
+/* ---------- 3.4 Услуги (реф-3) ----------
+   Hover-аккордеон: 4 карточки в ряд, наведённая раскрывается за счёт соседей.
+   Ширина едет через flex-grow (анимируемое число), поэтому лейаут не дёргается. */
+.services__acc {
+  display: flex;
+  gap: var(--gutter);
+  height: clamp(420px, 44vw, 560px);
+}
+.acc {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--r-l);          /* фолбэк, поверх — сквиркл из JS */
+  color: #fff;
+  text-decoration: none;
+  transition: flex-grow 0.6s var(--ease-expo);
+  will-change: flex-grow;
+}
+/* соседи ужимаются, наведённая — раскрывается */
+.services__acc:hover .acc,
+.services__acc:focus-within .acc { flex-grow: 0.72; }
+.services__acc .acc:hover,
+.services__acc .acc:focus-visible { flex-grow: 2.4; }
+
+/* подпись кадра уводим наверх — внизу теперь оверлей */
+.acc .ph__tag { top: 14px; bottom: auto; }
+
+/* плавающие бейджи — только у раскрытой карточки */
+.acc .services__float { opacity: 0; transition: opacity 0.35s var(--ease-expo); }
+.acc:hover .services__float,
+.acc:focus-visible .services__float { opacity: 1; }
+
+.acc__overlay {
+  position: absolute; inset: auto 0 0 0;
+  z-index: 2;
+  display: flex; flex-direction: column;
+  padding: clamp(18px, 1.6vw, 26px);
+  background: linear-gradient(180deg, transparent, rgba(14,17,22,0.58) 40%, rgba(14,17,22,0.88));
+}
+.acc__overlay b {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.4vw, 24px);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+.acc__sub {
+  margin-top: 5px;
+  font-size: var(--fs-small);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* Раскрытие описания: grid-rows 0fr → 1fr (высота считается сама) */
+.acc__reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.6s var(--ease-expo), opacity 0.35s var(--ease-expo);
+}
+.acc__reveal > div { overflow: hidden; min-height: 0; }
+.acc:hover .acc__reveal,
+.acc:focus-visible .acc__reveal { grid-template-rows: 1fr; opacity: 1; }
+
+.acc__desc {
+  margin-top: 12px;
+  max-width: 52ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+}
+.acc__more { margin-top: 16px; }
+
 .services__layout {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
@@ -174,11 +248,16 @@
 }
 .features__item figcaption::before { content: "— "; color: var(--c-accent); }
 
-.features__par {
-  max-width: 72ch;
+/* Текст кластера по сетке проекта: колонки 1 и 3, колонки 2 и 4 — воздух */
+.features__par-duo {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
   margin-top: clamp(22px, 2.5vw, 36px);
-  color: var(--c-muted);
 }
+.features__par-duo p { color: var(--c-muted); }
+.features__par-duo p:first-child { grid-column: 1; }
+.features__par-duo p:last-child { grid-column: 3; }
 
 /* UI-моки внутри коллажей */
 .mock {
@@ -191,7 +270,7 @@
 .mock__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
 .mock__dots { color: var(--c-muted); letter-spacing: 2px; }
 
-.mock--analytics { min-height: 320px; }
+.mock--analytics { min-height: clamp(360px, 30vw, 520px); }
 .mock__bars {
   flex: 1;
   display: flex; align-items: flex-end; gap: clamp(10px, 2vw, 26px);
@@ -207,6 +286,14 @@
 }
 .mock__bar:nth-child(2) i, .mock__bar:nth-child(4) i { background: var(--c-accent-bg); }
 .mock__bar span { font-size: var(--fs-tiny); color: var(--c-muted); }
+/* значение над баром: JS прячет и досчитывает, без JS видно сразу */
+.mock__bar em {
+  font-style: normal;
+  font-family: var(--font-display);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--c-ink);
+}
 .mock__foot { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--c-line); font-size: var(--fs-small); color: var(--c-muted); }
 .mock__foot b { color: var(--c-ink); }
 .mock__foot--total { display: flex; justify-content: space-between; font-size: 15px; }
@@ -256,7 +343,8 @@
   gap: clamp(24px, 4vw, 64px);
   align-items: center;
 }
-.features__chat { padding: 22px; background: var(--c-surface); }
+/* Зона белая — чат подкрашиваем фоном страницы, иначе бело-на-белом */
+.features__chat { padding: 22px; background: var(--c-bg); border: 1px solid var(--c-line); }
 .features__chat-status { font-size: var(--fs-tiny); font-weight: 600; color: #1d9e5c; }
 .chat { display: flex; flex-direction: column; gap: 10px; }
 .chat__msg {
@@ -320,6 +408,15 @@
   .features__collage--b .features__item--big { order: 0; }
 }
 @media (max-width: 1023.98px) {
+  /* Аккордеон без ховера: карточки в столбик, описание раскрыто */
+  .services__acc { flex-direction: column; height: auto; }
+  .acc { flex: none; min-height: clamp(260px, 42vw, 340px); }
+  .services__acc:hover .acc,
+  .services__acc:focus-within .acc,
+  .services__acc .acc:hover,
+  .services__acc .acc:focus-visible { flex-grow: 0; }
+  .acc__reveal { grid-template-rows: 1fr; opacity: 1; }
+  .acc .services__float { opacity: 1; }
   .services__layout { grid-template-columns: 1fr; }
   .stories { margin-right: calc(var(--pad) * -1); }
   .stories__card { min-height: 0; height: clamp(360px, 60vw, 460px); }
@@ -329,10 +426,11 @@
 @media (max-width: 767.98px) {
   .roles__grid { grid-template-columns: 1fr; }
   .roles__card { min-height: 0; padding-bottom: 8px; }
-  .roles__text { opacity: 1; transform: none; }
   .roles__bottom { min-height: calc(var(--fs-giant) * 0.42 + 44px); }
   .services__extra { grid-template-columns: 1fr; }
   .features__collage--a, .features__collage--b { grid-template-columns: 1fr; }
+  .features__par-duo { grid-template-columns: 1fr; }
+  .features__par-duo p:first-child, .features__par-duo p:last-child { grid-column: auto; }
   .features__item--big { grid-column: auto; }
   .form__row { grid-template-columns: 1fr; }
 }

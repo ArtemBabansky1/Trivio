@@ -52,16 +52,20 @@
     }, 4000);
   }
 
-  /* ---------- Хедер: скрытие вниз / появление вверх ---------- */
+  /* ---------- Док: компактный хедер вылетает снизу при скролле вверх ---------- */
   function header() {
-    var el = document.getElementById('header');
-    if (!el) { return; }
+    var dock = document.getElementById('dock');
+    if (!dock) { return; }
     var lastY = 0;
 
     function onScroll(y) {
-      el.classList.toggle('is-scrolled', y > 10);
-      if (y > 260 && y > lastY + 4) { el.classList.add('is-hidden'); }
-      else if (y < lastY - 4 || y < 260) { el.classList.remove('is-hidden'); }
+      if (y > 600 && y < lastY - 4) {
+        dock.classList.add('is-visible');
+        dock.setAttribute('aria-hidden', 'false');
+      } else if (y > lastY + 4 || y < 600) {
+        dock.classList.remove('is-visible');
+        dock.setAttribute('aria-hidden', 'true');
+      }
       lastY = y;
     }
 

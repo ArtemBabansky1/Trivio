@@ -51,13 +51,22 @@
 }
 .cases__read:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-/* ---------- 3.8 Тёмная мозаика вебинаров (реф-5) ---------- */
-.live {
-  background: var(--c-dark);
+/* Кейсы на чёрной зоне */
+.zone--dark .cases__caption p { color: var(--c-on-dark-m); }
+.zone--dark .cases__all {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.22);
   color: var(--c-on-dark);
-  border-radius: var(--r-xl);
-  margin-top: calc(var(--section-gap) / 2);
-  padding-block: clamp(56px, 7vw, 120px);
+}
+.zone--dark .cases__all:hover { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+.zone--dark .cases__read { color: var(--c-lime); }
+
+/* ---------- 3.8 Тёмная мозаика вебинаров (реф-5) ---------- */
+/* Внутри чёрной зоны своя плашка не нужна — секция сливается с фоном зоны.
+   Нижний паддинг = половине section-gap, чтобы воздух у шва зон был симметричным. */
+.live {
+  color: var(--c-on-dark);
+  padding-block: clamp(56px, 7vw, 120px) calc(var(--section-gap) / 2);
   overflow: clip;
 }
 .live__meta {
@@ -224,13 +233,14 @@
 .meet__form .form__check { margin-top: 2px; color: rgba(255,255,255,0.85); }
 .meet__form .form__consent { color: rgba(255,255,255,0.55); }
 
-/* ---------- 3.11 Футер ---------- */
-.footer { padding-block: 0 clamp(20px, 2vw, 40px); }
+/* ---------- 3.11 Футер: в упор к низу экрана, нижние углы прямые ---------- */
+.footer { padding-block: 0; }
 .footer__plate {
   position: relative;
   background: var(--c-dark);
   color: var(--c-on-dark);
   padding: clamp(32px, 4.5vw, 72px) clamp(24px, 3.5vw, 64px) 0;
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
   overflow: hidden;
 }
 .footer__top {
@@ -265,23 +275,6 @@
 .footer__law a:hover { color: #fff; }
 .footer__badges { display: flex; gap: 8px; margin-left: auto; }
 .footer__badges .pill { background: transparent; border-color: rgba(255,255,255,0.2); color: var(--c-on-dark-m); }
-
-/* Водяная надпись trivio, обрезанная низом плашки */
-.footer__watermark {
-  display: flex; justify-content: center;
-  height: clamp(70px, 9vw, 150px);
-  overflow: hidden;
-  pointer-events: none;
-}
-.footer__watermark span {
-  font-family: var(--font-display);
-  font-size: clamp(120px, 16.5vw, 280px);
-  font-weight: 700;
-  line-height: 0.72;
-  letter-spacing: -0.04em;
-  color: rgba(255, 255, 255, 0.07);
-  will-change: transform;
-}
 
 /* ---------- Адаптив секций C ---------- */
 @media (max-width: 1023.98px) {
