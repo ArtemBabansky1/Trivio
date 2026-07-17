@@ -21,19 +21,7 @@
     if (typeof window.ScrollTrigger !== 'undefined') { gsap.registerPlugin(window.ScrollTrigger); }
     if (typeof window.SplitText !== 'undefined') { gsap.registerPlugin(window.SplitText); }
 
-    /* ---------- Магнитные кнопки (работают и при reduced-motion — это hover) ---------- */
-    if (window.matchMedia('(pointer: fine)').matches && !reduceMotion) {
-      document.querySelectorAll('[data-magnetic]').forEach(function (btn) {
-        var xTo = gsap.quickTo(btn, 'x', { duration: 0.4, ease: 'power3.out' });
-        var yTo = gsap.quickTo(btn, 'y', { duration: 0.4, ease: 'power3.out' });
-        btn.addEventListener('mousemove', function (e) {
-          var r = btn.getBoundingClientRect();
-          xTo(Math.max(-12, Math.min(12, (e.clientX - r.left - r.width / 2) * 0.25)));
-          yTo(Math.max(-12, Math.min(12, (e.clientY - r.top - r.height / 2) * 0.25)));
-        });
-        btn.addEventListener('mouseleave', function () { xTo(0); yTo(0); });
-      });
-    }
+    /* Магнитные кнопки убраны — hover ограничен сменой цвета/бордера (DESIGN.md §2.5) */
 
     if (reduceMotion) { return; }
     var ST = window.ScrollTrigger;
@@ -53,9 +41,9 @@
       document.querySelectorAll('[data-split]').forEach(function (el) {
         var inHero = !!el.closest('.hero');
         var split = new window.SplitText(el, { type: 'lines', mask: 'lines', linesClass: 'split-line' });
-        gsap.set(split.lines, { yPercent: 110, rotate: 4, transformOrigin: '0% 100%' });
+        gsap.set(split.lines, { yPercent: 110, transformOrigin: '0% 100%' });
         var tweenIn = function () {
-          gsap.to(split.lines, { yPercent: 0, rotate: 0, duration: 1.1, stagger: 0.08, ease: 'power4.out' });
+          gsap.to(split.lines, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: 'power4.out' });
         };
         if (inHero) {
           el.__heroReveal = tweenIn; /* стартует из таймлайна прелоадера */
@@ -94,20 +82,17 @@
       if (window.__trivioHeroEls && window.__trivioHeroEls.length) {
         var tag = window.__trivioHeroEls.filter(function (el) { return el.classList.contains('hero__tag'); });
         var restHero = window.__trivioHeroEls.filter(function (el) { return !el.classList.contains('hero__tag'); });
-        tl.to(tag, { opacity: 1, y: 0, duration: 0.6 }, 0);
+        if (tag.length) { tl.to(tag, { opacity: 1, y: 0, duration: 0.6 }, 0); }
         if (title && title.__heroReveal) { tl.add(function () { title.__heroReveal(); }, 0.15); }
-        tl.to(restHero, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, 0.55);
+        if (restHero.length) { tl.to(restHero, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, 0.55); }
       } else if (title && title.__heroReveal) {
         title.__heroReveal();
       }
 
       if (booking) {
-        gsap.set(booking, { opacity: 0, scale: 0.9, filter: 'blur(8px)' });
-        tl.to(booking, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.9, ease: 'power4.out' }, 0.85);
-        /* бесконечный float */
-        tl.add(function () {
-          gsap.to(booking, { y: 8, duration: 2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-        });
+        /* единый reveal (DESIGN.md §7.1), без scale/blur и вечного float */
+        gsap.set(booking, { opacity: 0, y: 24 });
+        tl.to(booking, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.85);
       }
     }
     /* Интро hero стартует, когда готовы ОБА условия:
@@ -164,13 +149,7 @@
       var tween = gsap.to(track, { xPercent: -50, duration: 36, ease: 'none', repeat: -1 });
       track.addEventListener('mouseenter', function () { gsap.to(tween, { timeScale: 0.25, duration: 0.4 }); });
       track.addEventListener('mouseleave', function () { gsap.to(tween, { timeScale: 1, duration: 0.4 }); });
-      /* лёгкое ускорение от скорости скролла */
-      if (window.trivioLenis) {
-        window.trivioLenis.on('scroll', function (e) {
-          var boost = 1 + Math.min(2.2, Math.abs(e.velocity) / 14);
-          tween.timeScale(boost);
-        });
-      }
+      /* ускорение от скролла убрано — marquee идёт с постоянной скоростью (DESIGN.md §7.5) */
     }
 
     /* ---------- Роли: гигантские цифры поднимаются из-под кромки ---------- */
@@ -198,51 +177,11 @@
       });
     }
 
-    /* ---------- Услуги: бейджи всплывают + лёгкий float ---------- */
-    function serviceFloats() {
-      if (!ST) { return; }
-      var floats = document.querySelectorAll('[data-float]');
-      if (!floats.length) { return; }
-      gsap.set(floats, { scale: 0, opacity: 0 });
-      ST.create({
-        trigger: '.services__major', start: 'top 75%', once: true,
-        onEnter: function () {
-          gsap.to(floats, { scale: 1, opacity: 1, duration: 0.8, stagger: 0.14, ease: 'back.out(1.8)' });
-          floats.forEach(function (f, i) {
-            gsap.to(f, { y: i % 2 ? 10 : -10, duration: 2.4 + i * 0.3, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-          });
-        }
-      });
-      /* story-карточки заезжают «лесенкой» */
-      var stories = document.querySelectorAll('.stories__card');
-      if (stories.length) {
-        gsap.set(stories, { x: 80, opacity: 0 });
-        ST.create({
-          trigger: '.services__stories', start: 'top 80%', once: true,
-          onEnter: function () {
-            gsap.to(stories, { x: 0, opacity: 1, duration: 0.9, stagger: 0.1, ease: 'power3.out' });
-          }
-        });
-      }
-    }
-
-    /* ---------- Возможности: коллажи с rotate, бары, чат ---------- */
+    /* ---------- Возможности: бары графика и чат (входы — reveal, DESIGN.md §7) ---------- */
     function featureMocks() {
       if (!ST) { return; }
-      document.querySelectorAll('.features__collage').forEach(function (collage) {
-        var items = collage.querySelectorAll('.features__item');
-        items.forEach(function (item, i) {
-          gsap.set(item, { rotate: i % 2 ? 1.5 : -1.5 });
-        });
-        ST.create({
-          trigger: collage, start: 'top 80%', once: true,
-          onEnter: function () {
-            gsap.to(items, { rotate: 0, duration: 1, stagger: 0.12, ease: 'power3.out' });
-          }
-        });
-      });
 
-      /* график аналитики: бары выстреливают с отскоком, значения досчитываются */
+      /* график аналитики: бары растут, значения досчитываются */
       var chart = document.querySelector('.mock--analytics');
       if (chart) {
         var chartBars = chart.querySelectorAll('.mock__bar');
@@ -256,7 +195,7 @@
           var at = i * 0.14;
           chartTl.from(fill, {
             scaleY: 0, transformOrigin: 'bottom',
-            duration: 1.2, ease: 'elastic.out(1, 0.5)'
+            duration: 0.9, ease: 'power3.out'
           }, at);
           if (val) {
             var target = parseInt(val.textContent, 10) || 0;
@@ -274,68 +213,53 @@
         }
       }
 
-      /* скидки спецтарифов выстреливают с отскоком */
+      /* скидки спецтарифов: единый reveal */
       var discounts = document.querySelectorAll('.mock--tariff .mock__discounts b');
       if (discounts.length) {
-        gsap.set(discounts, { scale: 0.3, opacity: 0 });
+        gsap.set(discounts, { opacity: 0, y: 24 });
         ST.create({
           trigger: '.mock--tariff', start: 'top 80%', once: true,
           onEnter: function () {
-            gsap.to(discounts, { scale: 1, opacity: 1, duration: 0.9, stagger: 0.15, ease: 'elastic.out(1, 0.5)' });
+            gsap.to(discounts, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power3.out' });
           }
         });
       }
 
-      /* чат печатается по одному сообщению */
+      /* сообщения чата: единый reveal */
       var msgs = document.querySelectorAll('#supportChat .chat__msg');
       if (msgs.length) {
-        gsap.set(msgs, { opacity: 0, y: 16, scale: 0.96 });
+        gsap.set(msgs, { opacity: 0, y: 24 });
         ST.create({
           trigger: '#supportChat', start: 'top 80%', once: true,
           onEnter: function () {
-            gsap.to(msgs, { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.45, ease: 'power2.out' });
+            gsap.to(msgs, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power3.out' });
           }
         });
       }
     }
 
-    /* ---------- Кейсы: тег-пилюли всплывают при входе галереи ---------- */
+    /* ---------- Кейсы: тег-пилюли — единый reveal ---------- */
     function caseExtras() {
       if (!ST) { return; }
       var pills = document.querySelectorAll('.cases__tags .pill');
       if (!pills.length) { return; }
-      gsap.set(pills, { scale: 0, opacity: 0 });
+      gsap.set(pills, { opacity: 0, y: 24 });
       ST.create({
         trigger: '.cases__gallery', start: 'top 80%', once: true,
         onEnter: function () {
-          gsap.to(pills, { scale: 1, opacity: 1, duration: 0.6, stagger: 0.12, ease: 'back.out(1.7)' });
+          gsap.to(pills, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power3.out' });
         }
       });
     }
 
-    /* ---------- Мозаика: multi-speed вертикальный параллакс карточек ---------- */
-    function liveParallax() {
+    /* ---------- Hero: фото плавно увеличивается по скроллу (scrub, §7.3) ---------- */
+    function heroZoom() {
       if (!ST) { return; }
-      document.querySelectorAll('.live__card').forEach(function (card, i) {
-        gsap.fromTo(card, { y: 18 + (i % 3) * 14 }, {
-          y: -(10 + (i % 3) * 10),
-          ease: 'none',
-          scrollTrigger: { trigger: '.live__mosaic', start: 'top bottom', end: 'bottom top', scrub: true }
-        });
-      });
-    }
-
-    /* ---------- Футер: водяная надпись стаггером ---------- */
-    function watermark() {
-      if (!ST) { return; }
-      var letters = document.querySelectorAll('.footer__watermark span');
-      if (!letters.length) { return; }
-      gsap.set(letters, { yPercent: 60 });
-      ST.create({
-        trigger: '.footer__watermark', start: 'top 96%', once: true,
-        onEnter: function () {
-          gsap.to(letters, { yPercent: 0, duration: 1, stagger: 0.06, ease: 'power4.out' });
-        }
+      var img = document.querySelector('.hero__bg .ph > img');
+      if (!img) { return; }
+      gsap.to(img, {
+        scale: 1.1, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
       });
     }
 
@@ -347,11 +271,9 @@
       counters();
       marquee();
       roleNumbers();
-      serviceFloats();
       featureMocks();
       caseExtras();
-      liveParallax();
-      watermark();
+      heroZoom();
       if (ST) { ST.refresh(); }
       booted = true;
       if (window.__trivioPreloaderDone) { startHero(); }

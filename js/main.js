@@ -33,23 +33,17 @@
 
     document.documentElement.style.overflow = 'hidden';
     var gsap = window.gsap;
-    var obj = { v: 0 };
+    if (count) { count.style.display = 'none'; }
+    /* одна операция — fade шторки с wordmark, суммарно ≤ 1.2s (DESIGN.md §7) */
     var tl = gsap.timeline({
       onComplete: function () { el.classList.add('is-done'); el.style.display = 'none'; }
     });
-    tl.to(obj, {
-      v: 100, duration: 1.4, ease: 'power2.inOut',
-      onUpdate: function () { if (count) { count.textContent = Math.round(obj.v); } }
-    });
-    tl.to(el, {
-      yPercent: -100, duration: 0.8, ease: 'power4.inOut',
-      onStart: finish
-    }, '+=0.15');
+    tl.to(el, { opacity: 0, duration: 0.6, ease: 'power2.out', onStart: finish }, '+=0.5');
 
-    /* страховка: если что-то зависло — убрать через 4с */
+    /* страховка: если что-то зависло — убрать через 2с */
     setTimeout(function () {
       if (!window.__trivioPreloaderDone) { tl.kill(); hideNow(); }
-    }, 4000);
+    }, 2000);
   }
 
   /* ---------- Док: компактный хедер вылетает снизу при скролле вверх ---------- */
@@ -177,11 +171,35 @@
     });
   }
 
+  /* ---------- Табы «Умный контроль расходов»: буллет → свой мок справа ---------- */
+  function ftabs() {
+    document.querySelectorAll('[data-ftabs]').forEach(function (root) {
+      var items = root.querySelectorAll('[data-ftab]');
+      var panes = root.querySelectorAll('.ftabs__pane');
+      var texts = root.querySelectorAll('.ftabs__text');
+      items.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var i = parseInt(btn.getAttribute('data-ftab'), 10) || 0;
+          items.forEach(function (b) {
+            var active = b === btn;
+            b.classList.toggle('is-active', active);
+            /* список использует aria-expanded, пилюли — aria-pressed */
+            if (b.hasAttribute('aria-expanded')) { b.setAttribute('aria-expanded', active ? 'true' : 'false'); }
+            if (b.hasAttribute('aria-pressed')) { b.setAttribute('aria-pressed', active ? 'true' : 'false'); }
+          });
+          panes.forEach(function (p, j) { p.classList.toggle('is-active', j === i); });
+          texts.forEach(function (t, j) { t.classList.toggle('is-active', j === i); });
+        });
+      });
+    });
+  }
+
   ready(function () {
     preloader();
     header();
     dropdowns();
     burger();
     forms();
+    ftabs();
   });
 })();

@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Шрифты ВРЕМЕННЫЕ до брендбука (см. README) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
@@ -51,7 +51,7 @@
     <div class="hero__plate">
       <div class="hero__bg parallax">
         <div class="ph ph--dawn parallax__layer" data-parallax="8">
-          <img src="assets/photo/hero.png" alt="Путешественник над облаками смотрит на светящиеся маршруты" fetchpriority="high">
+          <img src="assets/photo/hero1.png" alt="Деловая путешественница с ноутбуком в зале ожидания аэропорта" fetchpriority="high">
         </div>
         <div class="hero__shade"></div>
       </div>
@@ -95,7 +95,7 @@
     <div class="header__actions">
       <a class="header__phone" href="tel:88007077038">8 800 707-70-38</a>
       <a class="btn btn--secondary btn--sm" href="https://login.trivio.ru/">Войти</a>
-      <a class="btn btn--primary btn--sm" href="#contact" data-magnetic>Оставить заявку</a>
+      <a class="btn btn--primary btn--sm" href="#contact">Оставить заявку</a>
       <button class="header__burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
@@ -119,16 +119,11 @@
 
       <div class="hero__body">
         <div class="hero__left">
-      <h1 class="h1 hero__title" data-split>Удобные командировки<br>для каждого</h1>
+      <h1 class="h1 hero__title" data-split>Удобные<br>командировки<br>для каждого</h1>
       <p class="hero__sub" data-reveal>Помогаем компаниям управлять деловыми поездками, экономить время и&nbsp;деньги</p>
       <div class="hero__cta" data-reveal>
-        <a class="btn btn--primary" href="#contact" data-magnetic>Попробовать бесплатно</a>
+        <a class="btn btn--primary" href="#contact">Попробовать бесплатно</a>
         <a class="btn btn--glass" href="https://trivio.ru/tariffs">Тарифы</a>
-      </div>
-      <div class="hero__badges" data-reveal>
-        <span class="pill pill--ghost">Входим в реестр российского ПО «Минцифры»</span>
-        <span class="pill pill--ghost">Являемся резидентом Сколково</span>
-        <span class="pill pill--ghost">Сертифицированы ФСТЭК России</span>
       </div>
         </div>
 
@@ -166,8 +161,8 @@
   </section>
 
   <!-- ============ 3.2 ЛОГОТИПЫ + СЧЁТЧИКИ ============ -->
-  <!-- ===== ЗОНА 1 · серая: знакомство (клиенты + роли) ===== -->
-  <div class="zone zone--grey">
+  <!-- ===== ЗОНА 1 · серая: знакомство (клиенты + роли), заезжает на hero ===== -->
+  <div class="zone zone--grey zone--lift">
   <section class="clients section" id="clients">
     <div class="marquee" aria-label="Клиенты Trivio">
       <div class="marquee__track" id="marqueeTrack">
@@ -198,7 +193,6 @@
     <div class="container">
       <div class="section-head">
         <h2 class="h2" data-split>Для кого Trivio</h2>
-        <span class="eyebrow">Сервис полезен для всей компании</span>
       </div>
 
       <div class="roles__grid">
@@ -266,7 +260,6 @@
   <section class="services section" id="services">
     <div class="container">
       <div class="section-head section-head--center">
-        <span class="eyebrow">услуги</span>
         <h2 class="h2" data-split>Всё для поездки — в&nbsp;одном сервисе</h2>
       </div>
     </div>
@@ -334,104 +327,126 @@
   <section class="features section" id="features">
     <div class="container">
       <div class="features__intro">
-        <span class="eyebrow">возможности платформы</span>
         <h2 class="h2" data-split>Все, что нужно и&nbsp;даже больше. В&nbsp;одном месте.</h2>
       </div>
 
-      <!-- Кластер А: Умный контроль расходов -->
+      <!-- Кластер А: Умный контроль расходов — буллеты слева, сменяемый UI-мок справа -->
       <div class="features__cluster">
-        <h3 class="features__cluster-title" data-split>Умный контроль расходов</h3>
-        <div class="features__collage features__collage--a">
-          <figure class="features__item features__item--big" data-reveal>
-            <div class="mock mock--analytics card" data-squircle>
-              <div class="mock__head"><span class="pill pill--tiny">Аналитика · июль</span><span class="mock__dots">⋯</span></div>
-              <div class="mock__bars">
-                <div class="mock__bar" style="--h:62%"><em>62%</em><i></i><span>Продажи</span></div>
-                <div class="mock__bar" style="--h:38%"><em>38%</em><i></i><span>ИТ</span></div>
-                <div class="mock__bar" style="--h:84%"><em>84%</em><i></i><span>Логистика</span></div>
-                <div class="mock__bar" style="--h:47%"><em>47%</em><i></i><span>HR</span></div>
-                <div class="mock__bar" style="--h:70%"><em>70%</em><i></i><span>Стройка</span></div>
+        <div class="ftabs" data-squircle="xl" id="ftabsControl" data-ftabs data-reveal>
+          <div class="ftabs__left">
+            <h3 class="features__cluster-title" data-split>Умный контроль расходов</h3>
+            <div class="ftabs__list">
+              <button class="ftabs__item is-active" type="button" data-ftab="0" aria-expanded="true">
+                <span class="ftabs__name">Полезная аналитика</span>
+                <span class="ftabs__desc"><span>Будьте в курсе, на что тратятся деньги компании и как можно оптимизировать расходы: аналитика по отделам и персональные рекомендации.</span></span>
+              </button>
+              <button class="ftabs__item" type="button" data-ftab="1" aria-expanded="false">
+                <span class="ftabs__name">Контроль ваших расходов</span>
+                <span class="ftabs__desc"><span>Отслеживайте соблюдение тревел-политики. Настройте правила и согласование поездок сотрудников по различным критериям.</span></span>
+              </button>
+              <button class="ftabs__item" type="button" data-ftab="2" aria-expanded="false">
+                <span class="ftabs__name">Уведомления в Telegram</span>
+                <span class="ftabs__desc"><span>Согласовывайте поездки и авансовые отчеты и получайте уведомления сервиса прямо в Telegram-боте.</span></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="ftabs__view">
+            <div class="ftabs__pane is-active">
+              <div class="mock mock--analytics">
+                <div class="mock__head"><span class="pill pill--tiny">Аналитика · июль</span><span class="mock__dots">⋯</span></div>
+                <div class="mock__bars">
+                  <div class="mock__bar" style="--h:62%"><em>62%</em><i></i><span>Продажи</span></div>
+                  <div class="mock__bar" style="--h:38%"><em>38%</em><i></i><span>ИТ</span></div>
+                  <div class="mock__bar" style="--h:84%"><em>84%</em><i></i><span>Логистика</span></div>
+                  <div class="mock__bar" style="--h:47%"><em>47%</em><i></i><span>HR</span></div>
+                  <div class="mock__bar" style="--h:70%"><em>70%</em><i></i><span>Стройка</span></div>
+                </div>
+                <div class="mock__foot"><b>−18%</b> к расходам на поездки кв/кв</div>
               </div>
-              <div class="mock__foot"><b>−18%</b> к расходам на поездки кв/кв</div>
             </div>
-            <figcaption>Полезная аналитика</figcaption>
-          </figure>
-
-          <figure class="features__item" data-reveal>
-            <div class="mock mock--policy card" data-squircle>
-              <div class="mock__head"><span class="pill pill--tiny">Тревел-политика</span></div>
-              <ul class="mock__rows">
-                <li><span>Перелёт, эконом</span><b>до 15 000 ₽</b></li>
-                <li><span>Отель, ночь</span><b>до 6 500 ₽</b></li>
-                <li><span>Такси, бизнес-класс</span><b class="mock__deny">запрещено</b></li>
-              </ul>
+            <div class="ftabs__pane">
+              <div class="mock mock--policy">
+                <div class="mock__head"><span class="pill pill--tiny">Тревел-политика</span></div>
+                <ul class="mock__rows">
+                  <li><span>Перелёт, эконом</span><b>до 15 000 ₽</b></li>
+                  <li><span>Отель, ночь</span><b>до 6 500 ₽</b></li>
+                  <li><span>Такси, бизнес-класс</span><b class="mock__deny">запрещено</b></li>
+                </ul>
+              </div>
             </div>
-            <figcaption>Контроль ваших расходов</figcaption>
-          </figure>
-
-          <figure class="features__item" data-reveal>
-            <div class="mock mock--tg card" data-squircle>
-              <div class="mock__head"><span class="pill pill--tiny">Telegram-бот</span></div>
-              <div class="mock__tg-msg">Поездка МОВ → КЗН, 24 июл. Согласовать?</div>
-              <div class="mock__tg-actions"><span class="mock__tg-ok">✓ Согласовать</span><span class="mock__tg-no">Отклонить</span></div>
+            <div class="ftabs__pane">
+              <div class="mock mock--tg">
+                <div class="mock__head"><span class="pill pill--tiny">Telegram-бот</span></div>
+                <div class="mock__tg-msg">Поездка МОВ → КЗН, 24 июл. Согласовать?</div>
+                <div class="mock__tg-actions"><span class="mock__tg-ok">✓ Согласовать</span><span class="mock__tg-no">Отклонить</span></div>
+              </div>
             </div>
-            <figcaption>Уведомления в Telegram</figcaption>
-          </figure>
-        </div>
-        <!-- Текст по сетке: колонки 1 и 3 -->
-        <div class="features__par-duo">
-          <p data-reveal>Будьте в курсе на что тратятся деньги компании и как можно оптимизировать расходы. Отслеживайте соблюдение тревел-политики и получайте персонализированные рекомендации.</p>
-          <p data-reveal>Настройте тревел-политику и согласование поездок ваших сотрудников по различным правилам и критериям.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Кластер Б: Отчётность без боли -->
+      <!-- Кластер Б: Отчётность без боли — пилюли снизу, UI-анимация справа -->
       <div class="features__cluster">
-        <h3 class="features__cluster-title" data-split>Отчётность без боли</h3>
-        <div class="features__collage features__collage--b">
-          <figure class="features__item features__item--big" data-reveal>
-            <div class="mock mock--report card" data-squircle>
-              <div class="mock__head"><span class="pill pill--tiny">Авансовый отчет № 214</span><span class="pill pill--tiny pill--accent">на согласовании</span></div>
-              <ul class="mock__rows">
-                <li><span>Перелёт MOW–KZN–MOW</span><b>12 480 ₽</b></li>
-                <li><span>Отель, 2 ночи</span><b>9 300 ₽</b></li>
-                <li><span>Суточные, 3 дня</span><b>2 100 ₽</b></li>
-              </ul>
-              <div class="mock__foot mock__foot--total"><span>Итого</span><b><span data-counter="23880">0</span> ₽</b></div>
-            </div>
-            <figcaption>Авансовые отчеты</figcaption>
-          </figure>
+        <div class="ftabs ftabs--pills" data-squircle="xl" data-ftabs data-reveal>
+          <div class="ftabs__left">
+            <h3 class="features__cluster-title" data-split>Отчётность<br>без боли</h3>
 
-          <figure class="features__item" data-reveal>
-            <div class="mock mock--1c card" data-squircle>
-              <div class="mock__head"><span class="pill pill--tiny">Интеграция 1С</span></div>
-              <div class="mock__chips">
-                <span class="pill pill--tiny">1С: Бухгалтерия</span>
-                <span class="pill pill--tiny">1С: ERP</span>
-                <span class="pill pill--tiny">1С: ЗУП</span>
+            <div class="ftabs__bottom">
+              <div class="ftabs__texts">
+                <p class="ftabs__text is-active">Буквально за пару минут вы можете подключить интеграцию с 1С Бухгалтерия, ERP и ЗУП. Это сильно упростит оформление и отчетность по вашим командировкам.</p>
+                <p class="ftabs__text">Согласуем для вас специальные условия с авиакомпаниями и объектами размещения, возьмем всю работу на себя.</p>
+                <p class="ftabs__text">Сотрудники смогут оформить авансовый отчет прямо в Trivio и отчитаться о своей поездке. Вы сможете гибко настроить автоматический расчет суточных по различным критериям, а также согласовывать авансовые отчеты перед их отправкой в учетную систему и подписанием.</p>
               </div>
-              <div class="mock__sync">⟳ Выгрузка документов — автоматически</div>
-            </div>
-            <figcaption>Интеграция 1С</figcaption>
-          </figure>
 
-          <figure class="features__item" data-reveal>
-            <div class="mock mock--tariff card" data-squircle>
-              <div class="mock__head"><span class="pill pill--tiny">Специальные тарифы</span></div>
-              <div class="mock__discounts"><b>−18%</b><b>−25%</b></div>
-              <div class="mock__sync">Прямые договоры с поставщиками</div>
+              <div class="ftabs__pills">
+                <button class="pill ftabs__pill is-active" type="button" data-ftab="0" aria-pressed="true">Интеграция 1С</button>
+                <button class="pill ftabs__pill" type="button" data-ftab="1" aria-pressed="false">Специальные тарифы</button>
+                <button class="pill ftabs__pill" type="button" data-ftab="2" aria-pressed="false">Авансовые отчеты</button>
+              </div>
             </div>
-            <figcaption>Специальные тарифы</figcaption>
-          </figure>
-        </div>
-        <!-- Текст по сетке: колонки 1 и 3 -->
-        <div class="features__par-duo">
-          <p data-reveal>Сотрудники смогут оформить авансовый отчет прямо в Trivio и отчитаться о своей поездке. Вы сможете гибко настроить автоматический расчет суточных по различным критериям, а также согласовывать авансовые отчеты перед их отправкой в учетную систему и подписанием.</p>
-          <p data-reveal>Буквально за пару минут вы можете подключить интеграцию с 1С Бухгалтерия, ERP и ЗУП. Это сильно упростит оформление и отчетность по вашим командировкам.</p>
+          </div>
+
+          <div class="ftabs__view">
+            <div class="ftabs__pane is-active">
+              <div class="mock mock--1c">
+                <div class="mock__head"><span class="pill pill--tiny">Интеграция 1С</span></div>
+                <div class="mock__chips">
+                  <span class="pill pill--tiny">1С: Бухгалтерия</span>
+                  <span class="pill pill--tiny">1С: ERP</span>
+                  <span class="pill pill--tiny">1С: ЗУП</span>
+                </div>
+                <div class="mock__sync">⟳ Выгрузка документов — автоматически</div>
+              </div>
+            </div>
+            <div class="ftabs__pane">
+              <div class="mock mock--tariff">
+                <div class="mock__head"><span class="pill pill--tiny">Специальные тарифы</span></div>
+                <div class="mock__discounts"><b>−18%</b><b>−25%</b></div>
+                <div class="mock__sync">Прямые договоры с поставщиками</div>
+              </div>
+            </div>
+            <div class="ftabs__pane">
+              <div class="mock mock--report">
+                <div class="mock__head"><span class="pill pill--tiny">Авансовый отчет № 214</span><span class="pill pill--tiny pill--accent">на согласовании</span></div>
+                <ul class="mock__rows">
+                  <li><span>Перелёт MOW–KZN–MOW</span><b>12 480 ₽</b></li>
+                  <li><span>Отель, 2 ночи</span><b>9 300 ₽</b></li>
+                  <li><span>Суточные, 3 дня</span><b>2 100 ₽</b></li>
+                </ul>
+                <div class="mock__foot mock__foot--total"><span>Итого</span><b><span data-counter="23880">0</span> ₽</b></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Мини-кластер В: поддержка -->
+    </div>
+  </section>
+
+  <!-- ============ 3.5b ПОДДЕРЖКА: отдельный блок ============ -->
+  <section class="support section" id="support">
+    <div class="container">
       <div class="features__support">
         <div class="features__chat card" data-squircle data-reveal>
           <div class="mock__head"><span class="pill pill--tiny">Поддержка · 24/7</span><span class="features__chat-status">● онлайн</span></div>
@@ -452,29 +467,29 @@
     </div>
   </section>
 
-  <!-- ============ 3.6 CTA «Хотите протестировать?» ============ -->
-  <section class="cta section" id="try">
-    <div class="container">
-      <div class="cta__plate" data-squircle="xl">
-        <div class="cta__text">
-          <h2 class="h2" data-split>Хотите протестировать?</h2>
-          <p data-reveal>Заполните небольшую форму, чтобы получить доступ</p>
-        </div>
-        <form class="form cta__form" data-form novalidate>
-          <div class="form__row">
-            <input class="form__input" type="text" name="name" placeholder="Имя" autocomplete="name">
-            <input class="form__input" type="text" name="company" placeholder="Название компании" autocomplete="organization">
-          </div>
-          <div class="form__row">
-            <input class="form__input" type="email" name="email" placeholder="E-mail *" required autocomplete="email">
-            <input class="form__input" type="tel" name="phone" placeholder="Телефон *" required autocomplete="tel" inputmode="tel">
-          </div>
-          <button class="btn btn--on-accent form__submit" type="submit" data-magnetic>
+  <!-- ============ 3.6 CTA «Хотите протестировать?»: фуллскрин, фото, стеклянная форма справа ============ -->
+  <section class="cta" id="try">
+    <div class="cta__bg parallax">
+      <div class="ph ph--dark parallax__layer" data-parallax="8">
+        <img src="assets/photo/form_back.png" alt="Путешественники с чемоданами в бронзовом холле" loading="lazy" decoding="async">
+      </div>
+      <div class="cta__shade"></div>
+    </div>
+    <div class="container cta__inner">
+      <div class="cta__text">
+        <h2 class="h2" data-split>Хотите протестировать?</h2>
+        <p data-reveal>Заполните небольшую форму, чтобы получить доступ</p>
+      </div>
+      <form class="form cta__form glass" data-form novalidate>
+          <input class="form__input form__input--glass" type="text" name="name" placeholder="Имя" autocomplete="name">
+          <input class="form__input form__input--glass" type="text" name="company" placeholder="Название компании" autocomplete="organization">
+          <input class="form__input form__input--glass" type="email" name="email" placeholder="E-mail *" required autocomplete="email">
+          <input class="form__input form__input--glass" type="tel" name="phone" placeholder="Телефон *" required autocomplete="tel" inputmode="tel">
+          <button class="btn btn--primary form__submit" type="submit">
             <span class="form__submit-label">Отправить запрос</span>
           </button>
           <p class="form__consent">Нажимая на эту кнопку, Вы даете согласие на <a href="https://trivio.ru/policy" target="_blank" rel="noopener">обработку персональных данных</a>, принимаете условия <a href="https://trivio.ru/policy" target="_blank" rel="noopener">Политики обработки персональных данных</a> и <a href="https://trivio.ru/agreement" target="_blank" rel="noopener">Пользовательского соглашения</a> и соглашаетесь на получение <a href="https://trivio.ru/marketing-consent" target="_blank" rel="noopener">рекламной и информационной рассылки</a></p>
-        </form>
-      </div>
+      </form>
     </div>
   </section>
 
@@ -542,7 +557,11 @@
         <h2 class="h2 live__title" data-split>Наши последние вебинары</h2>
         <p class="live__sub">Вебинары (5) · ближайший — 4 августа, 11:00</p>
       </div>
-      <a class="pill pill--accent live__reg" href="https://clck.ru/3St3DB" target="_blank" rel="noopener"><span class="live__pulse"></span>Live · Зарегистрироваться</a>
+      <div class="live__controls">
+        <button class="btn-round btn-round--dark live__nav" id="livePrev" type="button" aria-label="Назад">‹</button>
+        <button class="btn-round btn-round--dark live__nav" id="liveNext" type="button" aria-label="Вперёд">›</button>
+        <a class="btn btn--lime" href="https://trivio.ru/webinars_all">Показать все вебинары</a>
+      </div>
     </div>
 
     <div class="live__mosaic" id="liveMosaic">
@@ -558,7 +577,7 @@
         </article>
 
         <article class="live__card ph ph--dark" data-squircle>
-          <span class="ph__tag">Кадр: паспорт и виза крупным планом</span>
+          <img src="assets/photo/9098adceaad3861f3ec827383fd1a970.webp" alt="Путешественник с картой и паспортом собирает чемодан" loading="lazy" decoding="async">
           <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
           <div class="live__card-body">
             <h3>Вебинар «Визы в 2026 году»</h3>
@@ -578,7 +597,7 @@
         </article>
 
         <article class="live__card ph ph--dark" data-squircle>
-          <span class="ph__tag">Кадр: человек с ноутбуком в зале ожидания</span>
+          <img src="assets/photo/0f76daae3fb66b081c17efe11c430a3b.webp" alt="Путешественник отдыхает на заднем сиденье автомобиля рядом с чемоданом" loading="lazy" decoding="async">
           <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
           <div class="live__card-body">
             <h3>Как помочь команде справиться со стрессом в командировках: Alter X Trivio</h3>
@@ -588,7 +607,7 @@
         </article>
 
         <article class="live__card ph ph--dark" data-squircle>
-          <span class="ph__tag">Кадр: интерфейс Trivio на экране ноутбука</span>
+          <img src="assets/photo/ca2d215102c4acb87d14385a5a80a8fe.jpg" alt="Два чемодана и пальто в светлой прихожей перед поездкой" loading="lazy" decoding="async">
           <div class="live__card-top"><span class="pill pill--ghost">Запись</span></div>
           <div class="live__card-body">
             <h3>Возможности сервиса Trivio 2026</h3>
@@ -608,7 +627,7 @@
         </article>
 
         <article class="live__card ph ph--dark" data-squircle>
-          <span class="ph__tag">Кадр: рабочее место с блокнотом и кофе</span>
+          <img src="assets/photo/e6e984801b0b67f2e6b296347d588241.jpg" alt="Человек изучает карту рядом с открытым чемоданом" loading="lazy" decoding="async">
           <div class="live__card-top"><span class="pill pill--ghost">Блог</span></div>
           <div class="live__card-body">
             <h3>Интересное из нашего блога</h3>
@@ -618,11 +637,6 @@
         </article>
       </div>
 
-      <div class="container live__controls">
-        <button class="btn-round btn-round--dark" id="livePrev" type="button" aria-label="Назад">←</button>
-        <button class="btn-round btn-round--dark" id="liveNext" type="button" aria-label="Вперёд">→</button>
-        <a class="btn btn--glass live__allbtn" href="https://trivio.ru/webinars_all">Показать все вебинары</a>
-      </div>
     </div>
 
     <div class="container">
@@ -653,7 +667,6 @@
   <section class="bento section" id="safety">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">удобство и безопасность</span>
         <h2 class="h2" data-split>Удобно и безопасно</h2>
       </div>
 
@@ -725,7 +738,7 @@
               <input type="checkbox" name="subscribe" checked>
               <span>Я согласен на получение рекламной и информационной рассылки</span>
             </label>
-            <button class="btn btn--primary form__submit" type="submit" data-magnetic><span class="form__submit-label">Отправить запрос</span></button>
+            <button class="btn btn--primary form__submit" type="submit"><span class="form__submit-label">Отправить запрос</span></button>
             <p class="form__consent">Нажимая на эту кнопку, Вы даете согласие на <a href="https://trivio.ru/policy" target="_blank" rel="noopener">обработку персональных данных</a>, принимаете условия <a href="https://trivio.ru/policy" target="_blank" rel="noopener">Политики обработки персональных данных</a> и <a href="https://trivio.ru/agreement" target="_blank" rel="noopener">Пользовательского соглашения</a></p>
           </form>
         </div>

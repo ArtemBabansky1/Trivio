@@ -50,6 +50,7 @@
   --pad: clamp(100px, -300px + 31.25vw, 150px);
   --gutter: 20px;
   --section-gap: clamp(88px, 11vw, 170px);   /* вертикальный ритм 140–180 на десктопе */
+  --gap-head: 50px;                          /* заголовок → контент блока (уточнение заказчика) */
 
   /* --- Радиусы (базовые border-radius; сквиркл поверх через JS) --- */
   --r-section: 60px; /* стык зон: нижняя заезжает на верхнюю */
@@ -65,8 +66,12 @@
 
   /* --- Разное --- */
   --header-h: 76px;
-  --shadow-card: 0 20px 60px -24px rgba(14, 17, 22, 0.18);
+  /* тени в потоке запрещены; --shadow-soft — только оверлеям поверх фото/контента */
   --shadow-soft: 0 8px 30px -12px rgba(14, 17, 22, 0.12);
+  /* два единственных скрима для текста на фото (DESIGN.md §6) */
+  --scrim:      linear-gradient(180deg, transparent 40%, rgba(14, 17, 22, 0.72) 100%);
+  --scrim-top:  linear-gradient(180deg, rgba(14, 17, 22, 0.2), transparent 30%);
+  --blur-glass: 16px;
 }
 
 @media (min-width: 1024px) and (max-width: 1279.98px) {

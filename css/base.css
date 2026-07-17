@@ -58,6 +58,9 @@ ul, ol { list-style: none; }
 }
 /* Зону, на которую заезжают, добираем снизу — иначе заезд съедает её нижний отступ */
 .zone:has(+ .zone--lift) { padding-bottom: var(--r-section); }
+/* …но если зона кончается фуллскрин-фотосекцией, отступ не нужен:
+   скругление следующей зоны должно лечь на фото, без белых дыр по бокам */
+.zone:has(> .cta:last-child) { padding-bottom: 0; }
 
 /* Инверсия контента на чёрной зоне */
 .zone--dark .h1, .zone--dark .h2, .zone--dark .h3 { color: var(--c-on-dark); }
@@ -83,7 +86,7 @@ ul, ol { list-style: none; }
   align-items: flex-end;
   justify-content: space-between;
   gap: 32px;
-  margin-bottom: clamp(36px, 4.5vw, 72px);
+  margin-bottom: var(--gap-head);
 }
 .section-head--center { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
 
@@ -121,7 +124,7 @@ ul, ol { list-style: none; }
 }
 .pill--accent { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
 .pill--dark   { background: var(--c-ink);   border-color: var(--c-ink);   color: #fff; }
-.pill--ghost  { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); color: #fff; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.pill--ghost  { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); color: #fff; backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass)); }
 .pill--tiny   { padding: 5px 12px; font-size: var(--fs-tiny); }
 
 /* --- Кнопки --- */
@@ -159,8 +162,8 @@ ul, ol { list-style: none; }
   background: rgba(255,255,255,0.16);
   color: #fff;
   border: 1px solid rgba(255,255,255,0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
 }
 .btn--glass:hover { background: rgba(255,255,255,0.28); }
 
@@ -169,6 +172,10 @@ ul, ol { list-style: none; }
 
 
 /* Круглая кнопка-стрелка (карусели) */
+/* Лаймовая кнопка — только на тёмных поверхностях (гайдлайн) */
+.btn--lime { background: var(--c-lime); color: var(--c-on-lime); }
+.btn--lime:hover { background: var(--c-lime-hov); color: var(--c-on-lime); }
+
 .btn-round {
   display: inline-flex;
   align-items: center;

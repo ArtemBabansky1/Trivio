@@ -53,9 +53,13 @@
     }
 
     function shiftBy(dir) {
+      /* шаг строго по сетке карточек: индекс от текущей позиции, без дрейфа
+         при повторных кликах во время анимации */
+      var s = step();
       var x = window.gsap.getProperty(track, 'x');
-      var target = Math.max(maxShift(), Math.min(0, x - dir * step()));
-      window.gsap.to(track, { x: target, duration: 0.7, ease: 'power3.out', onUpdate: function () { if (drag) { drag.update(); } } });
+      var idx = Math.round(-x / s) + dir;
+      var target = Math.max(maxShift(), Math.min(0, -idx * s));
+      window.gsap.to(track, { x: target, duration: 0.7, ease: 'power3.out', overwrite: 'auto', onUpdate: function () { if (drag) { drag.update(); } } });
     }
 
     if (opts.prev) {
