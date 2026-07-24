@@ -60,7 +60,8 @@ ul, ol { list-style: none; }
 .zone:has(+ .zone--lift) { padding-bottom: var(--r-section); }
 /* …но если зона кончается фуллскрин-фотосекцией, отступ не нужен:
    скругление следующей зоны должно лечь на фото, без белых дыр по бокам */
-.zone:has(> .cta:last-child) { padding-bottom: 0; }
+/* потомок, а не прямой ребёнок: при пине ScrollTrigger оборачивает .cta в .pin-spacer */
+.zone:has(.cta) { padding-bottom: 0; }
 
 /* Инверсия контента на чёрной зоне */
 .zone--dark .h1, .zone--dark .h2, .zone--dark .h3 { color: var(--c-on-dark); }
@@ -70,13 +71,13 @@ ul, ol { list-style: none; }
 /* --- Типографика --- */
 .h1, .h2, .h3 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 450; /* −25% от прежних 600 — вариативный TT Neoris позволяет промежуточный вес */
   color: var(--c-ink);
   text-wrap: balance;
 }
 .h1 { font-size: var(--fs-h1); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
 .h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); }
-.h3 { font-size: var(--fs-h3); line-height: 1.25; letter-spacing: -0.01em; font-weight: 600; }
+.h3 { font-size: var(--fs-h3); line-height: 1.25; letter-spacing: -0.01em; }
 .lead { font-size: var(--fs-lead); line-height: 1.45; color: var(--c-muted); }
 .small { font-size: var(--fs-small); }
 
@@ -123,6 +124,11 @@ ul, ol { list-style: none; }
   white-space: nowrap;
 }
 .pill--accent { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+/* цветные буллеты ролей */
+.pill--blue  { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+.pill--lime  { background: var(--c-lime);   border-color: var(--c-lime);   color: var(--c-on-lime); }
+.pill--pink  { background: var(--c-pink);   border-color: var(--c-pink);   color: #fff; }
+.pill--lilac { background: var(--c-lilac);  border-color: var(--c-lilac);  color: #fff; }
 .pill--dark   { background: var(--c-ink);   border-color: var(--c-ink);   color: #fff; }
 .pill--ghost  { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); color: #fff; backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass)); }
 .pill--tiny   { padding: 5px 12px; font-size: var(--fs-tiny); }
@@ -134,13 +140,16 @@ ul, ol { list-style: none; }
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 16px 30px;
+  /* размер — только из токенов эталона (tokens.css), локально не переопределять */
+  padding: var(--btn-pad-y) var(--btn-pad-x);
   border-radius: var(--r-pill);
   font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 500;
+  font-size: var(--btn-fs);
+  font-weight: var(--btn-fw);
   line-height: 1.2;
   white-space: nowrap;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: background-color var(--dur) var(--ease-expo),
               color var(--dur) var(--ease-expo),
               border-color var(--dur) var(--ease-expo),

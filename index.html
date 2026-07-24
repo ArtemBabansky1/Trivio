@@ -10,17 +10,14 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://trivio.ru/">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Шрифты ВРЕМЕННЫЕ до брендбука (см. README) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Брендовый шрифт TT Neoris (вариативный, self-hosted) -->
+  <link rel="preload" href="fonts/tt-neoris-variable.woff2" as="font" type="font/woff2" crossorigin>
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/sections-a.css">
   <link rel="stylesheet" href="css/sections-b.css">
   <link rel="stylesheet" href="css/sections-c.css">
-  <noscript><style>.preloader { display: none; }</style></noscript>
 </head>
 <body>
 
@@ -36,22 +33,18 @@
   </symbol>
 </svg>
 
-<!-- ============ 3.0 ПРЕЛОАДЕР ============ -->
-<div class="preloader" id="preloader" aria-hidden="true">
-  <div class="preloader__inner">
-    <svg class="preloader__logo" aria-hidden="true"><use href="#logo-trivio"></use></svg>
-    <div class="preloader__count" id="preloaderCount">0</div>
-  </div>
-</div>
-
 <main id="top">
 
   <!-- ============ 3.1 HERO: единая плашка, хедер статичный внутри ============ -->
   <section class="hero" id="hero">
     <div class="hero__plate">
-      <div class="hero__bg parallax">
-        <div class="ph ph--dawn parallax__layer" data-parallax="8">
-          <img src="assets/photo/hero1.png" alt="Деловая путешественница с ноутбуком в зале ожидания аэропорта" fetchpriority="high">
+      <div class="hero__bg">
+        <div class="ph ph--dawn hero__media">
+          <!-- Постер = первый кадр; поверх — зацикленный видеофон -->
+          <img src="assets/video/hero-poster.webp" alt="Вид из иллюминатора самолёта" fetchpriority="high">
+          <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.webp" aria-hidden="true">
+            <source src="assets/video/hero-loop.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="hero__shade"></div>
       </div>
@@ -133,22 +126,22 @@
             <a class="hero__slide is-active" href="https://clck.ru/3St3DB" target="_blank" rel="noopener">
               <span class="pill pill--tiny pill--accent">Вебинар · 4 августа, 11:00</span>
               <b>Как в 2026 работает поддержка в бизнес-тревел</b>
-              <span class="hero__slide-more">Зарегистрироваться →</span>
+              <span class="hero__slide-more">Зарегистрироваться</span>
             </a>
             <a class="hero__slide" href="https://trivio.ru/cases">
               <span class="pill pill--tiny">Кейс · Нефтегаз</span>
               <b>ЛУКОЙЛ: командировка за 15 минут вместо 3 дней</b>
-              <span class="hero__slide-more">Читать кейс →</span>
+              <span class="hero__slide-more">Читать кейс</span>
             </a>
             <a class="hero__slide" href="https://trivio.ru/cases">
               <span class="pill pill--tiny">Кейс · IT</span>
               <b>VK: рекорд скорости оформления командировок</b>
-              <span class="hero__slide-more">Читать кейс →</span>
+              <span class="hero__slide-more">Читать кейс</span>
             </a>
             <a class="hero__slide" href="https://trivio.ru/blog">
               <span class="pill pill--tiny">Блог</span>
               <b>Актуальное о бизнес-тревел — в нашем блоге</b>
-              <span class="hero__slide-more">Читать →</span>
+              <span class="hero__slide-more">Читать</span>
             </a>
           </div>
           <div class="hero__slider-nav" aria-hidden="true">
@@ -188,69 +181,6 @@
     </div>
   </section>
 
-  <!-- ============ 3.3 РОЛИ (реф-1) ============ -->
-  <section class="roles section" id="about">
-    <div class="container">
-      <div class="section-head">
-        <h2 class="h2" data-split>Для кого Trivio</h2>
-      </div>
-
-      <div class="roles__grid">
-        <article class="roles__card card" data-squircle tabindex="0">
-          <div class="roles__card-top">
-            <span class="pill pill--tiny">Сотрудник</span>
-            <span class="arr-diag">↗</span>
-          </div>
-          <h3 class="h3">Оформляйте быстро, отчитывайтесь легко</h3>
-          <p class="roles__text">Бронируйте билеты, отели и другие услуги в пару кликов с любого устройства. Формируйте авансовый отчет для бухгалтерии прямо в Trivio — просто и без ошибок.</p>
-          <div class="roles__bottom">
-            <span class="pill pill--tiny roles__more">подробнее ↗</span>
-            <span class="roles__num" aria-hidden="true">01</span>
-          </div>
-        </article>
-
-        <article class="roles__card card" data-squircle tabindex="0">
-          <div class="roles__card-top">
-            <span class="pill pill--tiny">Тревел-координатор</span>
-            <span class="arr-diag">↗</span>
-          </div>
-          <h3 class="h3">Управляйте поездками коллег без лишнего хаоса</h3>
-          <p class="roles__text">Оформляйте поездки для коллег за пару минут, без потока звонков и писем. Систематизируйте командировочный процесс благодаря современным технологиям.</p>
-          <div class="roles__bottom">
-            <span class="pill pill--tiny roles__more">подробнее ↗</span>
-            <span class="roles__num" aria-hidden="true">02</span>
-          </div>
-        </article>
-
-        <article class="roles__card card" data-squircle tabindex="0">
-          <div class="roles__card-top">
-            <span class="pill pill--tiny">Бухгалтер</span>
-            <span class="arr-diag">↗</span>
-          </div>
-          <h3 class="h3">Упростите документооборот и сократите трудозатраты</h3>
-          <p class="roles__text">Вся отчетность по поездкам формируется автоматически по заранее установленным правилам. Интеграция с учетными системами оптимизирует процесс.</p>
-          <div class="roles__bottom">
-            <span class="pill pill--tiny roles__more">подробнее ↗</span>
-            <span class="roles__num" aria-hidden="true">03</span>
-          </div>
-        </article>
-
-        <article class="roles__card card" data-squircle tabindex="0">
-          <div class="roles__card-top">
-            <span class="pill pill--tiny">Руководитель</span>
-            <span class="arr-diag">↗</span>
-          </div>
-          <h3 class="h3">Контролируйте расходы и организацию процесса</h3>
-          <p class="roles__text">Установите лимиты и настройте процесс согласования, анализируйте расходы на поездки сотрудников с помощью персонализированных отчетов.</p>
-          <div class="roles__bottom">
-            <span class="pill pill--tiny roles__more">подробнее ↗</span>
-            <span class="roles__num" aria-hidden="true">04</span>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
   </div><!-- /зона 1 -->
 
   <!-- ===== ЗОНА 2 · белая: продукт (услуги + возможности + CTA) ===== -->
@@ -259,8 +189,9 @@
   <!-- ============ 3.4 УСЛУГИ (реф-3) ============ -->
   <section class="services section" id="services">
     <div class="container">
-      <div class="section-head section-head--center">
-        <h2 class="h2" data-split>Всё для поездки — в&nbsp;одном сервисе</h2>
+      <div class="section-head">
+        <h2 class="h2 services__title" data-split>Организация поездки от&nbsp;начала<br>до&nbsp;конца — в&nbsp;одном сервисе</h2>
+        <a class="btn btn--primary" href="#contact" data-reveal>Начать сейчас</a>
       </div>
     </div>
 
@@ -268,58 +199,176 @@
       <!-- Hover-аккордеон: наведённая карточка раскрывается -->
       <div class="services__acc">
         <a class="acc ph ph--dawn" data-squircle href="https://trivio.ru/flights">
-          <img src="assets/photo/db9a508274b11e3ea2655a9db26eca5d.webp" alt="Путешественница с чемоданом, над ней взлетает самолёт" loading="lazy" decoding="async">
-          <div class="services__float services__float--icon">✈</div>
-          <div class="services__float services__float--label">500+ авиакомпаний</div>
+          <img src="assets/photo/flights.webp" alt="Путешественница с чемоданом, над ней взлетает самолёт" loading="lazy" decoding="async">
           <div class="acc__overlay">
             <b>Авиабилеты</b>
             <span class="acc__sub">Более 500 авиакомпаний</span>
             <div class="acc__reveal"><div>
               <p class="acc__desc">Более 500 авиакомпаний и доступ к специальным тарифам. Согласуем для вас специальные условия с авиакомпаниями и объектами размещения, возьмем всю работу на себя.</p>
-              <span class="pill pill--ghost acc__more">подробнее об авиабилетах ↗</span>
+              <span class="pill pill--ghost acc__more">подробнее об авиабилетах</span>
             </div></div>
           </div>
         </a>
 
         <a class="acc ph ph--hotel" data-squircle href="https://trivio.ru/stays">
-          <img src="assets/photo/5a0b8e553fa9c9a1dea8ccb28087c21e.jpg" alt="Утренний кофе в отеле" loading="lazy" decoding="async">
+          <img src="assets/photo/stays.webp" alt="Утренний кофе в отеле" loading="lazy" decoding="async">
           <div class="acc__overlay">
             <b>Проживание</b>
             <span class="acc__sub">Более 2.5 млн. вариантов</span>
             <div class="acc__reveal"><div>
-              <span class="pill pill--ghost acc__more">подробнее о проживании ↗</span>
+              <span class="pill pill--ghost acc__more">подробнее о проживании</span>
             </div></div>
           </div>
         </a>
 
         <a class="acc ph ph--train" data-squircle href="https://trivio.ru/trains">
-          <img src="assets/photo/e8467421e2bd32369d0ef708db3feac1.webp" alt="Пассажирка с чемоданом на вокзале у табло отправлений" loading="lazy" decoding="async">
+          <img src="assets/photo/trains.webp" alt="Пассажирка с чемоданом на вокзале у табло отправлений" loading="lazy" decoding="async">
           <div class="acc__overlay">
             <b>Билеты на поезд</b>
             <span class="acc__sub">По России, СНГ и дальнему зарубежью</span>
             <div class="acc__reveal"><div>
-              <span class="pill pill--ghost acc__more">подробнее о ж/д билетах ↗</span>
+              <span class="pill pill--ghost acc__more">подробнее о ж/д билетах</span>
             </div></div>
           </div>
         </a>
 
         <a class="acc ph ph--city" data-squircle href="https://trivio.ru/transfer">
-          <img src="assets/photo/4e34106a064019de83978cdffb76cb3a.webp" alt="Деловые путешественники с чемоданами на пешеходном переходе" loading="lazy" decoding="async">
+          <img src="assets/photo/transfer.webp" alt="Деловые путешественники с чемоданами на пешеходном переходе" loading="lazy" decoding="async">
           <div class="acc__overlay">
             <b>Трансферы и такси</b>
             <span class="acc__sub">Транспортные услуги по всему миру · Яндекс GO</span>
             <div class="acc__reveal"><div>
               <p class="acc__desc">Оформляйте поездки на такси в приложении Яндекс GO, а все расчеты ведите в рамках договора с Trivio. Можно настроить гибкие лимиты по классам автомобилей и сумме поездки.</p>
-              <span class="pill pill--ghost acc__more">подробнее о трансферах ↗</span>
+              <span class="pill pill--ghost acc__more">подробнее о трансферах</span>
             </div></div>
           </div>
         </a>
       </div>
     </div>
 
+  </section>
+
+  <!-- ============ 3.3 РОЛИ (реф-1) ============ -->
+  <section class="roles section" id="about">
+    <div class="container">
+      <div class="roles__head">
+        <h2 class="h2 roles__title" data-split>Для всех, кто работает<br>с командировками</h2>
+      </div>
+
+      <div class="roles__grid">
+        <article class="roles__card card" data-squircle tabindex="0">
+          <div class="roles__card-top">
+            <span class="roles__tag">Сотрудник</span>
+          </div>
+          <h3 class="h3">Оформляйте быстро, отчитывайтесь легко</h3>
+          <p class="roles__text">Бронируйте билеты, отели и другие услуги в пару кликов с любого устройства. Формируйте авансовый отчет для бухгалтерии прямо в Trivio — просто и без ошибок.</p>
+          <div class="roles__bottom">
+            <span class="pill pill--tiny roles__more">подробнее</span>
+            <span class="roles__num" aria-hidden="true">01</span>
+          </div>
+        </article>
+
+        <article class="roles__card card" data-squircle tabindex="0">
+          <div class="roles__card-top">
+            <span class="roles__tag">Тревел-координатор</span>
+          </div>
+          <h3 class="h3">Управляйте поездками коллег без лишнего хаоса</h3>
+          <p class="roles__text">Оформляйте поездки для коллег за пару минут, без потока звонков и писем. Систематизируйте командировочный процесс благодаря современным технологиям.</p>
+          <div class="roles__bottom">
+            <span class="pill pill--tiny roles__more">подробнее</span>
+            <span class="roles__num" aria-hidden="true">02</span>
+          </div>
+        </article>
+
+        <article class="roles__card roles__card--dark card" data-squircle tabindex="0">
+          <div class="roles__card-top">
+            <span class="roles__tag">Руководитель</span>
+          </div>
+          <h3 class="h3">Контролируйте расходы и организацию процесса</h3>
+          <p class="roles__text">Установите лимиты и настройте процесс согласования, анализируйте расходы на поездки сотрудников с помощью персонализированных отчетов.</p>
+          <div class="roles__bottom">
+            <span class="pill pill--tiny roles__more">подробнее</span>
+            <span class="roles__num" aria-hidden="true">03</span>
+          </div>
+        </article>
+
+        <article class="roles__card card" data-squircle tabindex="0">
+          <div class="roles__card-top">
+            <span class="roles__tag">Бухгалтер</span>
+          </div>
+          <h3 class="h3">Упростите документооборот и сократите трудозатраты</h3>
+          <p class="roles__text">Вся отчетность по поездкам формируется автоматически по заранее установленным правилам. Интеграция с учетными системами оптимизирует процесс.</p>
+          <div class="roles__bottom">
+            <span class="pill pill--tiny roles__more">подробнее</span>
+            <span class="roles__num" aria-hidden="true">04</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="roles__foot">
+        <p class="roles__lead" data-reveal>Сотрудники быстро оформляют поездки и отчитываются без лишней бумажной волокиты, координаторы и бухгалтерия ведут учёт и документооборот в одном месте, а руководители контролируют расходы и держат travel-бюджет под контролем. Каждая роль получает свой инструмент, но все они работают в единой системе.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Манифест: крупная фраза между ролями и промо ============ -->
+  <section class="manifesto section" aria-label="Trivio — для всех участников процесса">
+    <div class="container manifesto__grid">
+      <p class="h2 manifesto__text" data-split>Trivio упрощает работу с&nbsp;командировками для&nbsp;всех участников процесса&nbsp;— от&nbsp;сотрудника до&nbsp;руководителя.</p>
+    </div>
+  </section>
+
+  <!-- ============ Промо: частные поездки + мероприятия ============ -->
+  <section class="services-extra section" aria-label="Частные поездки и организация мероприятий">
     <div class="container services__extra">
-      <p class="services__note" data-reveal><b>Частные поездки.</b> В нашем сервисе сотрудники смогут оформлять услуги для своих личных поездок на специальных условиях, которые доступны вам, как корпоративному заказчику. Оформляйте поездки на такси в приложении Яндекс GO, а все расчеты ведите в рамках договора с Trivio.</p>
-      <p class="services__note" data-reveal><b>Организация мероприятий.</b> Meets by Trivio объединяет лучший опыт и инновации в индустрии корпоративных мероприятий. Наша команда готова организовать мероприятие любого масштаба и формата. <a class="services__note-link" href="https://trivio.ru/mice">Подробнее ↗</a></p>
+      <a class="services__promo ph" data-squircle href="https://trivio.ru" data-reveal>
+        <img src="assets/photo/trips.png" alt="Частные поездки" loading="lazy" decoding="async">
+        <div class="services__promo-overlay">
+          <b>Частные поездки</b>
+          <p>В нашем сервисе сотрудники смогут оформлять услуги для своих личных поездок на специальных условиях, которые доступны вам, как корпоративному заказчику. Оформляйте поездки на такси в приложении Яндекс GO, а все расчеты ведите в рамках договора с Trivio.</p>
+          <span class="pill pill--ghost services__promo-more">подробнее</span>
+        </div>
+      </a>
+      <a class="services__promo ph" data-squircle href="https://trivio.ru/mice" data-reveal>
+        <img src="assets/photo/meets.png" alt="Организация мероприятий — Meets by Trivio" loading="lazy" decoding="async">
+        <div class="services__promo-overlay">
+          <b>Организация мероприятий</b>
+          <p>Meets by Trivio объединяет лучший опыт и инновации в индустрии корпоративных мероприятий. Наша команда готова организовать мероприятие любого масштаба и формата.</p>
+          <span class="pill pill--ghost services__promo-more">подробнее</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ 3.5b ПОДДЕРЖКА: заголовок · 3D-телефон · описание ============ -->
+  <section class="support section" id="support">
+    <div class="container">
+      <div class="support__grid">
+        <div class="support__intro">
+          <h3 class="h2 support__title" data-split>Заботливая поддержка 24/7</h3>
+          <p class="lead" data-reveal>Оперативно вернем или обменяем билеты, подберем отель, поможем в любой ситуации и сохраним ваши нервы</p>
+        </div>
+
+        <div class="support__stage">
+          <canvas class="support__canvas" id="supportPhoneCanvas" aria-hidden="true"></canvas>
+          <!-- фолбэк: карточка чата (reduced-motion / нет WebGL / модель не загрузилась) -->
+          <div class="support__fallback features__chat card" data-squircle data-reveal>
+            <div class="mock__head"><span class="pill pill--tiny">Поддержка · 24/7</span><span class="features__chat-status">● онлайн</span></div>
+            <div class="chat" id="supportChat">
+              <p class="chat__msg chat__msg--user">Добрый день! Нужна ваша помощь с обменом билета. Сотрудник не успевает в аэропорт.</p>
+              <p class="chat__msg chat__msg--op">Добрый день! Уже занимаюсь, дайте мне 5 минут.</p>
+              <p class="chat__msg chat__msg--user">Огромное спасибо! Ожидаю.</p>
+              <p class="chat__msg chat__msg--op">Все готово! Новый билет уже у вас. Обращайтесь, если смогу еще чем-то помочь. Хорошего дня!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="support__text">
+          <h4 class="h3" data-reveal>Всегда на связи в Telegram</h4>
+          <p data-reveal>Напишите нашему боту — оператор подхватит диалог за пару минут. Обмен билета, продление брони или счёт для бухгалтерии решаются прямо в чате, без звонков и ожидания на линии.</p>
+          <a class="btn btn--primary support__bot-btn" href="https://t.me/trivio" target="_blank" rel="noopener" data-reveal>Перейти к боту</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -444,43 +493,20 @@
     </div>
   </section>
 
-  <!-- ============ 3.5b ПОДДЕРЖКА: отдельный блок ============ -->
-  <section class="support section" id="support">
-    <div class="container">
-      <div class="features__support">
-        <div class="features__chat card" data-squircle data-reveal>
-          <div class="mock__head"><span class="pill pill--tiny">Поддержка · 24/7</span><span class="features__chat-status">● онлайн</span></div>
-          <div class="chat" id="supportChat">
-            <p class="chat__msg chat__msg--user">Добрый день! Нужна ваша помощь с обменом билета. Сотрудник не успевает в аэропорт.</p>
-            <p class="chat__msg chat__msg--op">Добрый день! Уже занимаюсь, дайте мне 5 минут.</p>
-            <p class="chat__msg chat__msg--user">Огромное спасибо! Ожидаю.</p>
-            <p class="chat__msg chat__msg--op">Все готово! Новый билет уже у вас. Обращайтесь, если смогу еще чем-то помочь. Хорошего дня!</p>
-          </div>
-        </div>
-        <div class="features__support-text">
-          <h3 class="h2 features__support-title" data-split>Заботливая поддержка 24/7</h3>
-          <p class="lead" data-reveal>Оперативно вернем или обменяем билеты, подберем отель, поможем в любой ситуации и сохраним ваши нервы</p>
-          <h4 class="h3" data-reveal>Огромный выбор и лучшие цены</h4>
-          <p data-reveal>Получите доступ к сотням авиакомпаний, миллионам отелей и многим другим услугам, необходимым для организации успешной поездки.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ 3.6 CTA «Хотите протестировать?»: фуллскрин, фото, стеклянная форма справа ============ -->
   <section class="cta" id="try">
     <div class="cta__bg parallax">
       <div class="ph ph--dark parallax__layer" data-parallax="8">
-        <img src="assets/photo/form_back.png" alt="Путешественники с чемоданами в бронзовом холле" loading="lazy" decoding="async">
+        <img src="assets/photo/form-bg.webp" alt="Путешественница смотрит в иллюминатор самолёта" loading="lazy" decoding="async">
       </div>
       <div class="cta__shade"></div>
     </div>
     <div class="container cta__inner">
-      <div class="cta__text">
-        <h2 class="h2" data-split>Хотите протестировать?</h2>
-        <p data-reveal>Заполните небольшую форму, чтобы получить доступ</p>
-      </div>
       <form class="form cta__form glass" data-form novalidate>
+          <div class="cta__form-head">
+            <h2 class="h2" data-split>Хотите протестировать?</h2>
+            <p data-reveal>Заполните небольшую форму, чтобы получить доступ</p>
+          </div>
           <input class="form__input form__input--glass" type="text" name="name" placeholder="Имя" autocomplete="name">
           <input class="form__input form__input--glass" type="text" name="company" placeholder="Название компании" autocomplete="organization">
           <input class="form__input form__input--glass" type="email" name="email" placeholder="E-mail *" required autocomplete="email">
@@ -504,7 +530,7 @@
       <div class="container">
         <div class="section-head">
           <h2 class="h2" data-split>Кейсы наших клиентов</h2>
-          <a class="pill pill--dark cases__all" href="https://trivio.ru/cases">Смотреть все кейсы ↗</a>
+          <a class="btn btn--lime cases__all" href="https://trivio.ru/cases">Смотреть все кейсы</a>
         </div>
       </div>
 
@@ -514,11 +540,11 @@
             <a class="cases__media ph ph--dawn" data-squircle="xl" href="https://trivio.ru/cases">
               <img src="assets/photo/8474d18298b096c0422d8a73b6f57fc0.jpg" alt="Сотрудница идёт по залу аэропорта с чемоданом" loading="lazy" decoding="async">
               <div class="cases__tags"><span class="pill pill--ghost">Нефтегаз</span><span class="pill pill--ghost">3 дня → 15 минут</span></div>
+              <span class="cases__title">ПАО «ЛУКОЙЛ»</span>
             </a>
             <div class="cases__caption">
-              <b>ПАО «ЛУКОЙЛ»</b>
               <p>Как одна из крупнейших нефтегазовых компаний мира сократила время оформление командировки с 3 дней до 15 минут</p>
-              <a class="cases__read" href="https://trivio.ru/cases">Читать →</a>
+              <a class="btn btn--lime cases__read" href="https://trivio.ru/cases">Читать</a>
             </div>
           </article>
 
@@ -526,11 +552,11 @@
             <a class="cases__media ph ph--product" data-squircle="xl" href="https://trivio.ru/cases">
               <img src="assets/photo/88134edd8de89bbe2cf4589af03ae9bd.jpg" alt="Человек с ноутбуком работает из любой точки мира" loading="lazy" decoding="async">
               <div class="cases__tags"><span class="pill pill--ghost">IT</span><span class="pill pill--ghost">Рекорд скорости</span></div>
+              <span class="cases__title">VK</span>
             </a>
             <div class="cases__caption">
-              <b>VK</b>
               <p>Как одна из крупнейших IT-компаний России и СНГ установила рекорд по скорости оформления командировок</p>
-              <a class="cases__read" href="https://trivio.ru/cases">Читать →</a>
+              <a class="btn btn--lime cases__read" href="https://trivio.ru/cases">Читать</a>
             </div>
           </article>
 
@@ -538,11 +564,11 @@
             <a class="cases__media ph ph--city" data-squircle="xl" href="https://trivio.ru/cases">
               <img src="assets/photo/d5a3d8cf6a8e526a52f122cd8c5aad0a.webp" alt="Рука поднимает жёлтый чемодан на фоне неба со следом самолёта" loading="lazy" decoding="async">
               <div class="cases__tags"><span class="pill pill--ghost">Бурение</span><span class="pill pill--ghost">Прозрачные цены</span></div>
+              <span class="cases__title">ООО «ЭНГС»</span>
             </a>
             <div class="cases__caption">
-              <b>ООО «ЭНГС»</b>
               <p>Как одна из ведущих буровых компаний ушла от Excel-таблиц и скрытых сборов при покупке авиабилетов</p>
-              <a class="cases__read" href="https://trivio.ru/cases">Читать →</a>
+              <a class="btn btn--lime cases__read" href="https://trivio.ru/cases">Читать</a>
             </div>
           </article>
         </div>
@@ -572,7 +598,7 @@
           <div class="live__card-body">
             <h3>Как в 2026 работает поддержка в бизнес-тревел</h3>
             <p>Ближайший вебинар · 4 августа, 11:00</p>
-            <a class="live__watch" href="https://clck.ru/3St3DB" target="_blank" rel="noopener">Зарегистрироваться →</a>
+            <a class="live__watch" href="https://clck.ru/3St3DB" target="_blank" rel="noopener">Зарегистрироваться</a>
           </div>
         </article>
 
@@ -582,7 +608,7 @@
           <div class="live__card-body">
             <h3>Вебинар «Визы в 2026 году»</h3>
             <p>Все о визах для граждан РФ и иностранцев. Руководитель отдела визового сопровождения Trivio расскажет, в какие страны проще всего получить разрешение на въезд, как избежать ошибок при подаче заявлений и что нужно знать перед оформлением шенгена и визы США.</p>
-            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись</a>
           </div>
         </article>
 
@@ -592,7 +618,7 @@
           <div class="live__card-body">
             <h3>Вебинар «Большой четверки»: Trivio, Контур, Т-Банк, Авито</h3>
             <p>Узнайте, как ведущие игроки рынков вместе упрощают процессы и увеличивают бизнес-показатели.</p>
-            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись</a>
           </div>
         </article>
 
@@ -602,7 +628,7 @@
           <div class="live__card-body">
             <h3>Как помочь команде справиться со стрессом в командировках: Alter X Trivio</h3>
             <p>Практикующий психотерапевт расскажет, почему командировки изматывают сотрудников и как с помощью корпоративных инструментов поддержки снизить стресс без лишних затрат для бизнеса.</p>
-            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись</a>
           </div>
         </article>
 
@@ -612,7 +638,7 @@
           <div class="live__card-body">
             <h3>Возможности сервиса Trivio 2026</h3>
             <p>Узнайте, как Trivio автоматизирует командировки, помогает сократить расходы и время оформления поездок — на примере реальных клиентов и последних обновлений платформы.</p>
-            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись</a>
           </div>
         </article>
 
@@ -622,7 +648,7 @@
           <div class="live__card-body">
             <h3>Настоящее и будущее корпоративных перевозок</h3>
             <p>На вебинаре разобрали, как планировать командировочный бюджет с учётом авиатрендов, какие рейсы появятся в 2026 году и какие преимущества даёт тариф «Вахта» и программа S7 Corp.</p>
-            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись →</a>
+            <a class="live__watch" href="https://trivio.ru/webinars">Смотреть запись</a>
           </div>
         </article>
 
@@ -632,7 +658,7 @@
           <div class="live__card-body">
             <h3>Интересное из нашего блога</h3>
             <p>Статьи о бизнес-тревел: тренды, инструкции и опыт клиентов Trivio.</p>
-            <a class="live__watch" href="https://trivio.ru/blog">Читать блог →</a>
+            <a class="live__watch" href="https://trivio.ru/blog">Читать блог</a>
           </div>
         </article>
       </div>
@@ -643,7 +669,6 @@
       <form class="live__form" data-form novalidate>
         <div class="live__form-text">
           <h3 class="h3">Получите доступ к прошедшим вебинарам и подпишитесь на новые</h3>
-          <p>Заполните форму, это займёт не более 10 секунд</p>
         </div>
         <div class="live__form-fields">
           <input class="form__input form__input--dark" type="email" name="email" placeholder="E-mail *" required autocomplete="email">
@@ -671,22 +696,26 @@
       </div>
 
       <div class="bento__grid">
-        <article class="bento__card bento__card--wide card" data-squircle data-reveal>
+        <article class="bento__card card" data-squircle data-reveal>
           <span class="pill pill--tiny">Telegram</span>
           <h3 class="h3">Уведомления в Telegram</h3>
           <p>Можно подписаться на нашего бота в Telegram и получать там все уведомления от нашего сервиса. Также, там можно согласовывать поездки и авансовые отчеты.</p>
           <div class="bento__visual bento__visual--tg" aria-hidden="true">
-            <span class="mock__tg-ok">✓ Согласовать</span>
+            <span class="mock__tg-ok">Согласовать</span>
+            <span class="bento__check">
+              <!-- Lucide: check -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            </span>
           </div>
         </article>
 
-        <article class="bento__card card" data-squircle data-reveal>
+        <article class="bento__card bento__card--dark card" data-squircle data-reveal>
           <span class="pill pill--tiny">Приложение</span>
           <h3 class="h3">Trivio у вас в кармане</h3>
           <p>Наш сервис доступен с любого устройства - в браузере вашего компьютера или на телефоне, есть мобильные приложения для IOS и Android.</p>
           <div class="bento__stores">
-            <a class="pill" href="https://apps.apple.com/ru/app/trivio/id1552164906" target="_blank" rel="noopener"> App Store ↗</a>
-            <a class="pill" href="https://play.google.com/store/apps/details?id=ru.trivio.app" target="_blank" rel="noopener">▶ Google Play ↗</a>
+            <a class="pill" href="https://apps.apple.com/ru/app/trivio/id1552164906" target="_blank" rel="noopener"> App Store</a>
+            <a class="pill" href="https://play.google.com/store/apps/details?id=ru.trivio.app" target="_blank" rel="noopener">▶ Google Play</a>
           </div>
         </article>
 
@@ -696,12 +725,16 @@
           <p>Trivio проинтегрирован с лидирующими сервисами КЭДО, это позволяет обеспечить бесшовный переход и создать цельный кадровый процесс.</p>
         </article>
 
-        <article class="bento__card bento__card--wide card" data-squircle data-reveal>
+        <article class="bento__card bento__card--blue card" data-squircle data-reveal>
           <span class="pill pill--tiny">Безопасность</span>
           <h3 class="h3">SSO аутентификация</h3>
           <p>Используйте вашу корпоративную учетную запись для аутентификации в Trivio. Это позволит не только сделать процесс удобнее, но и безопаснее.</p>
           <div class="bento__visual bento__visual--sso" aria-hidden="true">
-            <span class="pill pill--tiny">SSO</span><span class="bento__lock">🔒</span>
+            <span class="pill pill--tiny">SSO</span>
+            <span class="bento__lock">
+              <!-- Lucide: lock -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
           </div>
         </article>
       </div>
@@ -835,9 +868,21 @@
 <!-- Lenis smooth scroll -->
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
 
+<script src="js/typograf.js"></script>
 <script src="js/squircle.js"></script>
 <script src="js/carousels.js"></script>
 <script src="js/animations.js"></script>
 <script src="js/main.js"></script>
+
+<!-- three.js для 3D-телефона в блоке поддержки (ES-модули через importmap) -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="js/support-phone.js"></script>
 </body>
 </html>

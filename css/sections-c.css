@@ -5,9 +5,6 @@
 /* ---------- 3.7 Кейсы (реф-4): горизонтальная галерея ---------- */
 .cases { overflow: clip; }
 .cases__pin { padding-block: 10px; }
-.cases__all { transition: background-color var(--dur), transform var(--dur) var(--ease-expo); }
-.cases__all:hover { background: var(--c-accent); border-color: var(--c-accent); }
-
 .cases__gallery { overflow: hidden; }
 .cases__track {
   display: flex;
@@ -40,26 +37,24 @@
 }
 .cases__media .ph__tag { bottom: 16px; }
 
-.cases__caption { margin-top: 16px; max-width: 62ch; }
-.cases__caption b { font-family: var(--font-display); font-size: 19px; font-weight: 600; }
-.cases__caption p { margin-top: 6px; font-size: 15px; color: var(--c-muted); }
-.cases__read {
-  display: inline-block;
-  margin-top: 10px;
-  font-weight: 600; font-size: 15px;
-  color: var(--c-accent);
+.cases__title {
+  position: absolute; left: 24px; bottom: 20px; z-index: 2;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 40px);
+  font-weight: 450;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #fff;
 }
-.cases__read:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* отступ слева = left заголовка на фото (24px) — описание и кнопка в одну линию с ним */
+.cases__caption { margin-top: 16px; padding-left: 24px; max-width: 56ch; }
+.cases__caption p { font-size: 15px; color: var(--c-muted); text-wrap: balance; }
+/* «Читать» — эталонная кнопка сайта; размеры и цвет — компонент .btn.btn--lime */
+.cases__read { margin-top: 12px; }
 
 /* Кейсы на чёрной зоне */
 .zone--dark .cases__caption p { color: var(--c-on-dark-m); }
-.zone--dark .cases__all {
-  background: transparent;
-  border-color: rgba(255, 255, 255, 0.22);
-  color: var(--c-on-dark);
-}
-.zone--dark .cases__all:hover { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
-.zone--dark .cases__read { color: var(--c-lime); }
 
 /* ---------- 3.8 Тёмная мозаика вебинаров (реф-5) ---------- */
 /* Внутри чёрной зоны своя плашка не нужна — секция сливается с фоном зоны.
@@ -71,7 +66,7 @@
 }
 .live__meta {
   display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
-  margin-bottom: clamp(32px, 4vw, 56px);
+  margin-bottom: var(--gap-head);
 }
 .live__title { color: #fff; max-width: 14ch; }
 .live__sub { margin-top: 14px; color: var(--c-on-dark-m); font-size: var(--fs-small); }
@@ -97,7 +92,7 @@
 .live .form__input--dark:focus { border-color: rgba(211, 242, 106, 0.65); }
 
 /* Бесконечная карусель: карточки одного размера, центральная укрупняется (JS) */
-.live__mosaic { position: relative; padding-block: 34px; }
+.live__mosaic { position: relative; }
 .live__track {
   display: flex;
   align-items: center;
@@ -119,12 +114,24 @@
   color: #fff;
   transform-origin: center center;
   will-change: transform;
+  cursor: pointer; /* кликабельна целиком (см. liveCardLinks в carousels.js) */
 }
+/* ховер в любом месте карточки: фото плавно зумится, ссылка подсвечивается */
+.live__card > img {
+  transition: transform 0.8s var(--ease-expo);
+  will-change: transform;
+}
+.live__card:hover > img { transform: scale(1.05); }
+.live__card:hover .live__watch { color: var(--c-lime); }
 
+/* двойной класс — перебиваем «.ph:has(> img)::after { display: none }» (грейн) */
+.live__card.ph::after,
 .live__card::after {
   content: "";
+  display: block;
   position: absolute; inset: 0;
-  background: var(--scrim);
+  /* скрим сильнее базового — как у промо-карточек: текст на пёстрых фото */
+  background: linear-gradient(180deg, transparent 25%, rgba(14, 17, 22, 0.55) 52%, rgba(14, 17, 22, 0.96) 100%);
 }
 .live__card-top { position: relative; z-index: 2; padding: 18px; }
 .live__card .ph__tag { top: 18px; right: 18px; left: auto; bottom: auto; }
@@ -136,7 +143,7 @@
 .live__card-body h3 {
   font-family: var(--font-display);
   font-size: clamp(19px, 1.7vw, 24px);
-  font-weight: 600;
+  font-weight: 450;
   line-height: 1.22;
   letter-spacing: -0.01em;
 }
@@ -153,16 +160,14 @@
 .live__watch:hover { color: var(--c-lime); }
 
 
+/* Две равные половины 4-колоночной сетки: текст — колонки 1–2, форма — 3–4 */
 .live__form {
-  margin-top: clamp(48px, 6vw, 90px);
-  padding-top: clamp(28px, 3vw, 44px);
-  border-top: 1px solid rgba(255,255,255,0.12);
+  margin-top: 50px;
   display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: 16px 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px var(--gutter);
 }
-.live__form-text p { margin-top: 8px; color: var(--c-on-dark-m); font-size: var(--fs-small); }
-.live__form-fields { display: flex; gap: 10px; align-items: stretch; }
+.live__form-fields { display: flex; gap: 10px; align-items: stretch; align-self: start; }
 .live__form-fields .form__submit { width: auto; margin: 0; flex-shrink: 0; }
 .form__input--dark {
   background: rgba(255,255,255,0.07);
@@ -173,7 +178,8 @@
 .form__input--dark:focus { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.5); }
 .form__check--dark, .form__consent--dark { color: var(--c-on-dark-m); }
 .live__form .form__check { grid-column: 2; margin-top: 0; }
-.live__form .form__consent { grid-column: 1 / -1; margin-top: 0; color: rgba(255,255,255,0.4); }
+/* юридический текст — под чекбоксом согласия, в той же правой половине */
+.live__form .form__consent { grid-column: 2; margin-top: 0; color: rgba(255,255,255,0.4); }
 
 /* ---------- 3.9 Bento «Удобно и безопасно» ---------- */
 .bento__grid {
@@ -181,30 +187,87 @@
   grid-template-columns: repeat(4, 1fr); /* сетка проекта: 4 колонки */
   gap: var(--gutter);
 }
+/* 4 равные карточки в стиле «Для кого Trivio» (без гигантских цифр) */
 .bento__card {
   grid-column: span 1;
   position: relative;
   display: flex; flex-direction: column; gap: 12px;
-  min-height: 280px;
-  padding: clamp(22px, 2.2vw, 32px);
+  min-height: 460px;
+  padding: 24px;
   overflow: hidden;
-  transition: border-color var(--dur);
+  background: var(--c-bg-2); /* зона белая — карточка чуть темнее, чтобы читалась */
+  border: 0; /* как у ролей: прозрачная рамка давала 1px-кольцо при overflow-клипе */
 }
-.bento__card:hover { border-color: var(--c-ink); }
-.bento__card--wide { grid-column: span 3; }
 .bento__card .pill--tiny { align-self: flex-start; }
 .bento__card p { color: var(--c-muted); font-size: 15px; max-width: 52ch; }
 .bento__stores { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
 .bento__stores .pill:hover { border-color: var(--c-ink); }
 
+/* Тег карточки — как буллет ролей: просто текст кеглем описания;
+   отступ до заголовка = 26px, как у .roles__card-top (14px + flex-gap 12px) */
+.bento__card > .pill--tiny {
+  padding: 0; border: 0; background: transparent;
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+/* Цветовые варианты: «Приложение» — чёрная, «Безопасность» — синяя */
+.bento__card--dark { background: var(--c-dark); }
+.bento__card--blue { background: var(--c-accent); }
+.bento__card--dark .h3,
+.bento__card--blue .h3,
+.bento__card--dark > .pill--tiny,
+.bento__card--blue > .pill--tiny { color: #fff; }
+.bento__card--dark p { color: var(--c-on-dark-m); }
+.bento__card--blue p { color: rgba(255, 255, 255, 0.78); }
+.bento__card--dark .bento__stores .pill {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+.bento__card--dark .bento__stores .pill:hover { border-color: #fff; }
+
 .bento__visual {
   position: absolute;
-  right: 24px; bottom: 24px;
+  left: 24px; bottom: 24px;
   opacity: 0.9;
 }
-.bento__visual--tg .mock__tg-ok { box-shadow: var(--shadow-soft); }
+.bento__visual--tg,
 .bento__visual--sso { display: flex; align-items: center; gap: 8px; }
-.bento__lock { font-size: 22px; }
+
+/* «Согласовать» — размер эталонной кнопки; галочка вынесена в круглый буллет */
+.bento__visual--tg .mock__tg-ok {
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  font-size: var(--btn-fs);
+  font-weight: var(--btn-fw);
+  line-height: 1.2;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Нижние буллеты (сторы, SSO) — размер эталонной кнопки */
+.bento__stores .pill,
+.bento__visual--sso .pill {
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  font-size: var(--btn-fs);
+  font-weight: var(--btn-fw);
+  line-height: 1.2;
+}
+
+/* Круглые буллеты-иконки высотой с кнопку (Lucide: lock, check) */
+.bento__lock,
+.bento__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--c-bg); /* белый круг на серой карточке (после инверсии токенов) */
+  color: var(--c-ink);
+  flex-shrink: 0;
+}
+.bento__check { background: var(--c-accent); color: #fff; box-shadow: var(--shadow-soft); }
+.bento__lock svg,
+.bento__check svg { width: 20px; height: 20px; }
 
 /* ---------- 3.10 Финальный CTA ---------- */
 .meet__plate { position: relative; overflow: hidden; }
@@ -282,16 +345,17 @@
 @media (max-width: 1023.98px) {
   .live__meta { flex-direction: column; align-items: flex-start; }
   .live__form { grid-template-columns: 1fr; }
-  .live__form .form__check { grid-column: 1; }
+  .live__form .form__check,
+  .live__form .form__consent { grid-column: 1; }
   .meet__inner { grid-template-columns: 1fr; }
   .footer__top { grid-template-columns: 1fr; }
-  .bento__card, .bento__card--wide { grid-column: span 2; }
+  .bento__card { grid-column: span 2; min-height: 400px; }
 }
 @media (max-width: 767.98px) {
   .cases__item { width: min(86vw, 500px); }
   .live { border-radius: var(--r-l); }
   .live__form-fields { flex-direction: column; }
-  .bento__card, .bento__card--wide { grid-column: span 4; min-height: 0; }
+  .bento__card { grid-column: span 4; min-height: 0; }
   .bento__visual { position: static; margin-top: auto; align-self: flex-start; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
   .footer__badges { margin-left: 0; }

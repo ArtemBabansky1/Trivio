@@ -3,6 +3,26 @@
    ===================================================================== */
 
 /* ---------- 3.3 Роли (реф-1): карточки с обрезанными цифрами ---------- */
+/* Шапка: крупный заголовок в 2 строки (перенос — <br>); описание — под карточками */
+.roles__head { margin-bottom: var(--gap-head); }
+.roles__foot {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+  margin-top: var(--gap-head);
+}
+.roles__lead {
+  grid-column: 2 / -1;
+  max-width: 740px; /* ширина подобрана под разбивку текста на 4 строки */
+  color: var(--c-muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+@media (max-width: 767.98px) {
+  .roles__foot { grid-template-columns: 1fr; }
+  .roles__lead { grid-column: 1 / -1; }
+}
+
 .roles__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -16,10 +36,16 @@
   overflow: hidden;
   cursor: pointer;
 }
-/* hover-эффект один — стрелка .arr-diag (ниже); подъёмов и теней в потоке нет */
 .roles__card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 26px; }
-.roles__card .arr-diag { flex-shrink: 0; }
-.roles__card:hover .arr-diag { transform: rotate(45deg); background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+
+/* Роль — просто текст без буллета, по левому краю (кегль описания) */
+.roles__tag {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--c-muted);
+  text-align: left;
+}
+.roles__card--dark .roles__tag { color: var(--c-on-dark-m); }
 
 /* Заголовок в 2 строки: ширина под ~22 символа + балансировка переносов */
 .roles__card .h3 {
@@ -44,22 +70,97 @@
 }
 .roles__more { display: inline-flex; position: relative; z-index: 1; }
 
-/* Гигантская цифра, обрезанная нижним краем карточки (~50% высоты) */
+/* «подробнее»-пилюли действуют как кнопки → размер эталонной кнопки (tokens.css) */
+.roles__more,
+.acc__more,
+.services__promo-more {
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  font-size: var(--btn-fs);
+  font-weight: var(--btn-fw);
+  line-height: 1.2;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* Гигантская цифра (х3.5), обрезанная краями карточки; сплошной серый,
+   на полтона темнее фона карточки — еле заметная, как фактура */
 .roles__num {
   position: absolute;
   right: -6px;
-  bottom: calc(var(--fs-giant) * -0.52);
+  bottom: calc(var(--fs-giant) * 2.45 * -0.52);
   font-family: var(--font-display);
-  font-size: var(--fs-giant);
+  font-size: calc(var(--fs-giant) * 2.45);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.05em;
-  color: var(--c-accent-bg);
+  color: #eceef3;
+  z-index: -1; /* фоном под текстом карточки (сквиркл-клип держит стек-контекст) */
   pointer-events: none;
   will-change: transform;
-  transition: transform 0.5s var(--ease-expo);
+  transition: transform 0.5s var(--ease-expo), color var(--dur) var(--ease-expo);
 }
-.roles__card:hover .roles__num { transform: translate(6px, -14px); }
+.roles__card:hover .roles__num,
+.roles__card:focus-visible .roles__num { transform: translate(6px, -14px); }
+
+/* Цвет роли (бывший цвет буллета) — цифра красится в него на ховере карточки */
+.roles__card:nth-child(1) { --role-c: var(--c-accent); }
+.roles__card:nth-child(2) { --role-c: var(--c-pink); }
+.roles__card:nth-child(3) { --role-c: var(--c-lime); }
+.roles__card:nth-child(4) { --role-c: var(--c-lilac); }
+.roles__card:hover .roles__num,
+.roles__card:focus-visible .roles__num { color: var(--role-c); }
+
+/* Цветовые варианты карточек: базовые — серые как фон страницы,
+   «Тревел-координатор» — синяя, «Руководитель» — чёрная */
+/* border: 0 (а не transparent): overflow режет контент по внутренней кромке
+   рамки, и цифра не доставала 1px до края карточки — читалось как обводка */
+.roles__card { background: var(--c-bg); border: 0; }
+
+.roles__card--blue { background: var(--c-accent); }
+.roles__card--dark { background: var(--c-dark); }
+
+.roles__card--blue .h3,
+.roles__card--dark .h3 { color: #fff; }
+.roles__card--blue .roles__text { color: rgba(255, 255, 255, 0.78); }
+.roles__card--dark .roles__text { color: var(--c-on-dark-m); }
+
+/* Цифры на цветных карточках — оттенок чуть светлее их фона, еле заметный */
+.roles__card--blue .roles__num { color: #1f66fe; }
+.roles__card--dark .roles__num { color: #1a2028; }
+
+/* «подробнее» — пилюля без обводки на всех карточках, включая чёрную;
+   ховер срабатывает от наведения на любую точку карточки */
+.roles__card .roles__more {
+  background: var(--c-surface);
+  border: 0;
+  color: var(--c-ink-80);
+  transition: background-color var(--dur) var(--ease-expo), color var(--dur) var(--ease-expo);
+}
+.roles__card:hover .roles__more,
+.roles__card:focus-visible .roles__more {
+  background: var(--c-ink);
+  color: #fff;
+}
+
+/* ---------- Манифест: крупная фраза, левый край со 2-й колонки сетки ---------- */
+.manifesto__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+}
+.manifesto__text {
+  grid-column: 2 / -1;
+  text-align: left;
+  font-size: var(--fs-h2);
+}
+/* уменьшенный кегль (−20% от h2): заголовок услуг (роли — полный h2) */
+.services__title {
+  font-size: calc(clamp(36px, 4.8vw, 72px) * 0.8);
+}
+@media (max-width: 767.98px) {
+  .manifesto__text { grid-column: 1 / -1; }
+}
 
 /* ---------- 3.4 Услуги (реф-3) ----------
    Hover-аккордеон: 4 карточки в ряд, наведённая раскрывается за счёт соседей.
@@ -89,11 +190,6 @@
 /* подпись кадра уводим наверх — внизу теперь оверлей */
 .acc .ph__tag { top: 14px; bottom: auto; }
 
-/* плавающие бейджи — только у раскрытой карточки */
-.acc .services__float { opacity: 0; transition: opacity 0.35s var(--ease-expo); }
-.acc:hover .services__float,
-.acc:focus-visible .services__float { opacity: 1; }
-
 .acc__overlay {
   position: absolute; inset: auto 0 0 0;
   z-index: 2;
@@ -104,7 +200,7 @@
 .acc__overlay b {
   font-family: var(--font-display);
   font-size: clamp(19px, 1.4vw, 24px);
-  font-weight: 600;
+  font-weight: 450;
   line-height: 1.18;
   letter-spacing: -0.01em;
 }
@@ -134,6 +230,26 @@
   color: rgba(255, 255, 255, 0.82);
 }
 .acc__more { margin-top: 16px; }
+/* Кнопки «подробнее» в услугах — лаймовые, как эталонная «Читать» */
+.acc .acc__more {
+  background: var(--c-lime);
+  border-color: var(--c-lime);
+  color: var(--c-on-lime);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background-color var(--dur);
+}
+.acc .acc__more:hover { background: var(--c-lime-hov); border-color: var(--c-lime-hov); }
+/* Первые три карточки услуг — синие кнопки, лайм остаётся у четвёртой */
+.services__acc .acc:nth-child(-n+3) .acc__more {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: #fff;
+}
+.services__acc .acc:nth-child(-n+3) .acc__more:hover {
+  background: var(--c-accent-dk);
+  border-color: var(--c-accent-dk);
+}
 
 .services__layout {
   display: grid;
@@ -148,23 +264,6 @@
 .services__major-body p { margin-top: 10px; color: var(--c-muted); max-width: 56ch; }
 .services__pill { margin-top: 18px; transition: background-color var(--dur), color var(--dur), border-color var(--dur); }
 .services__pill:hover { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
-
-/* Плавающие круглые бейджи поверх фото */
-.services__float {
-  position: absolute;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: var(--r-pill);
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(var(--blur-glass));
-  -webkit-backdrop-filter: blur(var(--blur-glass));
-  box-shadow: var(--shadow-soft);
-  font-weight: 600;
-  will-change: transform;
-  z-index: 2;
-}
-.services__float--icon { width: 64px; height: 64px; font-size: 24px; top: 18%; left: 10%; }
-.services__float--label { padding: 12px 20px; font-size: var(--fs-small); top: 42%; right: 12%; }
-.services__float--plus { width: 40px; height: 40px; font-size: 20px; bottom: 20%; left: 34%; color: var(--c-accent); }
 
 /* Story-карточки (телефонный формат), карусель обрезается краем контейнера */
 .services__stories { position: relative; display: flex; flex-direction: column; min-width: 0; }
@@ -202,18 +301,56 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gutter);
-  margin-top: clamp(28px, 3vw, 48px);
 }
-.services__note {
-  padding: 22px 26px;
-  border-radius: var(--r-m);
-  background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  color: var(--c-muted);
+/* Промо-карточки «Частные поездки» и «Организация мероприятий»:
+   квадратное фото, текст и пилюля «подробнее» — поверх, на скриме */
+.services__promo {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+}
+.services__promo > img {
+  transition: transform 0.8s var(--ease-expo);
+  will-change: transform;
+}
+.services__promo:hover > img { transform: scale(1.04); }
+
+.services__promo-overlay {
+  position: absolute; inset: auto 0 0 0;
+  z-index: 2;
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 10px;
+  padding: clamp(20px, 2vw, 30px);
+  /* скрим сильнее базового: текст лежит прямо на пёстрых фото */
+  padding-top: clamp(48px, 5vw, 80px);
+  background: linear-gradient(180deg, transparent 0%, rgba(14, 17, 22, 0.6) 38%, rgba(14, 17, 22, 0.9) 100%);
+}
+.services__promo-overlay b {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.7vw, 28px);
+  font-weight: 450;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.services__promo-overlay p {
   font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 56ch;
 }
-.services__note b { color: var(--c-ink); display: block; margin-bottom: 6px; font-family: var(--font-display); font-size: 17px; }
-.services__note-link { color: var(--c-accent); font-weight: 500; }
+.services__promo-more {
+  margin-top: 6px;
+  background: var(--c-lime);
+  border-color: var(--c-lime);
+  color: var(--c-on-lime);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background-color var(--dur), color var(--dur), border-color var(--dur);
+}
+.services__promo:hover .services__promo-more { background: var(--c-lime-hov); border-color: var(--c-lime-hov); color: var(--c-on-lime); }
 
 /* ---------- 3.5 Возможности (реф-2): Apple-style коллажи ---------- */
 .features__intro { max-width: 900px; margin-bottom: var(--gap-head); }
@@ -222,7 +359,7 @@
 .features__cluster-title {
   font-family: var(--font-display);
   font-size: clamp(28px, 3.2vw, 48px);
-  font-weight: 600;
+  font-weight: 450;
   letter-spacing: -0.02em;
   margin-bottom: var(--gap-head);
 }
@@ -424,13 +561,29 @@
 }
 .mock__discounts b + b { color: var(--c-ink); }
 
-/* Мини-кластер поддержки */
-.features__support {
+/* Поддержка: 3 колонки — заголовок · 3D-телефон · описание */
+.support__grid {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-  gap: clamp(24px, 4vw, 64px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter);
   align-items: center;
 }
+/* Текстовые колонки центрируются по вертикали телефона (align-items сетки) */
+.support__intro .lead { margin-top: 18px; }
+.support__stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.support__canvas {
+  display: none; /* включается классом support--3d, когда сцена загрузилась */
+  /* телефон занимает ~fitFrac высоты канваса; 0.62 ширины — запас на поворот/тилт */
+  width: min(100%, calc(600px * 0.62));
+  height: 600px; /* размер телефона по макету */
+}
+.support--3d .support__canvas { display: block; }
+.support--3d .support__fallback { display: none; }
+
 /* Зона белая — чат подкрашиваем фоном страницы, иначе бело-на-белом */
 .features__chat { padding: 22px; background: var(--c-bg); border: 1px solid var(--c-line); }
 .features__chat-status { font-size: var(--fs-tiny); font-weight: 600; color: #1d9e5c; }
@@ -443,41 +596,43 @@
 }
 .chat__msg--user { align-self: flex-end; background: var(--c-accent); color: #fff; border-radius: 16px 16px 4px 16px; }
 .chat__msg--op   { align-self: flex-start; background: var(--c-bg); border-radius: 16px 16px 16px 4px; }
-.features__support-title { margin-bottom: 16px; }
-.features__support-text .h3 { margin-top: 30px; }
-.features__support-text p:last-child { margin-top: 10px; color: var(--c-muted); }
+.support__text p { margin-top: 12px; color: var(--c-muted); }
+.support__bot-btn { margin-top: 24px; }
 
-/* ---------- 3.6 CTA «Хотите протестировать?»: фуллскрин с фото ---------- */
+/* ---------- 3.6 CTA «Хотите протестировать?»: скруглённая плашка;
+   на скролле пин + скраб (animations.js) раскрывает её на весь экран,
+   форма растворяется. Статика (без JS / reduced-motion) — просто плашка. ---------- */
 .cta {
   position: relative;
-  /* +60px запаса: следующая зона заезжает скруглением на фото, а не на белый фон */
-  min-height: calc(100svh + var(--r-section));
+  min-height: 100svh;
   display: flex;
   align-items: center;
-  border-radius: var(--r-section) var(--r-section) 0 0;
   overflow: clip;
+  /* стартовый вид блока: не во всю ширину, со скруглением углов */
+  clip-path: inset(clamp(28px, 5svh, 64px) var(--pad) round var(--r-xl));
 }
 .cta__bg { position: absolute; inset: 0; z-index: 0; }
 .cta__bg .ph { min-height: 100%; }
 .cta__shade { position: absolute; inset: 0; background: var(--scrim); }
 .cta__inner {
   position: relative; z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-  gap: clamp(28px, 4vw, 72px);
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
-  padding-block: clamp(48px, 6vw, 90px);
+  padding-block: clamp(48px, 10svh, 110px);
+  /* контент отступает от кромки плашки, а не от края вьюпорта */
+  padding-inline: calc(var(--pad) + clamp(20px, 2.5vw, 44px));
   color: #fff;
 }
-/* заголовок увеличен ×2 по просьбе заказчика */
-.cta__text .h2 { color: #fff; max-width: 14ch; font-size: clamp(48px, 5.2vw, 130px); }
-.cta__text p { margin-top: 16px; color: rgba(255,255,255,0.82); font-size: var(--fs-lead); }
+/* заголовок и подпись — внутри стеклянной формы, сверху, по левому краю */
+.cta__form-head { padding: 6px 6px 10px; }
+.cta__form-head .h2 { color: #fff; max-width: 16ch; font-size: clamp(26px, 2.3vw, 40px); }
+.cta__form-head p { margin-top: 10px; color: rgba(255,255,255,0.82); font-size: var(--fs-body); }
 /* стеклянная форма справа — рецепт как в «Давайте познакомимся?» */
 .cta__form {
   display: flex; flex-direction: column; gap: 12px;
   width: min(100%, 780px);   /* +40% к исходным 560px */
-  justify-self: end;
   padding: clamp(24px, 2.4vw, 36px);
   border-radius: var(--r-l);
 }
@@ -531,9 +686,9 @@
   .services__layout { grid-template-columns: 1fr; }
   .stories { margin-right: calc(var(--pad) * -1); }
   .stories__card { min-height: 0; height: clamp(360px, 60vw, 460px); }
-  .features__support { grid-template-columns: 1fr; }
-  .cta__inner { grid-template-columns: 1fr; }
-  .cta__form { justify-self: stretch; width: 100%; }
+  /* Поддержка в столбик: заголовок → телефон → описание */
+  .support__grid { grid-template-columns: 1fr; }
+  .cta__form { width: 100%; }
 }
 @media (max-width: 767.98px) {
   .roles__grid { grid-template-columns: 1fr; }

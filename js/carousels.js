@@ -165,8 +165,24 @@
     setInterval(function () { show(idx + 1); }, DURATION);
   }
 
+  /* Карточки вебинаров кликабельны целиком: клик ведёт по ссылке карточки.
+     После реального drag Draggable сам подавляет click — навигации не будет. */
+  function liveCardLinks() {
+    var track = document.getElementById('liveTrack');
+    if (!track) { return; }
+    track.addEventListener('click', function (e) {
+      var card = e.target.closest('.live__card');
+      if (!card || e.target.closest('a')) { return; } /* клик по самой ссылке — нативно */
+      var link = card.querySelector('.live__watch');
+      if (!link) { return; }
+      if (link.target === '_blank') { window.open(link.href, '_blank', 'noopener'); }
+      else { window.location.href = link.href; }
+    });
+  }
+
   function init() {
     heroSlider();
+    liveCardLinks();
     if (hasGsap() && typeof window.InertiaPlugin !== 'undefined') {
       window.gsap.registerPlugin(window.Draggable, window.InertiaPlugin);
     } else if (hasGsap()) {

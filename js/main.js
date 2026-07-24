@@ -11,52 +11,26 @@
     else { fn(); }
   }
 
-  /* ---------- Прелоадер: счётчик 0–100, шторка уезжает вверх ---------- */
+  /* ---------- Прелоадер убран: сразу даём сигнал старта hero-интро ---------- */
   function preloader() {
-    var el = document.getElementById('preloader');
-    var count = document.getElementById('preloaderCount');
-    if (!el) { finish(); return; }
-
-    function finish() {
-      window.__trivioPreloaderDone = true;
-      document.dispatchEvent(new CustomEvent('trivio:preloader-done'));
-      document.documentElement.style.overflow = '';
-    }
-
-    function hideNow() {
-      el.classList.add('is-done');
-      el.style.display = 'none';
-      finish();
-    }
-
-    if (reduceMotion || typeof window.gsap === 'undefined') { hideNow(); return; }
-
-    document.documentElement.style.overflow = 'hidden';
-    var gsap = window.gsap;
-    if (count) { count.style.display = 'none'; }
-    /* одна операция — fade шторки с wordmark, суммарно ≤ 1.2s (DESIGN.md §7) */
-    var tl = gsap.timeline({
-      onComplete: function () { el.classList.add('is-done'); el.style.display = 'none'; }
-    });
-    tl.to(el, { opacity: 0, duration: 0.6, ease: 'power2.out', onStart: finish }, '+=0.5');
-
-    /* страховка: если что-то зависло — убрать через 2с */
-    setTimeout(function () {
-      if (!window.__trivioPreloaderDone) { tl.kill(); hideNow(); }
-    }, 2000);
+    window.__trivioPreloaderDone = true;
+    document.dispatchEvent(new CustomEvent('trivio:preloader-done'));
   }
 
   /* ---------- Док: компактный хедер вылетает снизу при скролле вверх ---------- */
   function header() {
     var dock = document.getElementById('dock');
     if (!dock) { return; }
+    var hero = document.querySelector('.hero');
     var lastY = 0;
 
     function onScroll(y) {
-      if (y > 600 && y < lastY - 4) {
+      /* док не показываем, пока не проскроллили весь hero (включая трек скролл-видео) */
+      var minY = hero ? hero.offsetHeight : 600;
+      if (y > minY && y < lastY - 4) {
         dock.classList.add('is-visible');
         dock.setAttribute('aria-hidden', 'false');
-      } else if (y > lastY + 4 || y < 600) {
+      } else if (y > lastY + 4 || y < minY) {
         dock.classList.remove('is-visible');
         dock.setAttribute('aria-hidden', 'true');
       }
@@ -194,6 +168,31 @@
     });
   }
 
+  /* ---------- Видеофон hero: страховка автоплея ----------
+     Браузер может заблокировать автозапуск (энергосбережение, экономия
+     трафика, настройки автовоспроизведения) — тогда запускаем сами,
+     а если и это запрещено, ждём первого взаимодействия. */
+  function heroVideo() {
+    var v = document.getElementById('heroVideo');
+    if (!v) { return; }
+    v.muted = true; /* свойство надёжнее атрибута для политики автоплея */
+
+    function kick() { v.play().catch(function () {}); }
+    function tryPlay() {
+      var promise = v.play();
+      if (promise && promise.catch) {
+        promise.catch(function () {
+          window.addEventListener('pointerdown', kick, { once: true });
+          window.addEventListener('touchstart', kick, { once: true });
+          window.addEventListener('wheel', kick, { once: true, passive: true });
+        });
+      }
+    }
+
+    if (v.readyState >= 2) { tryPlay(); }
+    else { v.addEventListener('canplay', tryPlay, { once: true }); }
+  }
+
   ready(function () {
     preloader();
     header();
@@ -201,5 +200,6 @@
     burger();
     forms();
     ftabs();
+    heroVideo();
   });
 })();

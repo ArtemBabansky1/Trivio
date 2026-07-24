@@ -40,15 +40,31 @@
       if (typeof window.SplitText === 'undefined' || !ST) { return; }
       document.querySelectorAll('[data-split]').forEach(function (el) {
         var inHero = !!el.closest('.hero');
+
+        /* манифест: текст перекрашивается по скролл-скрабу из серого в основной,
+           волной по буквам (words+chars — чтобы переносы оставались по словам) */
+        if (el.closest('.manifesto')) {
+          var inkColor = getComputedStyle(el).color;
+          var colorSplit = new window.SplitText(el, { type: 'words,chars' });
+          gsap.fromTo(colorSplit.chars, { color: '#cdd2da' }, {
+            /* duration >> stagger: каждая буква доцветает долго, волна плавная */
+            color: inkColor, ease: 'none', duration: 6, stagger: 0.12,
+            scrollTrigger: { trigger: el, start: 'top 78%', end: 'top 32%', scrub: true }
+          });
+          return;
+        }
+
         var split = new window.SplitText(el, { type: 'lines', mask: 'lines', linesClass: 'split-line' });
         gsap.set(split.lines, { yPercent: 110, transformOrigin: '0% 100%' });
-        var tweenIn = function () {
-          gsap.to(split.lines, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: 'power4.out' });
-        };
         if (inHero) {
-          el.__heroReveal = tweenIn; /* стартует из таймлайна прелоадера */
+          el.__heroLines = split.lines; /* анимируются из таймлайна hero после прелоадера */
         } else {
-          ST.create({ trigger: el, start: 'top 82%', once: true, onEnter: tweenIn });
+          ST.create({
+            trigger: el, start: 'top 82%', once: true,
+            onEnter: function () {
+              gsap.to(split.lines, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: 'power4.out' });
+            }
+          });
         }
       });
     }
@@ -73,28 +89,33 @@
       gsap.set(heroEls, { opacity: 0, y: 24 });
     }
 
-    /* ---------- Hero: таймлайн после прелоадера ---------- */
-    function heroIntro() {
-      var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    /* ---------- Hero: таймлайн контента после прелоадера ---------- */
+    var heroTl = null;
+    function buildHeroTl() {
+      var tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
       var title = document.querySelector('.hero [data-split]');
+      var header = document.getElementById('header');
       var booking = document.getElementById('heroSlider');
 
-      if (window.__trivioHeroEls && window.__trivioHeroEls.length) {
-        var tag = window.__trivioHeroEls.filter(function (el) { return el.classList.contains('hero__tag'); });
-        var restHero = window.__trivioHeroEls.filter(function (el) { return !el.classList.contains('hero__tag'); });
-        if (tag.length) { tl.to(tag, { opacity: 1, y: 0, duration: 0.6 }, 0); }
-        if (title && title.__heroReveal) { tl.add(function () { title.__heroReveal(); }, 0.15); }
-        if (restHero.length) { tl.to(restHero, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, 0.55); }
-      } else if (title && title.__heroReveal) {
-        title.__heroReveal();
+      if (header) {
+        tl.fromTo(header, { autoAlpha: 0, y: -24 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.2);
       }
-
+      if (title && title.__heroLines) {
+        tl.to(title.__heroLines, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: 'power4.out' }, 0);
+      }
+      var els = window.__trivioHeroEls || [];
+      if (els.length) { tl.to(els, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.1 }, 0.3); }
       if (booking) {
         /* единый reveal (DESIGN.md §7.1), без scale/blur и вечного float */
-        gsap.set(booking, { opacity: 0, y: 24 });
-        tl.to(booking, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.85);
+        tl.fromTo(booking, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.55);
       }
+      return tl;
     }
+    function playHeroIntro() {
+      if (!heroTl) { heroTl = buildHeroTl(); }
+      heroTl.play();
+    }
+
     /* Интро hero стартует, когда готовы ОБА условия:
        прелоадер закончился И boot() подготовил сплиты/стартовые состояния */
     var heroStarted = false;
@@ -102,7 +123,7 @@
     function startHero() {
       if (heroStarted || !booted) { return; }
       heroStarted = true;
-      heroIntro();
+      playHeroIntro();
     }
     document.addEventListener('trivio:preloader-done', startHero, { once: true });
     setTimeout(startHero, 3600); /* страховка */
@@ -127,13 +148,24 @@
       document.querySelectorAll('[data-counter]').forEach(function (el) {
         var target = parseInt(el.getAttribute('data-counter'), 10) || 0;
         var obj = { v: 0 };
+        /* «+» скрыт до конца пересчёта: выедет из-под цифр слева направо с доворотом 45° */
+        var plus = el.parentElement ? el.parentElement.querySelector('i') : null;
+        if (plus) {
+          gsap.set(plus, { display: 'inline-block', opacity: 0, x: '-0.7em', rotation: -45, transformOrigin: '50% 50%' });
+        }
         ST.create({
           trigger: el, start: 'top 88%', once: true,
           onEnter: function () {
             gsap.to(obj, {
-              v: target, duration: 1.2, ease: 'power2.out',
+              /* сильное замедление под конец пересчёта */
+              v: target, duration: 2.2, ease: 'expo.out',
               onUpdate: function () {
                 el.textContent = Math.round(obj.v).toLocaleString('ru-RU').replace(/ /g, ' ');
+              },
+              onComplete: function () {
+                if (plus) {
+                  gsap.to(plus, { opacity: 1, x: 0, rotation: 0, duration: 0.55, ease: 'back.out(1.7)' });
+                }
               }
             });
           }
@@ -252,15 +284,40 @@
       });
     }
 
-    /* ---------- Hero: фото плавно увеличивается по скроллу (scrub, §7.3) ---------- */
-    function heroZoom() {
+    /* ---------- CTA «Хотите протестировать?»: плашка раскрывается на весь экран.
+       Секция пинится, clip-path скрабом едет от «блока со скруглением» до
+       inset(0) — фото занимает 100% экрана, форма растворяется, скролл идёт дальше.
+       Стартовые значения зеркалят CSS-статику (clamp(28px,5svh,64px) / --pad / --r-xl). */
+    function ctaExpand() {
       if (!ST) { return; }
-      var img = document.querySelector('.hero__bg .ph > img');
-      if (!img) { return; }
-      gsap.to(img, {
-        scale: 1.1, ease: 'none',
-        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      var section = document.querySelector('.cta');
+      if (!section) { return; }
+      var form = section.querySelector('.cta__form');
+
+      var startClip = function () {
+        var probe = document.querySelector('.container:not(.cta__inner)');
+        var pad = probe ? (parseFloat(getComputedStyle(probe).paddingLeft) || 20) : 20;
+        var v = Math.min(Math.max(window.innerHeight * 0.05, 28), 64);
+        return 'inset(' + Math.round(v) + 'px ' + Math.round(pad) + 'px round 40px)';
+      };
+
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: '+=100%',
+          pin: true,
+          scrub: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        }
       });
+      tl.fromTo(section,
+        { clipPath: startClip },
+        { clipPath: 'inset(0px 0px round 0px)', ease: 'none', duration: 1 }, 0);
+      if (form) {
+        tl.to(form, { autoAlpha: 0, y: -40, duration: 0.4, ease: 'power1.in' }, 0.1);
+      }
     }
 
     /* Порядок: сначала сплиты (меняют DOM), затем всё остальное */
@@ -273,8 +330,11 @@
       roleNumbers();
       featureMocks();
       caseExtras();
-      heroZoom();
-      if (ST) { ST.refresh(); }
+      ctaExpand();
+      /* Пины создаются из разных файлов не в порядке документа (кейсы — на
+         DOMContentLoaded, CTA — после fonts.ready): без sort() спейсер пина CTA
+         не учитывается в start пина кейсов, и кейсы наезжают на фото раньше времени */
+      if (ST) { ST.sort(); ST.refresh(); }
       booted = true;
       if (window.__trivioPreloaderDone) { startHero(); }
     };
