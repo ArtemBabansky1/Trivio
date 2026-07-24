@@ -379,115 +379,84 @@
         <h2 class="h2" data-split>Все, что нужно и&nbsp;даже больше. В&nbsp;одном месте.</h2>
       </div>
 
-      <!-- Кластер А: Умный контроль расходов — буллеты слева, сменяемый UI-мок справа -->
-      <div class="features__cluster">
-        <div class="ftabs" data-squircle="xl" id="ftabsControl" data-ftabs data-reveal>
-          <div class="ftabs__left">
-            <h3 class="features__cluster-title" data-split>Умный контроль расходов</h3>
-            <div class="ftabs__list">
-              <button class="ftabs__item is-active" type="button" data-ftab="0" aria-expanded="true">
-                <span class="ftabs__name">Полезная аналитика</span>
-                <span class="ftabs__desc"><span>Будьте в курсе, на что тратятся деньги компании и как можно оптимизировать расходы: аналитика по отделам и персональные рекомендации.</span></span>
-              </button>
-              <button class="ftabs__item" type="button" data-ftab="1" aria-expanded="false">
-                <span class="ftabs__name">Контроль ваших расходов</span>
-                <span class="ftabs__desc"><span>Отслеживайте соблюдение тревел-политики. Настройте правила и согласование поездок сотрудников по различным критериям.</span></span>
-              </button>
-              <button class="ftabs__item" type="button" data-ftab="2" aria-expanded="false">
-                <span class="ftabs__name">Уведомления в Telegram</span>
-                <span class="ftabs__desc"><span>Согласовывайте поездки и авансовые отчеты и получайте уведомления сервиса прямо в Telegram-боте.</span></span>
-              </button>
+      <!-- 6 карточек 3×2: тема + описание + UI-мок -->
+      <div class="features__grid">
+        <article class="features__card card" data-squircle data-reveal>
+          <h3 class="h3">Полезная аналитика</h3>
+          <p>Будьте в курсе, на что тратятся деньги компании и как можно оптимизировать расходы: аналитика по отделам и персональные рекомендации.</p>
+          <div class="mock mock--analytics">
+            <div class="mock__head"><span class="pill pill--tiny">Аналитика · июль</span><span class="mock__dots">⋯</span></div>
+            <div class="mock__bars">
+              <div class="mock__bar" style="--h:62%"><em>62%</em><i></i><span>Продажи</span></div>
+              <div class="mock__bar" style="--h:38%"><em>38%</em><i></i><span>ИТ</span></div>
+              <div class="mock__bar" style="--h:84%"><em>84%</em><i></i><span>Логистика</span></div>
+              <div class="mock__bar" style="--h:47%"><em>47%</em><i></i><span>HR</span></div>
+              <div class="mock__bar" style="--h:70%"><em>70%</em><i></i><span>Стройка</span></div>
             </div>
+            <div class="mock__foot"><b>−18%</b> к расходам на поездки кв/кв</div>
           </div>
+        </article>
 
-          <div class="ftabs__view">
-            <div class="ftabs__pane is-active">
-              <div class="mock mock--analytics">
-                <div class="mock__head"><span class="pill pill--tiny">Аналитика · июль</span><span class="mock__dots">⋯</span></div>
-                <div class="mock__bars">
-                  <div class="mock__bar" style="--h:62%"><em>62%</em><i></i><span>Продажи</span></div>
-                  <div class="mock__bar" style="--h:38%"><em>38%</em><i></i><span>ИТ</span></div>
-                  <div class="mock__bar" style="--h:84%"><em>84%</em><i></i><span>Логистика</span></div>
-                  <div class="mock__bar" style="--h:47%"><em>47%</em><i></i><span>HR</span></div>
-                  <div class="mock__bar" style="--h:70%"><em>70%</em><i></i><span>Стройка</span></div>
-                </div>
-                <div class="mock__foot"><b>−18%</b> к расходам на поездки кв/кв</div>
-              </div>
-            </div>
-            <div class="ftabs__pane">
-              <div class="mock mock--policy">
-                <div class="mock__head"><span class="pill pill--tiny">Тревел-политика</span></div>
-                <ul class="mock__rows">
-                  <li><span>Перелёт, эконом</span><b>до 15 000 ₽</b></li>
-                  <li><span>Отель, ночь</span><b>до 6 500 ₽</b></li>
-                  <li><span>Такси, бизнес-класс</span><b class="mock__deny">запрещено</b></li>
-                </ul>
-              </div>
-            </div>
-            <div class="ftabs__pane">
-              <div class="mock mock--tg">
-                <div class="mock__head"><span class="pill pill--tiny">Telegram-бот</span></div>
-                <div class="mock__tg-msg">Поездка МОВ → КЗН, 24 июл. Согласовать?</div>
-                <div class="mock__tg-actions"><span class="mock__tg-ok">✓ Согласовать</span><span class="mock__tg-no">Отклонить</span></div>
-              </div>
-            </div>
+        <article class="features__card card" data-squircle data-reveal>
+          <h3 class="h3">Контроль ваших расходов</h3>
+          <p>Отслеживайте соблюдение тревел-политики. Настройте правила и согласование поездок сотрудников по различным критериям.</p>
+          <div class="mock mock--policy">
+            <div class="mock__head"><span class="pill pill--tiny">Тревел-политика</span></div>
+            <ul class="mock__rows">
+              <li><span>Перелёт, эконом</span><b>до 15 000 ₽</b></li>
+              <li><span>Отель, ночь</span><b>до 6 500 ₽</b></li>
+              <li><span>Такси, бизнес-класс</span><b class="mock__deny">запрещено</b></li>
+            </ul>
           </div>
-        </div>
-      </div>
+        </article>
 
-      <!-- Кластер Б: Отчётность без боли — пилюли снизу, UI-анимация справа -->
-      <div class="features__cluster">
-        <div class="ftabs ftabs--pills" data-squircle="xl" data-ftabs data-reveal>
-          <div class="ftabs__left">
-            <h3 class="features__cluster-title" data-split>Отчётность<br>без боли</h3>
-
-            <div class="ftabs__bottom">
-              <div class="ftabs__texts">
-                <p class="ftabs__text is-active">Буквально за пару минут вы можете подключить интеграцию с 1С Бухгалтерия, ERP и ЗУП. Это сильно упростит оформление и отчетность по вашим командировкам.</p>
-                <p class="ftabs__text">Согласуем для вас специальные условия с авиакомпаниями и объектами размещения, возьмем всю работу на себя.</p>
-                <p class="ftabs__text">Сотрудники смогут оформить авансовый отчет прямо в Trivio и отчитаться о своей поездке. Вы сможете гибко настроить автоматический расчет суточных по различным критериям, а также согласовывать авансовые отчеты перед их отправкой в учетную систему и подписанием.</p>
-              </div>
-
-              <div class="ftabs__pills">
-                <button class="pill ftabs__pill is-active" type="button" data-ftab="0" aria-pressed="true">Интеграция 1С</button>
-                <button class="pill ftabs__pill" type="button" data-ftab="1" aria-pressed="false">Специальные тарифы</button>
-                <button class="pill ftabs__pill" type="button" data-ftab="2" aria-pressed="false">Авансовые отчеты</button>
-              </div>
-            </div>
+        <article class="features__card card" data-squircle data-reveal>
+          <h3 class="h3">Уведомления в Telegram</h3>
+          <p>Согласовывайте поездки и авансовые отчеты и получайте уведомления сервиса прямо в Telegram-боте.</p>
+          <div class="mock mock--tg">
+            <div class="mock__head"><span class="pill pill--tiny">Telegram-бот</span></div>
+            <div class="mock__tg-msg">Поездка МОВ → КЗН, 24 июл. Согласовать?</div>
+            <div class="mock__tg-actions"><span class="mock__tg-ok">✓ Согласовать</span><span class="mock__tg-no">Отклонить</span></div>
           </div>
+        </article>
 
-          <div class="ftabs__view">
-            <div class="ftabs__pane is-active">
-              <div class="mock mock--1c">
-                <div class="mock__head"><span class="pill pill--tiny">Интеграция 1С</span></div>
-                <div class="mock__chips">
-                  <span class="pill pill--tiny">1С: Бухгалтерия</span>
-                  <span class="pill pill--tiny">1С: ERP</span>
-                  <span class="pill pill--tiny">1С: ЗУП</span>
-                </div>
-                <div class="mock__sync">⟳ Выгрузка документов — автоматически</div>
-              </div>
+        <article class="features__card card" data-squircle data-reveal>
+          <h3 class="h3">Интеграция 1С</h3>
+          <p>Подключите 1С: Бухгалтерию, ERP и ЗУП буквально за пару минут — оформление и отчётность по командировкам станут сильно проще.</p>
+          <div class="mock mock--1c">
+            <div class="mock__head"><span class="pill pill--tiny">Интеграция 1С</span></div>
+            <div class="mock__chips">
+              <span class="pill pill--tiny">1С: Бухгалтерия</span>
+              <span class="pill pill--tiny">1С: ERP</span>
+              <span class="pill pill--tiny">1С: ЗУП</span>
             </div>
-            <div class="ftabs__pane">
-              <div class="mock mock--tariff">
-                <div class="mock__head"><span class="pill pill--tiny">Специальные тарифы</span></div>
-                <div class="mock__discounts"><b>−18%</b><b>−25%</b></div>
-                <div class="mock__sync">Прямые договоры с поставщиками</div>
-              </div>
-            </div>
-            <div class="ftabs__pane">
-              <div class="mock mock--report">
-                <div class="mock__head"><span class="pill pill--tiny">Авансовый отчет № 214</span><span class="pill pill--tiny pill--accent">на согласовании</span></div>
-                <ul class="mock__rows">
-                  <li><span>Перелёт MOW–KZN–MOW</span><b>12 480 ₽</b></li>
-                  <li><span>Отель, 2 ночи</span><b>9 300 ₽</b></li>
-                  <li><span>Суточные, 3 дня</span><b>2 100 ₽</b></li>
-                </ul>
-                <div class="mock__foot mock__foot--total"><span>Итого</span><b><span data-counter="23880">0</span> ₽</b></div>
-              </div>
-            </div>
+            <div class="mock__sync">⟳ Выгрузка документов — автоматически</div>
           </div>
-        </div>
+        </article>
+
+        <article class="features__card card" data-squircle data-reveal>
+          <h3 class="h3">Специальные тарифы</h3>
+          <p>Согласуем для вас специальные условия с авиакомпаниями и объектами размещения, возьмем всю работу на себя.</p>
+          <div class="mock mock--tariff">
+            <div class="mock__head"><span class="pill pill--tiny">Специальные тарифы</span></div>
+            <div class="mock__discounts"><b>−18%</b><b>−25%</b></div>
+            <div class="mock__sync">Прямые договоры с поставщиками</div>
+          </div>
+        </article>
+
+        <article class="features__card card" data-squircle data-reveal>
+          <h3 class="h3">Авансовые отчеты</h3>
+          <p>Сотрудники оформляют авансовый отчет прямо в Trivio: автоматический расчет суточных и согласование перед отправкой в учетную систему.</p>
+          <div class="mock mock--report">
+            <div class="mock__head"><span class="pill pill--tiny">Авансовый отчет № 214</span><span class="pill pill--tiny pill--accent">на согласовании</span></div>
+            <ul class="mock__rows">
+              <li><span>Перелёт MOW–KZN–MOW</span><b>12 480 ₽</b></li>
+              <li><span>Отель, 2 ночи</span><b>9 300 ₽</b></li>
+              <li><span>Суточные, 3 дня</span><b>2 100 ₽</b></li>
+            </ul>
+            <div class="mock__foot mock__foot--total"><span>Итого</span><b><span data-counter="23880">0</span> ₽</b></div>
+          </div>
+        </article>
       </div>
 
     </div>
@@ -746,7 +715,7 @@
     <div class="container">
       <div class="meet__plate parallax" data-squircle="xl">
         <div class="ph ph--city parallax__layer" data-parallax="10">
-          <img src="assets/photo/4fdbcae4f247b8c7369b703db21ce12d.jpg" alt="Человек в костюме отдыхает на облаках" loading="lazy" decoding="async">
+          <img src="assets/photo/photo_form_2.png" alt="Фон формы обратной связи" loading="lazy" decoding="async">
         </div>
         <div class="meet__shade"></div>
         <div class="meet__inner">

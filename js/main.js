@@ -145,29 +145,6 @@
     });
   }
 
-  /* ---------- Табы «Умный контроль расходов»: буллет → свой мок справа ---------- */
-  function ftabs() {
-    document.querySelectorAll('[data-ftabs]').forEach(function (root) {
-      var items = root.querySelectorAll('[data-ftab]');
-      var panes = root.querySelectorAll('.ftabs__pane');
-      var texts = root.querySelectorAll('.ftabs__text');
-      items.forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var i = parseInt(btn.getAttribute('data-ftab'), 10) || 0;
-          items.forEach(function (b) {
-            var active = b === btn;
-            b.classList.toggle('is-active', active);
-            /* список использует aria-expanded, пилюли — aria-pressed */
-            if (b.hasAttribute('aria-expanded')) { b.setAttribute('aria-expanded', active ? 'true' : 'false'); }
-            if (b.hasAttribute('aria-pressed')) { b.setAttribute('aria-pressed', active ? 'true' : 'false'); }
-          });
-          panes.forEach(function (p, j) { p.classList.toggle('is-active', j === i); });
-          texts.forEach(function (t, j) { t.classList.toggle('is-active', j === i); });
-        });
-      });
-    });
-  }
-
   /* ---------- Видеофон hero: страховка автоплея ----------
      Браузер может заблокировать автозапуск (энергосбережение, экономия
      трафика, настройки автовоспроизведения) — тогда запускаем сами,
@@ -199,7 +176,6 @@
     dropdowns();
     burger();
     forms();
-    ftabs();
     heroVideo();
   });
 })();

@@ -355,147 +355,37 @@
 /* ---------- 3.5 Возможности (реф-2): Apple-style коллажи ---------- */
 .features__intro { max-width: 900px; margin-bottom: var(--gap-head); }
 
-.features__cluster { margin-bottom: clamp(56px, 7vw, 110px); }
-.features__cluster-title {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3.2vw, 48px);
-  font-weight: 450;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--gap-head);
-}
-
-.features__collage {
+/* 6 карточек 3×2: белая карточка, заголовок, описание, UI-мок снизу */
+.features__grid {
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--gutter);
-  align-items: stretch;
 }
-.features__collage--a { grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr); }
-.features__collage--b { grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 6fr); }
-.features__collage--b .features__item--big { order: 3; }
-
-.features__item { display: flex; flex-direction: column; min-width: 0; }
-.features__item figcaption {
-  margin-top: 12px;
-  font-size: var(--fs-small);
-  font-weight: 500;
-  color: var(--c-muted);
-}
-.features__item figcaption::before { content: "— "; color: var(--c-accent); }
-
-/* Текст кластера по сетке проекта: колонки 1 и 3, колонки 2 и 4 — воздух */
-.features__par-duo {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--gutter);
-  margin-top: clamp(22px, 2.5vw, 36px);
-}
-.features__par-duo p { color: var(--c-muted); }
-.features__par-duo p:first-child { grid-column: 1; }
-.features__par-duo p:last-child { grid-column: 3; }
-
-/* Кластер-табы: серый контейнер, слева заголовок и буллеты, справа сменяемый UI-мок */
-.ftabs {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(24px, 3vw, 64px);
-  padding: clamp(24px, 2.8vw, 44px);
-  border-radius: var(--r-xl);   /* фолбэк, поверх — сквиркл из JS */
+.features__card {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 24px;
   background: var(--c-bg);
+  border: 0; /* как у ролей: прозрачная рамка даёт 1px-кольцо при клипе */
 }
-.ftabs__left { display: flex; flex-direction: column; min-width: 0; }
-.ftabs .features__cluster-title { margin-bottom: var(--gap-head); }
+.features__card .h3 {
+  font-size: clamp(20px, 1.55vw, 26px);
+  text-wrap: balance;
+}
+.features__card > p { color: var(--c-muted); font-size: 15px; max-width: 52ch; }
 
-.ftabs__list { display: flex; flex-direction: column; margin-top: auto; }
-.ftabs__item {
-  text-align: left;
-  padding: 20px 0;
-  border-top: 1px solid var(--c-line);
-  cursor: pointer;
-}
-.ftabs__name {
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: 600;
-  color: var(--c-muted);
-  transition: color var(--dur);
-}
-.ftabs__item:hover .ftabs__name,
-.ftabs__item.is-active .ftabs__name { color: var(--c-ink); }
-/* раскрытие описания активного буллета: 0fr → 1fr */
-.ftabs__desc {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows var(--dur) var(--ease-expo);
-}
-.ftabs__desc > span {
-  display: block;
-  overflow: hidden;
-  min-height: 0;
-  max-width: 52ch;
-  font-size: 15px;
-  color: var(--c-muted);
-}
-.ftabs__item.is-active .ftabs__desc { grid-template-rows: 1fr; }
-.ftabs__item.is-active .ftabs__desc > span { padding-top: 10px; }
-
-/* Вариант с пилюлями: заголовок сверху, описание и пилюли — прижаты к низу */
-.ftabs--pills .features__cluster-title { margin-bottom: 0; }
-.ftabs__bottom { margin-top: auto; padding-top: var(--gap-head); }
-/* все описания в одной ячейке грида: высота по самому длинному, без скачка */
-.ftabs__texts { display: grid; }
-.ftabs__text {
-  grid-area: 1 / 1;
-  max-width: 52ch;
-  font-size: 15px;
-  color: var(--c-muted);
-  opacity: 0;
-  transition: opacity var(--dur) var(--ease-expo);
-}
-.ftabs__text.is-active { opacity: 1; }
-
-.ftabs__pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-.ftabs__pill {
-  cursor: pointer;
-  transition: background-color var(--dur), border-color var(--dur), color var(--dur);
-}
-.ftabs__pill:hover { border-color: var(--c-ink); }
-.ftabs__pill.is-active {
-  background: var(--c-accent);
-  border-color: var(--c-accent);
-  color: #fff;
-}
-
-.ftabs__view { position: relative; min-height: clamp(360px, 30vw, 520px); }
-.ftabs__pane {
-  position: absolute; inset: 0;
-  display: flex;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.4s var(--ease-expo), transform 0.4s var(--ease-expo);
-  pointer-events: none;
-}
-.ftabs__pane.is-active { opacity: 1; transform: none; pointer-events: auto; }
-/* панель под анимацию — белая на сером блоке, заполняет пане целиком */
-.ftabs__pane .mock {
-  flex: 1;
-  min-height: 0;
-  padding: clamp(20px, 1.8vw, 32px);
-  background: var(--c-surface);
-  border-radius: var(--r-l);
-}
-
-/* UI-моки внутри коллажей: на белой зоне — фон страницы, иначе сливаются */
+/* UI-моки: серая панель внутри белой карточки, прижата к низу */
 .mock {
-  flex: 1;
   display: flex; flex-direction: column;
+  margin-top: auto;
   padding: 20px;
-  min-height: 240px;
-  background: var(--c-bg);
+  min-height: 250px;
+  background: var(--c-surface);
+  border-radius: var(--r-m);
 }
 .mock__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
 .mock__dots { color: var(--c-muted); letter-spacing: 2px; }
 
-.mock--analytics { min-height: clamp(360px, 30vw, 520px); }
+.mock--analytics { min-height: 280px; }
 .mock__bars {
   flex: 1;
   display: flex; align-items: flex-end; gap: clamp(10px, 2vw, 26px);
@@ -669,9 +559,7 @@
 @media (max-width: 1279.98px) {
   .roles__grid { grid-template-columns: repeat(2, 1fr); }
   .roles__card { min-height: 400px; }
-  .features__collage--a, .features__collage--b { grid-template-columns: 1fr 1fr; }
-  .features__item--big { grid-column: span 2; }
-  .features__collage--b .features__item--big { order: 0; }
+  .features__grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 1023.98px) {
   /* Аккордеон без ховера: карточки в столбик, описание раскрыто */
@@ -695,11 +583,6 @@
   .roles__card { min-height: 0; padding-bottom: 8px; }
   .roles__bottom { min-height: calc(var(--fs-giant) * 0.42 + 44px); }
   .services__extra { grid-template-columns: 1fr; }
-  .features__collage--a, .features__collage--b { grid-template-columns: 1fr; }
-  .features__par-duo { grid-template-columns: 1fr; }
-  .features__par-duo p:first-child, .features__par-duo p:last-child { grid-column: auto; }
-  .ftabs { grid-template-columns: 1fr; }
-  .ftabs__view { min-height: clamp(300px, 80vw, 420px); }
-  .features__item--big { grid-column: auto; }
+  .features__grid { grid-template-columns: 1fr; }
   .form__row { grid-template-columns: 1fr; }
 }

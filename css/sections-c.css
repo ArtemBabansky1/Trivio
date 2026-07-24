@@ -283,6 +283,7 @@
   padding: clamp(28px, 4.5vw, 72px);
   color: #fff;
 }
+.meet__text { align-self: end; } /* текст прижат к низу плашки */
 .meet__text .h2 { color: #fff; max-width: 12ch; }
 .meet__text p { margin-top: 16px; color: rgba(255,255,255,0.82); font-size: var(--fs-lead); }
 .meet__form {
