@@ -133,6 +133,14 @@ ul, ol { list-style: none; }
 .pill--ghost  { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); color: #fff; backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass)); }
 .pill--tiny   { padding: 5px 12px; font-size: var(--fs-tiny); }
 
+/* --- Стеклянные поверхности: единый рецепт, только поверх фото (DESIGN.md) --- */
+.glass {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+}
+
 /* --- Кнопки --- */
 .btn {
   position: relative;

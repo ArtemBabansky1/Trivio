@@ -125,6 +125,15 @@ function init() {
           onUpdate: function (self) { applyProgress(self.progress); },
           onRefresh: function (self) { applyProgress(self.progress); }
         });
+        /* телефон выезжает из-за нижней кромки экрана тем же скраб-окном,
+           что и разворот (просьба заказчика 29.07) */
+        if (window.gsap) {
+          window.gsap.fromTo(stage, { yPercent: 50 }, {
+            yPercent: 0,
+            ease: 'none',
+            scrollTrigger: { trigger: section, start: 'top 78%', end: 'center 46%', scrub: true }
+          });
+        }
         ST.refresh();
         applyProgress(st.progress);
       } else {

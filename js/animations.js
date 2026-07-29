@@ -95,7 +95,7 @@
       var tl = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
       var title = document.querySelector('.hero [data-split]');
       var header = document.getElementById('header');
-      var booking = document.getElementById('heroSlider');
+      var plate = document.querySelector('.hero__plate');
 
       if (header) {
         tl.fromTo(header, { autoAlpha: 0, y: -24 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.2);
@@ -105,9 +105,9 @@
       }
       var els = window.__trivioHeroEls || [];
       if (els.length) { tl.to(els, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.1 }, 0.3); }
-      if (booking) {
-        /* единый reveal (DESIGN.md §7.1), без scale/blur и вечного float */
-        tl.fromTo(booking, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.55);
+      if (plate) {
+        /* фото-плашка: единый reveal (DESIGN.md §7.1) */
+        tl.fromTo(plate, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 0.15);
       }
       return tl;
     }
@@ -184,31 +184,6 @@
       /* ускорение от скролла убрано — marquee идёт с постоянной скоростью (DESIGN.md §7.5) */
     }
 
-    /* ---------- Роли: гигантские цифры поднимаются из-под кромки ---------- */
-    function roleNumbers() {
-      if (!ST) { return; }
-      var cards = document.querySelectorAll('.roles__card');
-      if (!cards.length) { return; }
-      gsap.set(cards, { opacity: 0, y: 40 });
-      ST.batch(cards, {
-        start: 'top 85%', once: true,
-        onEnter: function (batch) {
-          gsap.to(batch, { opacity: 1, y: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out' });
-        }
-      });
-      document.querySelectorAll('.roles__num').forEach(function (num, i) {
-        gsap.from(num, {
-          yPercent: 55,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: num.closest('.roles__card'),
-            start: 'top 92%', end: 'top 40%',
-            scrub: 0.6 + i * 0.15
-          }
-        });
-      });
-    }
-
     /* ---------- Возможности: бары графика и чат (входы — reveal, DESIGN.md §7) ---------- */
     function featureMocks() {
       if (!ST) { return; }
@@ -245,14 +220,74 @@
         }
       }
 
-      /* скидки спецтарифов: единый reveal */
+      /* тревел-политика: столбики эквалайзера растут из-под низа волной */
+      var eqBars = document.querySelectorAll('.mock--policy .mock__eq i');
+      if (eqBars.length) {
+        gsap.set(eqBars, { scaleY: 0 });
+        ST.create({
+          trigger: '.mock--policy', start: 'top 80%', once: true,
+          onEnter: function () {
+            gsap.to(eqBars, { scaleY: 1, duration: 0.9, stagger: 0.04, ease: 'power3.out' });
+          }
+        });
+      }
+
+      /* telegram: сообщение → кнопки → ответ, последовательный reveal */
+      var tgEls = document.querySelectorAll('.mock--tg .mock__tg-msg, .mock--tg .mock__tg-actions');
+      if (tgEls.length) {
+        gsap.set(tgEls, { opacity: 0, y: 24 });
+        ST.create({
+          trigger: '.mock--tg', start: 'top 80%', once: true,
+          onEnter: function () {
+            gsap.to(tgEls, { opacity: 1, y: 0, duration: 0.8, stagger: 0.22, ease: 'power3.out' });
+          }
+        });
+      }
+
+      /* 1С: строки чек-листа проявляются по очереди */
+      var syncRows = document.querySelectorAll('.mock--1c .mock__rows li');
+      if (syncRows.length) {
+        gsap.set(syncRows, { opacity: 0, y: 24 });
+        ST.create({
+          trigger: '.mock--1c', start: 'top 80%', once: true,
+          onEnter: function () {
+            gsap.to(syncRows, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' });
+          }
+        });
+      }
+
+      /* спецтарифы: скидки reveal + спарклайн рисуется, точки проявляются */
       var discounts = document.querySelectorAll('.mock--tariff .mock__discounts b');
-      if (discounts.length) {
+      var sparkLine = document.querySelector('.mock--tariff .mock__spark-line');
+      var sparkDots = document.querySelectorAll('.mock--tariff .mock__spark circle');
+      if (discounts.length || sparkLine) {
         gsap.set(discounts, { opacity: 0, y: 24 });
+        var sparkLen = 0;
+        if (sparkLine) {
+          sparkLen = sparkLine.getTotalLength();
+          gsap.set(sparkLine, { strokeDasharray: sparkLen, strokeDashoffset: sparkLen });
+          gsap.set(sparkDots, { opacity: 0 });
+        }
         ST.create({
           trigger: '.mock--tariff', start: 'top 80%', once: true,
           onEnter: function () {
             gsap.to(discounts, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power3.out' });
+            if (sparkLine) {
+              gsap.to(sparkLine, { strokeDashoffset: 0, duration: 1.4, ease: 'power2.out', delay: 0.2 });
+              gsap.to(sparkDots, { opacity: 1, duration: 0.4, stagger: 0.12, ease: 'power2.out', delay: 0.3 });
+            }
+          }
+        });
+      }
+
+      /* авансовый отчёт: строки списка по очереди (итог досчитывает counters()) */
+      var repRows = document.querySelectorAll('.mock--report .mock__rows li');
+      if (repRows.length) {
+        gsap.set(repRows, { opacity: 0, y: 24 });
+        ST.create({
+          trigger: '.mock--report', start: 'top 80%', once: true,
+          onEnter: function () {
+            gsap.to(repRows, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' });
           }
         });
       }
@@ -316,7 +351,8 @@
         { clipPath: startClip },
         { clipPath: 'inset(0px 0px round 0px)', ease: 'none', duration: 1 }, 0);
       if (form) {
-        tl.to(form, { autoAlpha: 0, y: -40, duration: 0.4, ease: 'power1.in' }, 0.1);
+        /* фейд растянут почти на весь скраб — форма тает медленно (просьба заказчика 29.07) */
+        tl.to(form, { autoAlpha: 0, y: -40, duration: 0.8, ease: 'power1.in' }, 0.15);
       }
     }
 
@@ -327,7 +363,6 @@
       parallax();
       counters();
       marquee();
-      roleNumbers();
       featureMocks();
       caseExtras();
       ctaExpand();

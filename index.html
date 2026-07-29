@@ -35,21 +35,13 @@
 
 <main id="top">
 
-  <!-- ============ 3.1 HERO: единая плашка, хедер статичный внутри ============ -->
+  <!-- ============ 3.1 HERO: фото-плашка на весь экран, хедер и текст внутри ============ -->
   <section class="hero" id="hero">
-    <div class="hero__plate">
-      <div class="hero__bg">
-        <div class="ph ph--dawn hero__media">
-          <!-- Постер = первый кадр; поверх — зацикленный видеофон -->
-          <img src="assets/video/hero-poster.webp" alt="Вид из иллюминатора самолёта" fetchpriority="high">
-          <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.webp" aria-hidden="true">
-            <source src="assets/video/hero-loop.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="hero__shade"></div>
-      </div>
+    <div class="container hero__frame">
+      <div class="hero__plate" data-squircle="xl">
+        <img class="hero__bg" src="assets/photo/hero_image_1.png" alt="Путешественница с чемоданом в зале ожидания" fetchpriority="high">
 
-      <!-- ============ 3.0 ХЕДЕР (статичный, внутри hero) ============ -->
+      <!-- ============ 3.0 ХЕДЕР (внутри плашки, текст белый) ============ -->
       <header class="header" id="header">
   <div class="container header__inner">
     <a class="header__logo" href="#top" aria-label="Trivio — наверх">
@@ -86,9 +78,14 @@
     </nav>
 
     <div class="header__actions">
-      <a class="header__phone" href="tel:88007077038">8 800 707-70-38</a>
-      <a class="btn btn--secondary btn--sm" href="https://login.trivio.ru/">Войти</a>
-      <a class="btn btn--primary btn--sm" href="#contact">Оставить заявку</a>
+      <a class="header__soc" href="https://t.me/trivio" target="_blank" rel="noopener" aria-label="Trivio в Telegram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+      </a>
+      <a class="header__soc" href="https://vk.com/trivio" target="_blank" rel="noopener" aria-label="Trivio во ВКонтакте">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.785 16.241s.288-.032.436-.194c.136-.148.132-.427.132-.427s-.02-1.304.576-1.496c.588-.19 1.341 1.26 2.14 1.818.605.422 1.064.33 1.064.33l2.137-.03s1.117-.071.587-.964c-.043-.073-.308-.661-1.588-1.87-1.34-1.264-1.16-1.059.453-3.246.983-1.332 1.376-2.145 1.253-2.493-.117-.332-.84-.244-.84-.244l-2.406.015s-.178-.025-.31.056c-.13.079-.212.264-.212.264s-.382 1.03-.89 1.907c-1.07 1.85-1.499 1.948-1.674 1.832-.407-.267-.305-1.075-.305-1.649 0-1.793.267-2.54-.521-2.733-.262-.065-.454-.107-1.123-.114-.858-.009-1.585.003-1.996.208-.274.136-.485.44-.356.457.159.022.519.099.71.363.246.341.237 1.107.237 1.107s.142 2.11-.33 2.371c-.325.18-.77-.187-1.725-1.865-.489-.859-.859-1.81-.859-1.81s-.07-.176-.198-.272c-.154-.115-.37-.151-.37-.151l-2.286.015s-.343.01-.469.161c-.112.135-.009.413-.009.413s1.79 4.258 3.817 6.403c1.858 1.967 3.968 1.838 3.968 1.838z"/></svg>
+      </a>
+      <a class="btn btn--primary" href="https://login.trivio.ru/">Войти</a>
+      <a class="btn btn--secondary" href="#contact">Оставить заявку</a>
       <button class="header__burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
@@ -110,47 +107,17 @@
   </div>
 </header>
 
-      <div class="hero__body">
-        <div class="hero__left">
-      <h1 class="h1 hero__title" data-split>Удобные<br>командировки<br>для каждого</h1>
-      <p class="hero__sub" data-reveal>Помогаем компаниям управлять деловыми поездками, экономить время и&nbsp;деньги</p>
-      <div class="hero__cta" data-reveal>
-        <a class="btn btn--primary" href="#contact">Попробовать бесплатно</a>
-        <a class="btn btn--glass" href="https://trivio.ru/tariffs">Тарифы</a>
-      </div>
+          <!-- Текст по центру плашки, ближе к верху -->
+          <div class="hero__body">
+            <h1 class="h1 hero__title" data-split>Простые и&nbsp;удобные<br>командировки для&nbsp;сотрудников<br>любого уровня</h1>
+            <p class="hero__sub" data-reveal>Помогаем компаниям управлять деловыми поездками, экономить время и&nbsp;деньги</p>
+            <div class="hero__cta" data-reveal>
+              <a class="btn btn--primary" href="#contact">Попробовать бесплатно</a>
+              <a class="btn btn--secondary" href="https://trivio.ru/tariffs">Тарифы</a>
+            </div>
+          </div>
         </div>
-
-        <!-- Слайдер: новости и вебинары, автосмена по таймеру -->
-        <aside class="hero__slider glass" id="heroSlider" aria-label="Новости и вебинары Trivio">
-          <div class="hero__slides">
-            <a class="hero__slide is-active" href="https://clck.ru/3St3DB" target="_blank" rel="noopener">
-              <span class="pill pill--tiny pill--accent">Вебинар · 4 августа, 11:00</span>
-              <b>Как в 2026 работает поддержка в бизнес-тревел</b>
-              <span class="hero__slide-more">Зарегистрироваться</span>
-            </a>
-            <a class="hero__slide" href="https://trivio.ru/cases">
-              <span class="pill pill--tiny">Кейс · Нефтегаз</span>
-              <b>ЛУКОЙЛ: командировка за 15 минут вместо 3 дней</b>
-              <span class="hero__slide-more">Читать кейс</span>
-            </a>
-            <a class="hero__slide" href="https://trivio.ru/cases">
-              <span class="pill pill--tiny">Кейс · IT</span>
-              <b>VK: рекорд скорости оформления командировок</b>
-              <span class="hero__slide-more">Читать кейс</span>
-            </a>
-            <a class="hero__slide" href="https://trivio.ru/blog">
-              <span class="pill pill--tiny">Блог</span>
-              <b>Актуальное о бизнес-тревел — в нашем блоге</b>
-              <span class="hero__slide-more">Читать</span>
-            </a>
-          </div>
-          <div class="hero__slider-nav" aria-hidden="true">
-            <span class="hero__slider-count">01 / 04</span>
-            <span class="hero__slider-track"><i></i></span>
-          </div>
-        </aside>
       </div>
-    </div>
   </section>
 
   <!-- ============ 3.2 ЛОГОТИПЫ + СЧЁТЧИКИ ============ -->
@@ -189,9 +156,8 @@
   <!-- ============ 3.4 УСЛУГИ (реф-3) ============ -->
   <section class="services section" id="services">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head section-head--center">
         <h2 class="h2 services__title" data-split>Организация поездки от&nbsp;начала<br>до&nbsp;конца — в&nbsp;одном сервисе</h2>
-        <a class="btn btn--primary" href="#contact" data-reveal>Начать сейчас</a>
       </div>
     </div>
 
@@ -251,62 +217,73 @@
   <!-- ============ 3.3 РОЛИ (реф-1) ============ -->
   <section class="roles section" id="about">
     <div class="container">
-      <div class="roles__head">
-        <h2 class="h2 roles__title" data-split>Для всех, кто работает<br>с командировками</h2>
-      </div>
+      <!-- Табы ролей на radio: переключение фото-панели без JS, доступно с клавиатуры -->
+      <div class="roles__panel card" data-squircle="xl" data-reveal>
+        <input class="roles__radio visually-hidden" type="radio" name="role" id="role-1" checked>
+        <input class="roles__radio visually-hidden" type="radio" name="role" id="role-2">
+        <input class="roles__radio visually-hidden" type="radio" name="role" id="role-3">
+        <input class="roles__radio visually-hidden" type="radio" name="role" id="role-4">
 
-      <div class="roles__grid">
-        <article class="roles__card card" data-squircle tabindex="0">
-          <div class="roles__card-top">
-            <span class="roles__tag">Сотрудник</span>
+        <div class="roles__left">
+          <h2 class="h2 roles__title" data-split>Для всех, кто работает<br>с&nbsp;командировками</h2>
+          <p class="roles__lead">Сотрудники быстро оформляют поездки и отчитываются без лишней бумажной волокиты, координаторы и бухгалтерия ведут учёт и документооборот в одном месте, а руководители контролируют расходы и держат travel-бюджет под контролем. Каждая роль получает свой инструмент, но все они работают в единой системе.</p>
+          <div class="roles__tabs" role="tablist">
+            <label class="roles__tab" for="role-1">Сотрудник</label>
+            <label class="roles__tab" for="role-2">Тревел-координатор</label>
+            <label class="roles__tab" for="role-3">Руководитель</label>
+            <label class="roles__tab" for="role-4">Бухгалтер</label>
           </div>
-          <h3 class="h3">Оформляйте быстро, отчитывайтесь легко</h3>
-          <p class="roles__text">Бронируйте билеты, отели и другие услуги в пару кликов с любого устройства. Формируйте авансовый отчет для бухгалтерии прямо в Trivio — просто и без ошибок.</p>
-          <div class="roles__bottom">
-            <span class="pill pill--tiny roles__more">подробнее</span>
-            <span class="roles__num" aria-hidden="true">01</span>
-          </div>
-        </article>
+        </div>
 
-        <article class="roles__card card" data-squircle tabindex="0">
-          <div class="roles__card-top">
-            <span class="roles__tag">Тревел-координатор</span>
-          </div>
-          <h3 class="h3">Управляйте поездками коллег без лишнего хаоса</h3>
-          <p class="roles__text">Оформляйте поездки для коллег за пару минут, без потока звонков и писем. Систематизируйте командировочный процесс благодаря современным технологиям.</p>
-          <div class="roles__bottom">
-            <span class="pill pill--tiny roles__more">подробнее</span>
-            <span class="roles__num" aria-hidden="true">02</span>
-          </div>
-        </article>
+        <div class="roles__media">
+          <figure class="roles__slide" data-squircle>
+            <img src="assets/photo/role-employee.jpg" alt="Сотрудник за работой с планшетом в кафе" loading="lazy" decoding="async">
+            <div class="roles__slide-shade"></div>
+            <figcaption class="roles__slide-body">
+              <h3 class="h3 roles__slide-title">Оформляйте быстро,<br>отчитывайтесь легко</h3>
+              <div class="roles__slide-foot">
+                <p>Бронируйте билеты, отели и другие услуги в пару кликов с любого устройства. Формируйте авансовый отчет для бухгалтерии прямо в Trivio — просто и без ошибок.</p>
+                <a class="btn btn--secondary roles__slide-more" href="#contact">Подробнее</a>
+              </div>
+            </figcaption>
+          </figure>
 
-        <article class="roles__card roles__card--dark card" data-squircle tabindex="0">
-          <div class="roles__card-top">
-            <span class="roles__tag">Руководитель</span>
-          </div>
-          <h3 class="h3">Контролируйте расходы и организацию процесса</h3>
-          <p class="roles__text">Установите лимиты и настройте процесс согласования, анализируйте расходы на поездки сотрудников с помощью персонализированных отчетов.</p>
-          <div class="roles__bottom">
-            <span class="pill pill--tiny roles__more">подробнее</span>
-            <span class="roles__num" aria-hidden="true">03</span>
-          </div>
-        </article>
+          <figure class="roles__slide" data-squircle>
+            <img src="assets/photo/role-coordinator.jpg" alt="Команда коллег вместе смотрит в телефон" loading="lazy" decoding="async">
+            <div class="roles__slide-shade"></div>
+            <figcaption class="roles__slide-body">
+              <h3 class="h3 roles__slide-title">Управляйте поездками<br>коллег без лишнего хаоса</h3>
+              <div class="roles__slide-foot">
+                <p>Оформляйте поездки для коллег за пару минут, без потока звонков и писем. Систематизируйте командировочный процесс благодаря современным технологиям.</p>
+                <a class="btn btn--secondary roles__slide-more" href="#contact">Подробнее</a>
+              </div>
+            </figcaption>
+          </figure>
 
-        <article class="roles__card card" data-squircle tabindex="0">
-          <div class="roles__card-top">
-            <span class="roles__tag">Бухгалтер</span>
-          </div>
-          <h3 class="h3">Упростите документооборот и сократите трудозатраты</h3>
-          <p class="roles__text">Вся отчетность по поездкам формируется автоматически по заранее установленным правилам. Интеграция с учетными системами оптимизирует процесс.</p>
-          <div class="roles__bottom">
-            <span class="pill pill--tiny roles__more">подробнее</span>
-            <span class="roles__num" aria-hidden="true">04</span>
-          </div>
-        </article>
-      </div>
+          <figure class="roles__slide" data-squircle>
+            <img src="assets/photo/role-manager.webp" alt="Руководитель работает с телефоном на террасе" loading="lazy" decoding="async">
+            <div class="roles__slide-shade"></div>
+            <figcaption class="roles__slide-body">
+              <h3 class="h3 roles__slide-title">Контролируйте расходы<br>и организацию процесса</h3>
+              <div class="roles__slide-foot">
+                <p>Установите лимиты и настройте процесс согласования, анализируйте расходы на поездки сотрудников с помощью персонализированных отчетов.</p>
+                <a class="btn btn--secondary roles__slide-more" href="#contact">Подробнее</a>
+              </div>
+            </figcaption>
+          </figure>
 
-      <div class="roles__foot">
-        <p class="roles__lead" data-reveal>Сотрудники быстро оформляют поездки и отчитываются без лишней бумажной волокиты, координаторы и бухгалтерия ведут учёт и документооборот в одном месте, а руководители контролируют расходы и держат travel-бюджет под контролем. Каждая роль получает свой инструмент, но все они работают в единой системе.</p>
+          <figure class="roles__slide" data-squircle>
+            <img src="assets/photo/role-accountant.webp" alt="Бухгалтер за ноутбуком с чашкой чая" loading="lazy" decoding="async">
+            <div class="roles__slide-shade"></div>
+            <figcaption class="roles__slide-body">
+              <h3 class="h3 roles__slide-title">Упростите документооборот<br>и сократите трудозатраты</h3>
+              <div class="roles__slide-foot">
+                <p>Вся отчетность по поездкам формируется автоматически по заранее установленным правилам. Интеграция с учетными системами оптимизирует процесс.</p>
+                <a class="btn btn--secondary roles__slide-more" href="#contact">Подробнее</a>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
@@ -314,7 +291,7 @@
   <!-- ============ Манифест: крупная фраза между ролями и промо ============ -->
   <section class="manifesto section" aria-label="Trivio — для всех участников процесса">
     <div class="container manifesto__grid">
-      <p class="h2 manifesto__text" data-split>Trivio упрощает работу с&nbsp;командировками для&nbsp;всех участников процесса&nbsp;— от&nbsp;сотрудника до&nbsp;руководителя.</p>
+      <p class="h2 manifesto__text" data-split>Trivio упрощает работу с&nbsp;командировками<br>для&nbsp;всех участников процесса&nbsp;—<br>от&nbsp;сотрудника до&nbsp;руководителя.</p>
     </div>
   </section>
 
@@ -344,12 +321,12 @@
   <section class="support section" id="support">
     <div class="container">
       <div class="support__grid">
-        <div class="support__intro">
-          <h3 class="h2 support__title" data-split>Заботливая поддержка 24/7</h3>
-          <p class="lead" data-reveal>Оперативно вернем или обменяем билеты, подберем отель, поможем в любой ситуации и сохраним ваши нервы</p>
-        </div>
+      <div class="support__head">
+        <h3 class="h2 support__title" data-split>Заботливая поддержка 24/7</h3>
+        <p class="lead" data-reveal>Оперативно вернем или обменяем билеты, подберем отель, поможем в любой ситуации и сохраним ваши нервы</p>
+      </div>
 
-        <div class="support__stage">
+      <div class="support__stage">
           <canvas class="support__canvas" id="supportPhoneCanvas" aria-hidden="true"></canvas>
           <!-- фолбэк: карточка чата (reduced-motion / нет WebGL / модель не загрузилась) -->
           <div class="support__fallback features__chat card" data-squircle data-reveal>
@@ -363,11 +340,10 @@
           </div>
         </div>
 
-        <div class="support__text">
-          <h4 class="h3" data-reveal>Всегда на связи в Telegram</h4>
-          <p data-reveal>Напишите нашему боту — оператор подхватит диалог за пару минут. Обмен билета, продление брони или счёт для бухгалтерии решаются прямо в чате, без звонков и ожидания на линии.</p>
-          <a class="btn btn--primary support__bot-btn" href="https://t.me/trivio" target="_blank" rel="noopener" data-reveal>Перейти к боту</a>
-        </div>
+      <div class="support__text">
+        <h4 class="h3" data-reveal>Всегда на связи в Telegram</h4>
+        <p data-reveal>Напишите нашему боту — оператор подхватит диалог за пару минут. Обмен билета, продление брони или счёт для бухгалтерии решаются прямо в чате, без звонков и ожидания на линии.</p>
+      </div>
       </div>
     </div>
   </section>
@@ -402,11 +378,10 @@
           <p>Отслеживайте соблюдение тревел-политики. Настройте правила и согласование поездок сотрудников по различным критериям.</p>
           <div class="mock mock--policy">
             <div class="mock__head"><span class="pill pill--tiny">Тревел-политика</span></div>
-            <ul class="mock__rows">
-              <li><span>Перелёт, эконом</span><b>до 15 000 ₽</b></li>
-              <li><span>Отель, ночь</span><b>до 6 500 ₽</b></li>
-              <li><span>Такси, бизнес-класс</span><b class="mock__deny">запрещено</b></li>
-            </ul>
+            <div class="mock__eq" aria-hidden="true">
+              <i style="--h:78%"></i><i style="--h:56%"></i><i style="--h:34%"></i><i style="--h:64%"></i><i style="--h:26%"></i><i style="--h:48%"></i><i class="is-accent" style="--h:66%"></i><i style="--h:28%"></i><i style="--h:42%"></i><i style="--h:58%"></i><i style="--h:18%"></i><i style="--h:60%"></i><i style="--h:38%"></i><i style="--h:72%"></i><i class="is-accent" style="--h:62%"></i><i style="--h:48%"></i><i class="is-accent" style="--h:14%"></i><i style="--h:56%"></i><i style="--h:68%"></i>
+            </div>
+            <div class="mock__foot"><b>92%</b> поездок — в рамках политики</div>
           </div>
         </article>
 
@@ -417,6 +392,7 @@
             <div class="mock__head"><span class="pill pill--tiny">Telegram-бот</span></div>
             <div class="mock__tg-msg">Поездка МОВ → КЗН, 24 июл. Согласовать?</div>
             <div class="mock__tg-actions"><span class="mock__tg-ok">✓ Согласовать</span><span class="mock__tg-no">Отклонить</span></div>
+            <div class="mock__tg-msg mock__tg-msg--out">Согласовано. Билеты оформлены&nbsp;✓</div>
           </div>
         </article>
 
@@ -430,6 +406,11 @@
               <span class="pill pill--tiny">1С: ERP</span>
               <span class="pill pill--tiny">1С: ЗУП</span>
             </div>
+            <ul class="mock__rows mock__rows--sync">
+              <li><span>Счета и акты</span><b class="mock__check">✓</b></li>
+              <li><span>Авансовые отчёты</span><b class="mock__check">✓</b></li>
+              <li><span>Проводки по командировкам</span><b class="mock__check">✓</b></li>
+            </ul>
             <div class="mock__sync">⟳ Выгрузка документов — автоматически</div>
           </div>
         </article>
@@ -440,6 +421,10 @@
           <div class="mock mock--tariff">
             <div class="mock__head"><span class="pill pill--tiny">Специальные тарифы</span></div>
             <div class="mock__discounts"><b>−18%</b><b>−25%</b></div>
+            <svg class="mock__spark" viewBox="0 0 220 64" aria-hidden="true">
+              <polyline class="mock__spark-line" points="4,12 36,22 68,18 100,32 132,28 164,44 196,40 216,52"/>
+              <circle cx="4" cy="12" r="3"/><circle cx="36" cy="22" r="3"/><circle cx="68" cy="18" r="3"/><circle cx="100" cy="32" r="3"/><circle cx="132" cy="28" r="3"/><circle cx="164" cy="44" r="3"/><circle cx="196" cy="40" r="3"/><circle cx="216" cy="52" r="3"/>
+            </svg>
             <div class="mock__sync">Прямые договоры с поставщиками</div>
           </div>
         </article>
